@@ -1,0 +1,18 @@
+{
+  "recorded": false,
+  "note": "Hand-built: encodes observed live values from gemini-decision-1, not a capture. s06 sits exactly on the strict floor; s07 sits one point below. s06 carries currency_noul 0.30 to show currency is reported and never gates.",
+  "kind": "rerank",
+  "input": "relevance boundary at sixty",
+  "match": "relevance boundary",
+  "model": "gemini-decision-1",
+  "usage": {
+    "tokens_in": 1460,
+    "tokens_out": 0
+  },
+  "answers": {
+    "rel_s06": 0.6,
+    "cur_s06": 0.3,
+    "rel_s07": 0.59,
+    "cur_s07": 0.9
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "recorded": false,
+  "note": "Hand-built: encodes observed live values from gemini-decision-1, not a capture.",
+  "kind": "scope",
+  "input": "why is my middleware not running in the app router",
+  "match": "middleware not running",
+  "model": "gemini-decision-1",
+  "usage": {
+    "tokens_in": 270,
+    "tokens_out": 0
+  },
+  "answers": {
+    "in_scope": 0.95,
+    "router": {
+      "option": "app",
+      "confidence": 0.9
+    },
+    "is_injection": 0.01
+  }
+}

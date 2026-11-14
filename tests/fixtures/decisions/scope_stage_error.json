@@ -1,0 +1,16 @@
+{
+  "recorded": false,
+  "note": "Hand-built fault injection for the 502 path; not a capture. The message is a test string.",
+  "kind": "scope",
+  "input": "how do I force a stage error",
+  "match": "force a stage error",
+  "model": "gemini-decision-1",
+  "usage": {
+    "tokens_in": 0,
+    "tokens_out": 0
+  },
+  "raise": {
+    "stage": "scope",
+    "message": "boom"
+  }
+}

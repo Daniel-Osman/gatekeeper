@@ -1,0 +1,94 @@
+{
+  "repo": "vercel/next.js",
+  "branch": "canary",
+  "licence": "MIT",
+  "source_commit": "8d1f4ed9c010edc763ee763942aac39b7d4ecfbd",
+  "fetched_at": "2026-11-14T21:09:35+00:00",
+  "files": [
+    {
+      "path": "docs/01-app/01-getting-started/03-layouts-and-pages.mdx",
+      "bytes": 12408,
+      "sha256": "64403c4edbbb609faabb80ec4e529bab24fe1b6709e7d36b382ef4020df63b4f"
+    },
+    {
+      "path": "docs/01-app/01-getting-started/05-server-and-client-components.mdx",
+      "bytes": 19706,
+      "sha256": "c08524a1483abbdaf1821081cf0480cdbccbbee42b5036f0933755894e435a17"
+    },
+    {
+      "path": "docs/01-app/01-getting-started/06-fetching-data.mdx",
+      "bytes": 23611,
+      "sha256": "41e6419f94adc6134b00e6827f3775c75dc8fee443ff31ee385b9db36fa3ed5d"
+    },
+    {
+      "path": "docs/01-app/03-api-reference/02-components/image.mdx",
+      "bytes": 64056,
+      "sha256": "c8e5e5b2423d57b9336e126c9da8a13d9244a7b0def7bf7887464a1b4428b4de"
+    },
+    {
+      "path": "docs/01-app/03-api-reference/03-file-conventions/layout.mdx",
+      "bytes": 21146,
+      "sha256": "b7ebfdf07ed966a5046005d97b6b42079ccdd96cbd2c5366dcddde5684c61ca1"
+    },
+    {
+      "path": "docs/01-app/03-api-reference/03-file-conventions/middleware.mdx",
+      "bytes": 814,
+      "sha256": "10418779f6d770c7bd606a771ba7ddb7d7461603e17d6a5cf279f24081689823"
+    },
+    {
+      "path": "docs/01-app/03-api-reference/03-file-conventions/page.mdx",
+      "bytes": 8774,
+      "sha256": "63cbb7aa79f3c375ce838bf35ac317f6a26749cf9ddf547eb841f04b986e607b"
+    },
+    {
+      "path": "docs/01-app/03-api-reference/03-file-conventions/proxy.mdx",
+      "bytes": 31316,
+      "sha256": "b3588775db486630bd1e6ea212afbfad7b9d69ee3e9d5366bb2a9162dd8e3ef8"
+    },
+    {
+      "path": "docs/01-app/03-api-reference/03-file-conventions/route.mdx",
+      "bytes": 20063,
+      "sha256": "aa50e3bd7f66e27b751f80afab0cf7f16b57276ee1a2f14ad8cbffdc2cb8ca83"
+    },
+    {
+      "path": "docs/01-app/03-api-reference/04-functions/cookies.mdx",
+      "bytes": 12505,
+      "sha256": "897ef7e9339f009213e36e79e86619170facd58259e585b9621f5384da108767"
+    },
+    {
+      "path": "docs/01-app/03-api-reference/04-functions/use-router.mdx",
+      "bytes": 10063,
+      "sha256": "0231f853a54f412bb8108fa0ad11fc5edd370550a2840f901db60d8c25df371e"
+    },
+    {
+      "path": "docs/02-pages/03-building-your-application/01-routing/05-custom-app.mdx",
+      "bytes": 3239,
+      "sha256": "8e5bef6622f352e9b187d8b89ca280a70ceebb4b448d3eeff327a3bcc60e48f6"
+    },
+    {
+      "path": "docs/02-pages/03-building-your-application/01-routing/06-custom-document.mdx",
+      "bytes": 4855,
+      "sha256": "9e61e23467f30426844c35515fda87f71d8cc0e27850c4afa5f66a65d728071f"
+    },
+    {
+      "path": "docs/02-pages/03-building-your-application/03-data-fetching/01-get-static-props.mdx",
+      "bytes": 9440,
+      "sha256": "0a40562ab2f88b41297d80b0e328df066c6664adb518bef8c420707979f4d1aa"
+    },
+    {
+      "path": "docs/02-pages/03-building-your-application/03-data-fetching/03-get-server-side-props.mdx",
+      "bytes": 5043,
+      "sha256": "f42c7f9c006d5c227e035fd2bf06019e38cb2bc61b6865d750cc1b6a1f614fb5"
+    },
+    {
+      "path": "docs/02-pages/04-api-reference/03-functions/get-initial-props.mdx",
+      "bytes": 3769,
+      "sha256": "57d7cca525a1a6c348116f576274c5987bc1e2f0b9f7479f84c986cdc92cc6ae"
+    },
+    {
+      "path": "docs/02-pages/04-api-reference/03-functions/use-router.mdx",
+      "bytes": 21204,
+      "sha256": "083583cc92fef1c1214fe431982566825049f4856b6ee03a5b3943f80a33f88a"
+    }
+  ]
+}

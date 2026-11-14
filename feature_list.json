@@ -1,0 +1,42 @@
+[
+  {
+    "id": "corpus",
+    "title": "Versioned Next.js snippet set with labels",
+    "spec": "../../research/Optimizing RAG With Jev Reranking/specs/SPEC-corpus.md",
+    "evidence": "uv run python -m corpus.build_corpus --check",
+    "passes": false,
+    "note": "`--check` passes, but `tests/test_corpus.py` and `tests/fixtures/docs` do not exist, so the spec's record-invariant and determinism criteria are unproven."
+  },
+  {
+    "id": "api-service",
+    "title": "FastAPI service holding the pipeline and its per-query trace",
+    "spec": "../../research/Optimizing RAG With Jev Reranking/specs/SPEC-api-service.md",
+    "evidence": "uv run pytest -q",
+    "passes": true,
+    "note": "Covered by `tests/test_api.py` (20 passed). Untested criterion: `/health` with a missing `.npy`."
+  },
+  {
+    "id": "gate-scope",
+    "title": "Gate 1: in-scope check, version routing, injection refusal",
+    "spec": "../../research/Optimizing RAG With Jev Reranking/specs/SPEC-gate-scope.md",
+    "evidence": "uv run pytest -q",
+    "passes": true,
+    "note": "Covered by `tests/test_scope.py` (20 passed). Untested criteria: scope threshold boundary 0.50, injection precedence order, bad-router 502."
+  },
+  {
+    "id": "retrieval-hybrid",
+    "title": "BM25 + dense retrieval returning ~30 chunks with fused ranking",
+    "spec": "../../research/Optimizing RAG With Jev Reranking/specs/SPEC-retrieval-hybrid.md",
+    "evidence": "uv run pytest -q",
+    "passes": true,
+    "note": "Covered by `tests/test_retrieve.py` (20 passed). Untested criteria: 24-chunk short slice, embedding-call count."
+  },
+  {
+    "id": "gate-rerank",
+    "title": "Gate 2: per-chunk relevance/currency scoring, threshold, zero-pass stop",
+    "spec": "../../research/Optimizing RAG With Jev Reranking/specs/SPEC-gate-rerank.md",
+    "evidence": "uv run pytest -q",
+    "passes": true,
+    "note": "Covered by `tests/test_rerank.py` (20 passed). Untested criterion: decision-call question count."
+  }
+]

@@ -1,0 +1,26 @@
+{
+  "recorded": false,
+  "note": "Hand-built: encodes observed live values from gemini-decision-1, not a capture. Six official/current chunks clear the strict floor; the cap keeps five.",
+  "kind": "rerank",
+  "input": "over cap six pass the strict floor",
+  "match": "over cap six",
+  "model": "gemini-decision-1",
+  "usage": {
+    "tokens_in": 1780,
+    "tokens_out": 0
+  },
+  "answers": {
+    "rel_s08": 0.9,
+    "cur_s08": 0.9,
+    "rel_s09": 0.8,
+    "cur_s09": 0.9,
+    "rel_s10": 0.7,
+    "cur_s10": 0.9,
+    "rel_s11": 0.65,
+    "cur_s11": 0.9,
+    "rel_s12": 0.62,
+    "cur_s12": 0.9,
+    "rel_s13": 0.61,
+    "cur_s13": 0.9
+  }
+}

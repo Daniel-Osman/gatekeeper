@@ -1,0 +1,120 @@
+{
+  "version": 1,
+  "policy": "First matching rule wins. Router defaults from the path (docs/01-app -> app, docs/02-pages -> pages, forum/app -> app, forum/pages -> pages). Status defaults to 'current'. A legacy rule must name the pinned-commit doc that supersedes it.",
+  "rules": [
+    {
+      "match": "forum/app/use-router-import-in-app-directory.md",
+      "status": "legacy",
+      "reason": "Synthetic answer imports next/router inside an App Router thread; the pinned App Router hook is next/navigation.",
+      "superseded_by": "docs/01-app/03-api-reference/04-functions/use-router.mdx"
+    },
+    {
+      "match": "forum/app/getserversideprops-inside-server-component.md",
+      "status": "legacy",
+      "reason": "Synthetic answer exports getServerSideProps from a Server Component page; App Router pages fetch with an async component.",
+      "superseded_by": "docs/01-app/03-api-reference/03-file-conventions/page.mdx"
+    },
+    {
+      "match": "forum/app/pages-api-route-in-app-only-project.md",
+      "status": "legacy",
+      "reason": "Synthetic answer creates pages/api in an App Router project; the pinned replacement is a route handler.",
+      "superseded_by": "docs/01-app/03-api-reference/03-file-conventions/route.mdx"
+    },
+    {
+      "match": "forum/app/custom-app-js-for-global-styles.md",
+      "status": "legacy",
+      "reason": "Synthetic answer tells an App Router user to add global CSS through pages/_app.js; the root layout owns it now.",
+      "superseded_by": "docs/01-app/03-api-reference/03-file-conventions/layout.mdx"
+    },
+    {
+      "match": "forum/app/middleware-matcher-auth.md",
+      "status": "legacy",
+      "reason": "Synthetic answer is written against middleware.js and its matcher; the pinned file marks middleware deprecated and renamed to proxy.",
+      "superseded_by": "docs/01-app/03-api-reference/03-file-conventions/proxy.mdx"
+    },
+    {
+      "match": "forum/app/next-image-layout-responsive.md",
+      "status": "legacy",
+      "reason": "Synthetic answer uses the removed layout prop on next/image; the pinned component takes fill or width/height.",
+      "superseded_by": "docs/01-app/03-api-reference/02-components/image.mdx"
+    },
+    {
+      "match": "forum/app/dynamic-import-ssr-false-in-server-component.md",
+      "status": "legacy",
+      "reason": "Synthetic answer applies the Pages-era dynamic() ssr:false option inside a Server Component; client boundaries replaced it.",
+      "superseded_by": "docs/01-app/01-getting-started/05-server-and-client-components.mdx"
+    },
+    {
+      "match": "forum/app/router-events-route-change.md",
+      "status": "legacy",
+      "reason": "Synthetic answer subscribes to router.events, which the App Router router object does not expose.",
+      "superseded_by": "docs/01-app/03-api-reference/04-functions/use-router.mdx"
+    },
+    {
+      "match": "forum/app/read-cookies-with-getserversideprops.md",
+      "status": "legacy",
+      "reason": "Synthetic answer reads request cookies through getServerSideProps in an App Router thread; the pinned API is cookies().",
+      "superseded_by": "docs/01-app/03-api-reference/04-functions/cookies.mdx"
+    },
+    {
+      "match": "forum/pages/getinitialprops-vs-getserversideprops.md",
+      "status": "legacy",
+      "reason": "Synthetic answer recommends getInitialProps for a Pages project; the pinned Pages reference calls it a legacy API.",
+      "superseded_by": "docs/02-pages/03-building-your-application/03-data-fetching/03-get-server-side-props.mdx"
+    },
+    {
+      "match": "forum/pages/unstable-revalidate-in-getstaticprops.md",
+      "status": "legacy",
+      "reason": "Synthetic answer uses the removed unstable_revalidate key; the pinned reference uses revalidate.",
+      "superseded_by": "docs/02-pages/03-building-your-application/03-data-fetching/01-get-static-props.mdx"
+    },
+    {
+      "match": "forum/pages/router-query-undefined-first-render.md",
+      "status": "legacy",
+      "reason": "Synthetic answer solves router.query being undefined with the Pages isReady flag, a next/router-only workaround.",
+      "superseded_by": "docs/02-pages/04-api-reference/03-functions/use-router.mdx"
+    },
+    {
+      "match": "forum/pages/custom-app-typescript-getinitialprops.md",
+      "status": "legacy",
+      "reason": "Synthetic answer wires page props through _app.js and Component.getInitialProps, the CRA-era pattern.",
+      "superseded_by": "docs/02-pages/03-building-your-application/01-routing/05-custom-app.mdx"
+    },
+    {
+      "match": "forum/pages/api-route-bodyparser-config.md",
+      "status": "legacy",
+      "reason": "Synthetic answer disables body parsing with export const config in pages/api; App Router handlers use request.formData().",
+      "superseded_by": "docs/01-app/03-api-reference/03-file-conventions/route.mdx"
+    },
+    {
+      "match": "forum/pages/next-image-layout-fill-objectfit.md",
+      "status": "legacy",
+      "reason": "Synthetic answer pairs layout=\"fill\" with objectFit; the layout prop no longer exists on next/image.",
+      "superseded_by": "docs/01-app/03-api-reference/02-components/image.mdx"
+    },
+    {
+      "match": "forum/pages/getstaticpaths-fallback-is-fallback.md",
+      "status": "legacy",
+      "reason": "Synthetic answer renders on router.isFallback in a project that already moved dynamic routes to generateStaticParams.",
+      "superseded_by": "docs/01-app/01-getting-started/03-layouts-and-pages.mdx"
+    },
+    {
+      "match": "forum/pages/document-styled-components-server-style-sheet.md",
+      "status": "legacy",
+      "reason": "Synthetic answer injects ServerStyleSheet through _document.js, the styled-components v4 Pages pattern.",
+      "superseded_by": "docs/02-pages/03-building-your-application/01-routing/06-custom-document.mdx"
+    },
+    {
+      "match": "docs/01-app/03-api-reference/03-file-conventions/middleware.mdx",
+      "status": "legacy",
+      "reason": "The pinned App Router reference marks middleware.js deprecated in Next.js 16 and renamed to proxy.js.",
+      "superseded_by": "docs/01-app/03-api-reference/03-file-conventions/proxy.mdx"
+    },
+    {
+      "match": "docs/02-pages/04-api-reference/03-functions/get-initial-props.mdx",
+      "status": "legacy",
+      "reason": "The pinned Pages reference states getInitialProps is a legacy API and points at getStaticProps or getServerSideProps.",
+      "superseded_by": "docs/02-pages/03-building-your-application/03-data-fetching/03-get-server-side-props.mdx"
+    }
+  ]
+}

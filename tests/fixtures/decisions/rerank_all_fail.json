@@ -1,0 +1,13 @@
+{
+  "recorded": false,
+  "note": "Hand-built: encodes the observed all-low shape from gemini-decision-1, not a capture. Every rel_/cur_ answer is 0.0 because no candidate answers the question; the zeros_for_candidates mode keeps the refusal fixture readable.",
+  "kind": "rerank",
+  "input": "why is my middleware not running in the app router",
+  "match": "middleware not running",
+  "model": "gemini-decision-1",
+  "usage": {
+    "tokens_in": 4610,
+    "tokens_out": 0
+  },
+  "mode": "zeros_for_candidates"
+}

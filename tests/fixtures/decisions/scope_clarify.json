@@ -1,0 +1,20 @@
+{
+  "recorded": false,
+  "note": "Hand-built: encodes observed live values from gemini-decision-1, not a capture.",
+  "kind": "scope",
+  "input": "how do I read cookies on the server",
+  "match": "read cookies on the server",
+  "model": "gemini-decision-1",
+  "usage": {
+    "tokens_in": 262,
+    "tokens_out": 0
+  },
+  "answers": {
+    "in_scope": 0.94,
+    "router": {
+      "option": "unclear",
+      "confidence": 0.81
+    },
+    "is_injection": 0.02
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "recorded": false,
+  "note": "Hand-built: encodes observed live values from gemini-decision-1, not a capture.",
+  "kind": "scope",
+  "input": "what is the capital of France",
+  "match": "capital of France",
+  "model": "gemini-decision-1",
+  "usage": {
+    "tokens_in": 255,
+    "tokens_out": 0
+  },
+  "answers": {
+    "in_scope": 0.03,
+    "router": {
+      "option": "unclear",
+      "confidence": 1.0
+    },
+    "is_injection": 0.01
+  }
+}

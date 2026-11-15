@@ -1,0 +1,64 @@
+[
+  {
+    "recorded": false,
+    "note": "Hand-built, not a capture. The three lines, their citations and the token counts are written by hand to cite the chunk ids the route-param rerank fixture keeps. This is the clean answer: verify scores all three lines above the verified floor.",
+    "match": "route param in the app router",
+    "model": "gemini-3.5-flash",
+    "usage": {
+      "tokens_in": 812,
+      "tokens_out": 64
+    },
+    "text": "The params prop holds the route's dynamic values [c100]\nThe params promise resolves before the page renders [c91]\nDynamic segments fill the params object from the file name [c100][c31]"
+  },
+  {
+    "recorded": false,
+    "note": "Hand-built, not a capture. The same three cited lines as the clean answer, with no usage block: the stage counts read as absent and the receipt tokens stay unmeasured.",
+    "match": "route param in the app router in a layout",
+    "model": "gemini-3.5-flash",
+    "text": "The params prop holds the route's dynamic values [c100]\nThe params promise resolves before the page renders [c91]\nDynamic segments fill the params object from the file name [c100][c31]"
+  },
+  {
+    "recorded": false,
+    "note": "Hand-built, not a capture. First answer of the repair case: the middle line claims a behaviour the cited chunk does not state, and verify_repair_first scores it 0.12.",
+    "match": "route param in the app router on the client",
+    "model": "gemini-3.5-flash",
+    "usage": {
+      "tokens_in": 803,
+      "tokens_out": 71
+    },
+    "text": "Layouts pass page props down to the nested route [c100]\nRoute params are read from the URL search string without a promise [c91]\nThe params prop resolves to a promise in the layout [c106]"
+  },
+  {
+    "recorded": false,
+    "note": "Hand-built, not a capture. The repair pass of the repair case: it drops the rejected line and keeps the other two. Matched on the repair block, which no first-pass prompt carries.",
+    "match": "UNSUPPORTED LINES\nRoute params are read from the URL search string without a promise",
+    "model": "gemini-3.5-flash",
+    "usage": {
+      "tokens_in": 861,
+      "tokens_out": 58
+    },
+    "text": "Layouts pass page props down to the nested route [c100]\nThe params prop resolves to a promise in the layout [c106]"
+  },
+  {
+    "recorded": false,
+    "note": "Hand-built, not a capture. First answer of the flagged case: the middle line is unsupported and verify_flagged_first scores it 0.12.",
+    "match": "route param in the app router in a server component",
+    "model": "gemini-3.5-flash",
+    "usage": {
+      "tokens_in": 799,
+      "tokens_out": 69
+    },
+    "text": "Server components await the params promise before rendering [c100]\nClient components read route params with the useParams hook [c91]\nThe file name decides how many dynamic segments exist [c106]"
+  },
+  {
+    "recorded": false,
+    "note": "Hand-built, not a capture. The repair pass of the flagged case: it rewrites the two supported lines but keeps the rejected line unchanged, so the second verify flags the answer.",
+    "match": "UNSUPPORTED LINES\nClient components read route params with the useParams hook",
+    "model": "gemini-3.5-flash",
+    "usage": {
+      "tokens_in": 857,
+      "tokens_out": 62
+    },
+    "text": "The pages router reads route params from the query object [c100]\nClient components read route params with the useParams hook [c91]\nDynamic segments come from the folder name in the app router file [c106]"
+  }
+]

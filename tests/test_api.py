@@ -38,7 +38,7 @@ def test_refused_question_returns_200_with_the_envelope(client):
     assert body["sentences"] == []
 
 
-def test_gate_passed_question_returns_200_with_the_envelope(client):
+def test_answered_question_returns_200_with_the_envelope(client, canonical_slice):
     response = client.post(
         "/ask",
         json={
@@ -50,13 +50,47 @@ def test_gate_passed_question_returns_200_with_the_envelope(client):
     assert response.status_code == 200
     body = response.json()
     assert set(body) == ENVELOPE
-    assert body["trace"]["outcome"] == "gate_passed"
-    assert body["answer"] is None
-    assert body["sentences"] == []
+    assert body["trace"]["outcome"] == "answered"
+    assert body["answer"]
+    assert len(body["sentences"]) == 3
     assert [stage["stage"] for stage in body["trace"]["stages"]] == [
         "scope",
         "retrieve",
         "rerank",
+        "synthesize",
+        "verify",
+    ]
+
+
+def test_flagged_answer_returns_200_with_the_envelope(client, canonical_slice):
+    response = client.post(
+        "/ask",
+        json={
+            "question": (
+                "how do I read a route param in the app router in a server component"
+            ),
+            "policy": "strict",
+        },
+    )
+
+    assert response.status_code == 200
+    body = response.json()
+    assert set(body) == ENVELOPE
+    assert body["trace"]["outcome"] == "answered_flagged"
+    assert body["answer"]
+    assert [stage["stage"] for stage in body["trace"]["stages"]] == [
+        "scope",
+        "retrieve",
+        "rerank",
+        "synthesize",
+        "verify",
+        "synthesize",
+        "verify",
+    ]
+    assert [sentence["verdict"] for sentence in body["sentences"]] == [
+        "verified",
+        "unsupported",
+        "verified",
     ]
 
 

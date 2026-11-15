@@ -1,10 +1,13 @@
-"""Offline test doubles: replayed decisions, a replayed query vector, one corpus.
+"""Offline test doubles: replayed synthesis, decisions and a query vector.
 
-Every test except ``@pytest.mark.live`` runs with ``decisions.ask`` and
-``decisions.embed_query`` replaced. Recordings live in
-``tests/fixtures/decisions`` and are picked by kind (scope or rerank) and the
-longest ``match`` substring of the input. Every fixture is hand-built:
-``recorded: false`` and a ``note`` say so.
+Every test except ``@pytest.mark.live`` runs with ``synth._generate``,
+``decisions.ask`` and ``decisions.embed_query`` replaced. Recordings live in
+``tests/fixtures``: decisions and verify answers in ``fixtures/decisions`` by
+kind (scope, rerank or verify) and the longest ``match`` substring of the
+input, synthesis answers in ``fixtures/synthesis.json`` by the longest ``match``
+substring of the prompt. Every fixture is hand-built: ``recorded: false`` and a
+``note`` say so. ``canonical_slice`` is the one extra double a pipeline test
+asks for: it pins retrieval to the slice the rerank fixture answers.
 """
 
 from __future__ import annotations
@@ -17,12 +20,14 @@ import numpy as np
 import pytest
 from fastapi.testclient import TestClient
 
-from app import config, index
+from app import config, index, retrieve, synth
 from app.gates import decisions
 
 FIXTURES = Path(__file__).parent / "fixtures"
 DECISIONS = FIXTURES / "decisions"
+SYNTHESIS = FIXTURES / "synthesis.json"
 VECTOR = FIXTURES / "embeddings" / "route_param.json"
+CANONICAL_SLICE = "how do I read a route param in the app router"
 
 
 def _entries() -> list[dict]:
@@ -36,8 +41,13 @@ def _entries() -> list[dict]:
 
 
 def _kind(questions: dict) -> str:
-    """Rerank asks ``rel_<id>``/``cur_<id>``; scope asks three named questions."""
-    return "rerank" if any(key.startswith(("rel_", "cur_")) for key in questions) else "scope"
+    """Rerank asks ``rel_<id>``/``cur_<id>``; verify asks ``sup_<i>``; scope asks three named questions."""
+    keys = set(questions)
+    if any(key.startswith(("rel_", "cur_")) for key in keys):
+        return "rerank"
+    if any(key.startswith("sup_") for key in keys):
+        return "verify"
+    return "scope"
 
 
 class FakeAsk:
@@ -71,8 +81,27 @@ class FakeAsk:
         return max(matches, key=lambda entry: len(entry["match"]))
 
 
+class FakeSynth:
+    """Replay a hand-written synthesis answer, chosen by longest matching prompt substring."""
+
+    def __init__(self, entries: list[dict]):
+        self.entries = entries
+        self.calls: list[str] = []
+
+    def __call__(self, prompt: str) -> tuple[str, dict]:
+        self.calls.append(prompt)
+        matches = [entry for entry in self.entries if entry["match"] in prompt]
+        if not matches:
+            pytest.fail(f"no synthesis fixture answers this prompt: {prompt[:80]!r}")
+        entry = max(matches, key=lambda item: len(item["match"]))
+        if "raise" in entry:
+            raise decisions.StageError(entry["raise"]["stage"], entry["raise"]["message"])
+        return entry["text"], dict(entry.get("usage") or {})
+
+
 def _fake_vector(question: str) -> list[float]:
     recorded = json.loads(VECTOR.read_text(encoding="utf-8"))
+
     if question == recorded["input"]:
         return list(recorded["vector"])
     seed = int.from_bytes(hashlib.sha256(question.encode()).digest()[:8], "big")
@@ -99,6 +128,35 @@ def fake_embed(monkeypatch):
     return _embed_replay
 
 
+@pytest.fixture
+def fake_synth(monkeypatch):
+    """Patch ``synth._generate`` with the fixture replay and return it.
+
+    ``synth._generate`` is the one seam synthesis exposes; the prompt building,
+    the citation parsing and the stage accounting above it stay real.
+    """
+    fake = FakeSynth(json.loads(SYNTHESIS.read_text(encoding="utf-8")))
+    monkeypatch.setattr(synth, "_generate", fake)
+    return fake
+
+
+@pytest.fixture
+def canonical_slice(monkeypatch):
+    """Pin retrieval to the slice the rerank fixture records.
+
+    The gate fixtures answer one fixed 30-candidate slice, so a pipeline test
+    that varies the question wording must still retrieve that slice: only the
+    wording changes, not the chunks under test. The real retriever runs.
+    """
+    real = retrieve.run
+
+    def pinned(question: str, router: str, stage=None):
+        return real(CANONICAL_SLICE, router, stage)
+
+    monkeypatch.setattr(retrieve, "run", pinned)
+    return pinned
+
+
 @pytest.fixture(autouse=True)
 def offline(request):
     """Patch both model calls for every non-live test."""
@@ -108,6 +166,7 @@ def offline(request):
     index.ensure_loaded()
     fake = request.getfixturevalue("fake_decisions")
     request.getfixturevalue("fake_embed")
+    request.getfixturevalue("fake_synth")
     yield fake
 
 

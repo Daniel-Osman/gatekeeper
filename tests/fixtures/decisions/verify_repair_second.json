@@ -1,0 +1,16 @@
+{
+  "recorded": false,
+  "note": "Hand-built, not a capture. Second verify of the repair case: the repaired answer keeps two lines and both clear the verified floor.",
+  "kind": "verify",
+  "input": "how do I read a route param in the app router on the client",
+  "match": "The params prop resolves to a promise in the layout",
+  "model": "gemini-decision-1",
+  "usage": {
+    "tokens_in": 1602,
+    "tokens_out": 0
+  },
+  "answers": {
+    "sup_0": 0.86,
+    "sup_1": 0.9
+  }
+}

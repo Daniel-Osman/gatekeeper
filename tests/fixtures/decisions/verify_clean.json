@@ -1,0 +1,17 @@
+{
+  "recorded": false,
+  "note": "Hand-built, not a capture. Every line of the clean synthesis answer scores above the verified floor, so no repair pass runs. Matched on the stripped text of sentence 2.",
+  "kind": "verify",
+  "input": "how do I read a route param in the app router",
+  "match": "Dynamic segments fill the params object from the file name",
+  "model": "gemini-decision-1",
+  "usage": {
+    "tokens_in": 1841,
+    "tokens_out": 0
+  },
+  "answers": {
+    "sup_0": 0.93,
+    "sup_1": 0.88,
+    "sup_2": 0.91
+  }
+}

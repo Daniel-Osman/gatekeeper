@@ -1,0 +1,17 @@
+{
+  "recorded": false,
+  "note": "Hand-built, not a capture. First verify of the repair case: the middle line is far below the unsupported floor and buys one repair pass, the other two clear it. The rejected line is dropped from the repair answer, so this text is absent from the second verify.",
+  "kind": "verify",
+  "input": "how do I read a route param in the app router on the client",
+  "match": "Route params are read from the URL search string without a promise",
+  "model": "gemini-decision-1",
+  "usage": {
+    "tokens_in": 1794,
+    "tokens_out": 0
+  },
+  "answers": {
+    "sup_0": 0.87,
+    "sup_1": 0.12,
+    "sup_2": 0.84
+  }
+}

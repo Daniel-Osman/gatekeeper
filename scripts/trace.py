@@ -4,10 +4,9 @@
                                      [--only scope|retrieve|rerank] [--json]
 
 Prints the outcome, one line per stage with its latency and input tokens, the
-kept chunk ids with their reason, the refused reasons grouped, and the
-receipt. ``--json`` prints the raw envelope instead. A ``--only`` run that
-stops before a gate outcome prints its stages and no envelope. Exits 1 on
-``StageError``.
+kept chunk ids with their reason, the sentence verdicts, and the receipt.
+``--json`` prints the raw envelope instead. A ``--only`` run that stops before a
+gate outcome prints its stages and no envelope. Exits 1 on ``StageError``.
 """
 
 from __future__ import annotations
@@ -62,6 +61,18 @@ def _print_stage(stage: dict, policy_name: str) -> None:
         for reason in sorted(groups):
             ids = " ".join(groups[reason])
             print(f"  refuse reason={reason} count={len(groups[reason])} ids={ids}")
+    elif stage["stage"] == "synthesize":
+        print(
+            f"  sentences={payload['sentence_count']} "
+            f"repair={str(payload['repair']).lower()}"
+        )
+    elif stage["stage"] == "verify":
+        counts: dict[str, int] = {}
+        for sentence in payload.get("sentences", []):
+            counts[sentence["verdict"]] = counts.get(sentence["verdict"], 0) + 1
+        retry = payload.get("retry_of")
+        summary = " ".join(f"{name}={counts[name]}" for name in sorted(counts))
+        print(f"  retry_of={'-' if retry is None else retry} {summary}")
 
 
 def _print_receipt(receipt: dict) -> None:
@@ -84,6 +95,13 @@ def _print_human(envelope: dict) -> None:
     print(f"answer: {envelope['answer'] if envelope['answer'] else '-'}")
     for stage in trace["stages"]:
         _print_stage(stage, trace["policy"])
+    for position, sentence in enumerate(envelope.get("sentences", []), start=1):
+        support = _noul(sentence["support_noul"])
+        chunk = sentence["chunk_id"] or "-"
+        print(
+            f"  sentence {position} verdict={sentence['verdict']} "
+            f"chunk={chunk} support={support} text={sentence['text']}"
+        )
     _print_receipt(envelope["receipt"])
 
 

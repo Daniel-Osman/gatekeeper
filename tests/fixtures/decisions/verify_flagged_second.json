@@ -1,0 +1,17 @@
+{
+  "recorded": false,
+  "note": "Hand-built, not a capture. Second verify of the flagged case: the repair pass kept the rejected line, so it still scores 0.12 and the answer is flagged. Matched on a rewritten line, which only the second verify carries.",
+  "kind": "verify",
+  "input": "how do I read a route param in the app router in a server component",
+  "match": "Dynamic segments come from the folder name in the app router file",
+  "model": "gemini-decision-1",
+  "usage": {
+    "tokens_in": 1810,
+    "tokens_out": 0
+  },
+  "answers": {
+    "sup_0": 0.84,
+    "sup_1": 0.12,
+    "sup_2": 0.86
+  }
+}

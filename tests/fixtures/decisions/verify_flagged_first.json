@@ -1,0 +1,17 @@
+{
+  "recorded": false,
+  "note": "Hand-built, not a capture. First verify of the flagged case: the middle line is far below the unsupported floor and buys one repair pass.",
+  "kind": "verify",
+  "input": "how do I read a route param in the app router in a server component",
+  "match": "Client components read route params with the useParams hook",
+  "model": "gemini-decision-1",
+  "usage": {
+    "tokens_in": 1833,
+    "tokens_out": 0
+  },
+  "answers": {
+    "sup_0": 0.85,
+    "sup_1": 0.12,
+    "sup_2": 0.87
+  }
+}

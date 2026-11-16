@@ -2,4 +2,4 @@
 __pycache__/
 .pytest_cache/
 .env
-corpus/.cache/
+corpus/.cache/eval/run.log

@@ -1,0 +1,2758 @@
+{
+  "run_at": "2026-11-15T20:58:09+00:00",
+  "updated_at": "2026-11-15T21:38:04+00:00",
+  "queries": "queries.jsonl",
+  "policies": [
+    "strict",
+    "fast_fix",
+    "no_gates"
+  ],
+  "count": 120,
+  "live_calls": 384,
+  "records": [
+    {
+      "id": "q01",
+      "policy": "strict",
+      "kind": "official",
+      "outcome": "answered",
+      "answer": "To create a dynamic segment, wrap the folder name in square brackets For example, create a folder called [slug] inside the blog directory This results in the file path app/blog/[slug]/page.tsx You can access the dynamic route parameters using the params prop Since params is a promise, you must use async/await to access the slug",
+      "sentences": 5,
+      "verdicts": [
+        "verified",
+        "verified",
+        "verified",
+        "verified",
+        "verified"
+      ],
+      "kept_ids": [
+        "c4",
+        "c1",
+        "c3",
+        "c106",
+        "c110"
+      ],
+      "gold_ids": [
+        "c1"
+      ],
+      "hit_at_5": true,
+      "cited_hit": true,
+      "list_cost_usd": 0.0028542,
+      "wall_ms": 4054.16
+    },
+    {
+      "id": "q02",
+      "policy": "strict",
+      "kind": "official",
+      "outcome": "answered",
+      "answer": "To create a page in the app directory, add a page file inside the directory. You can use `.js`, `.jsx`, or `.tsx` file extensions for the page file. A page file is required to make a route segment publicly accessible. Default export a React component from the page file to define the route's UI.",
+      "sentences": 4,
+      "verdicts": [
+        "verified",
+        "verified",
+        "verified",
+        "verified"
+      ],
+      "kept_ids": [
+        "c5",
+        "c3",
+        "c114",
+        "c107",
+        "c1"
+      ],
+      "gold_ids": [
+        "c5"
+      ],
+      "hit_at_5": true,
+      "cited_hit": true,
+      "list_cost_usd": 0.0025876,
+      "wall_ms": 49136.03
+    },
+    {
+      "id": "q03",
+      "policy": "strict",
+      "kind": "official",
+      "outcome": "answered",
+      "answer": "You can use the `<Link>` component to navigate between routes with client-side navigation. The `<Link>` component is the primary and recommended way to move between routes in Next.js. You can also use the `useRouter` hook for programmatic navigation inside Client Components. Methods like `router.push()` or `router.replace()` allow you to change routes programmatically without full page reloads.",
+      "sentences": 4,
+      "verdicts": [
+        "verified",
+        "verified",
+        "verified",
+        "verified"
+      ],
+      "kept_ids": [
+        "c7",
+        "c187",
+        "c176",
+        "c186",
+        "c182"
+      ],
+      "gold_ids": [
+        "c7"
+      ],
+      "hit_at_5": true,
+      "cited_hit": true,
+      "list_cost_usd": 0.0024138,
+      "wall_ms": 52906.11
+    },
+    {
+      "id": "q04",
+      "policy": "strict",
+      "kind": "official",
+      "outcome": "answered",
+      "answer": "In a Server Component page, you can access search parameters using the searchParams prop. Since searchParams is a promise, you must use async/await to access the values. For example, you can extract a specific query value by awaiting the searchParams promise. Using searchParams opts your page into dynamic rendering because it requires an incoming request.",
+      "sentences": 4,
+      "verdicts": [
+        "verified",
+        "verified",
+        "verified",
+        "verified"
+      ],
+      "kept_ids": [
+        "c9",
+        "c108",
+        "c111",
+        "c110",
+        "c109"
+      ],
+      "gold_ids": [
+        "c9"
+      ],
+      "hit_at_5": true,
+      "cited_hit": true,
+      "list_cost_usd": 0.0027108,
+      "wall_ms": 60512.206
+    },
+    {
+      "id": "q05",
+      "policy": "strict",
+      "kind": "official",
+      "outcome": "answered",
+      "answer": "You can pass data from Server Components to Client Components using props Make sure the props passed to Client Components are serializable by React Alternatively, you can stream data from a Server Component to a Client Component using the use API To stream data, pass the unawaited data fetching promise as a prop inside a Suspense boundary Then, use React's use API inside the Client Component to read the promise",
+      "sentences": 5,
+      "verdicts": [
+        "verified",
+        "verified",
+        "verified",
+        "verified",
+        "verified"
+      ],
+      "kept_ids": [
+        "c17",
+        "c28",
+        "c26",
+        "c27"
+      ],
+      "gold_ids": [
+        "c17"
+      ],
+      "hit_at_5": true,
+      "cited_hit": true,
+      "list_cost_usd": 0.0028248,
+      "wall_ms": 58295.154
+    },
+    {
+      "id": "q06",
+      "policy": "strict",
+      "kind": "official",
+      "outcome": "answered",
+      "answer": "Do not use the NEXT_PUBLIC_ prefix for your environment variables so Next.js does not include them in the client bundle. Install and import the server-only package into any file containing server-only code to prevent accidental usage in Client Components. If you try to import a module marked with server-only into a Client Component, Next.js will throw a build-time error. Alternatively, use Server Components to fetch data and use secrets because they are rendered on the server and kept out of the client bundle.",
+      "sentences": 4,
+      "verdicts": [
+        "verified",
+        "verified",
+        "verified",
+        "verified"
+      ],
+      "kept_ids": [
+        "c40",
+        "c26",
+        "c18"
+      ],
+      "gold_ids": [
+        "c18"
+      ],
+      "hit_at_5": true,
+      "cited_hit": true,
+      "list_cost_usd": 0.0027229,
+      "wall_ms": 3226.844
+    },
+    {
+      "id": "q07",
+      "policy": "strict",
+      "kind": "official",
+      "outcome": "answered",
+      "answer": "You need to mark a component with use client when you need state and event handlers. Use client is required for lifecycle logic and custom hooks. Mark components with use client when using browser-only APIs like localStorage or window. Use client is needed to read the current pathname using the usePathname hook. Wrap third-party components that rely on client-only features in a Client Component.",
+      "sentences": 5,
+      "verdicts": [
+        "verified",
+        "verified",
+        "verified",
+        "verified",
+        "verified"
+      ],
+      "kept_ids": [
+        "c26",
+        "c23",
+        "c97",
+        "c112",
+        "c90"
+      ],
+      "gold_ids": [
+        "c26"
+      ],
+      "hit_at_5": true,
+      "cited_hit": true,
+      "list_cost_usd": 0.0030472,
+      "wall_ms": 58522.823
+    },
+    {
+      "id": "q08",
+      "policy": "strict",
+      "kind": "official",
+      "outcome": "answered",
+      "answer": "To start multiple requests at once, initiate the requests without awaiting them immediately. Call your data fetching functions and store their promises in variables. Then, use `Promise.all` to await all of the initiated requests together. If one request fails with `Promise.all`, the entire operation will fail. You can use `Promise.allSettled` instead if you need to handle potential failures differently.",
+      "sentences": 5,
+      "verdicts": [
+        "verified",
+        "verified",
+        "verified",
+        "verified",
+        "verified"
+      ],
+      "kept_ids": [
+        "c32",
+        "c33"
+      ],
+      "gold_ids": [
+        "c32"
+      ],
+      "hit_at_5": true,
+      "cited_hit": true,
+      "list_cost_usd": 0.0024821,
+      "wall_ms": 60161.036
+    },
+    {
+      "id": "q09",
+      "policy": "strict",
+      "kind": "official",
+      "outcome": "answered",
+      "answer": "For database queries or ORMs, wrap the data-fetching function in React `cache`. Multiple components can then call this function within the same request while sharing one result. Calls with the same arguments within one request will return the same memoized result. This allows you to deduplicate database queries across a route without affecting performance.",
+      "sentences": 4,
+      "verdicts": [
+        "verified",
+        "verified",
+        "verified",
+        "verified"
+      ],
+      "kept_ids": [
+        "c34",
+        "c36",
+        "c92"
+      ],
+      "gold_ids": [
+        "c36"
+      ],
+      "hit_at_5": true,
+      "cited_hit": true,
+      "list_cost_usd": 0.0028286,
+      "wall_ms": 59867.426
+    },
+    {
+      "id": "q10",
+      "policy": "strict",
+      "kind": "official",
+      "outcome": "answered",
+      "answer": "Sequential fetching happens when one request depends on data from another request. Await the first fetch in the parent component to get the required ID. Pass the resolved ID down to a child component that needs it. Wrap the child component in a Suspense boundary to show fallback UI. Await the second fetch inside the child component using the passed ID.",
+      "sentences": 5,
+      "verdicts": [
+        "verified",
+        "verified",
+        "verified",
+        "verified",
+        "verified"
+      ],
+      "kept_ids": [
+        "c37"
+      ],
+      "gold_ids": [
+        "c37"
+      ],
+      "hit_at_5": true,
+      "cited_hit": true,
+      "list_cost_usd": 0.0024195,
+      "wall_ms": 59739.813
+    },
+    {
+      "id": "q11",
+      "policy": "strict",
+      "kind": "official",
+      "outcome": "answered",
+      "answer": "In the App Router, you can show a loading state using two main streaming approaches. First, you can create a `loading.js` file in the same folder as your page to stream the entire page. Behind the scenes, `loading.js` automatically wraps the `page.js` file and its children in a `<Suspense>` boundary. Alternatively, you can wrap specific components directly with the `<Suspense>` boundary for more granular streaming. Inside the `<Suspense>` component, you can provide a fallback UI such as skeletons or loading text.",
+      "sentences": 5,
+      "verdicts": [
+        "verified",
+        "verified",
+        "verified",
+        "verified",
+        "verified"
+      ],
+      "kept_ids": [
+        "c41",
+        "c42",
+        "c37",
+        "c43",
+        "c28"
+      ],
+      "gold_ids": [
+        "c41"
+      ],
+      "hit_at_5": true,
+      "cited_hit": true,
+      "list_cost_usd": 0.0033513,
+      "wall_ms": 3911.402
+    },
+    {
+      "id": "q12",
+      "policy": "strict",
+      "kind": "official",
+      "outcome": "answered",
+      "answer": "To show an image that fills its parent when size is unknown, add the `fill` prop to the Image component. The parent element must have a CSS position of relative, fixed, or absolute. You can use the `objectFit` style prop set to cover to control cropping and scaling.",
+      "sentences": 3,
+      "verdicts": [
+        "verified",
+        "verified",
+        "verified"
+      ],
+      "kept_ids": [
+        "c75",
+        "c69",
+        "c78",
+        "c46"
+      ],
+      "gold_ids": [
+        "c75"
+      ],
+      "hit_at_5": true,
+      "cited_hit": true,
+      "list_cost_usd": 0.0028708,
+      "wall_ms": 56503.346
+    },
+    {
+      "id": "q13",
+      "policy": "strict",
+      "kind": "official",
+      "outcome": "answered",
+      "answer": "You can use the usePathname hook to determine if a navigation link is active. Because usePathname is a client hook, extract your navigation links into a Client Component. Import and render this Client Component inside your layout. Compare the pathname to the link's destination to conditionally apply an active class. Alternatively, use useSelectedLayoutSegment in a Client Component to check child route segments.",
+      "sentences": 5,
+      "verdicts": [
+        "verified",
+        "verified",
+        "verified",
+        "verified",
+        "verified"
+      ],
+      "kept_ids": [
+        "c90",
+        "c88"
+      ],
+      "gold_ids": [
+        "c90"
+      ],
+      "hit_at_5": true,
+      "cited_hit": true,
+      "list_cost_usd": 0.0025782,
+      "wall_ms": 3111.221
+    },
+    {
+      "id": "q14",
+      "policy": "strict",
+      "kind": "official",
+      "outcome": "answered",
+      "answer": "You can use the searchParams prop to handle filtering based on the URL query string. Since the searchParams prop is a promise, you must use async/await to access the values. You can extract parameters like page, sort, or query to use in your product listing page. Using the searchParams prop opts your page into dynamic rendering at request time. Use the searchParams prop when you need search parameters to load data for the page, such as database filtering.",
+      "sentences": 5,
+      "verdicts": [
+        "verified",
+        "verified",
+        "verified",
+        "verified",
+        "verified"
+      ],
+      "kept_ids": [
+        "c108",
+        "c99",
+        "c111",
+        "c11",
+        "c9"
+      ],
+      "gold_ids": [
+        "c108"
+      ],
+      "hit_at_5": true,
+      "cited_hit": true,
+      "list_cost_usd": 0.002894,
+      "wall_ms": 55300.437
+    },
+    {
+      "id": "q15",
+      "policy": "strict",
+      "kind": "official",
+      "outcome": "answered",
+      "answer": "To read `params` or `searchParams` inside a Client Component, you can use React's `use` function to read the promise. Client Component pages can access `searchParams` using React\u2019s `use` hook. Alternatively, you can read query parameters inside a Client Component using the `useSearchParams` hook.",
+      "sentences": 3,
+      "verdicts": [
+        "verified",
+        "verified",
+        "verified"
+      ],
+      "kept_ids": [
+        "c112",
+        "c99",
+        "c111",
+        "c9",
+        "c100"
+      ],
+      "gold_ids": [
+        "c112"
+      ],
+      "hit_at_5": true,
+      "cited_hit": true,
+      "list_cost_usd": 0.0026537,
+      "wall_ms": 2907.259
+    },
+    {
+      "id": "q16",
+      "policy": "strict",
+      "kind": "official",
+      "outcome": "clarify",
+      "answer": "Is this about the App Router or the Pages Router?",
+      "sentences": 0,
+      "verdicts": [],
+      "kept_ids": [],
+      "gold_ids": [
+        "c121"
+      ],
+      "hit_at_5": false,
+      "cited_hit": false,
+      "list_cost_usd": 2.61e-05,
+      "wall_ms": 742.3
+    },
+    {
+      "id": "q17",
+      "policy": "strict",
+      "kind": "official",
+      "outcome": "answered",
+      "answer": "To redirect the browser from a route handler, import the redirect function from next/navigation. Call the redirect function within your GET request handler and pass the target URL as an argument.",
+      "sentences": 2,
+      "verdicts": [
+        "verified",
+        "verified"
+      ],
+      "kept_ids": [
+        "c151",
+        "c125",
+        "c142",
+        "c143"
+      ],
+      "gold_ids": [
+        "c151"
+      ],
+      "hit_at_5": true,
+      "cited_hit": true,
+      "list_cost_usd": 0.0020594,
+      "wall_ms": 55353.397
+    },
+    {
+      "id": "q18",
+      "policy": "strict",
+      "kind": "official",
+      "outcome": "clarify",
+      "answer": "Is this about the App Router or the Pages Router?",
+      "sentences": 0,
+      "verdicts": [],
+      "kept_ids": [],
+      "gold_ids": [
+        "c152"
+      ],
+      "hit_at_5": false,
+      "cited_hit": false,
+      "list_cost_usd": 2.62e-05,
+      "wall_ms": 535.261
+    },
+    {
+      "id": "q19",
+      "policy": "strict",
+      "kind": "official",
+      "outcome": "clarify",
+      "answer": "Is this about the App Router or the Pages Router?",
+      "sentences": 0,
+      "verdicts": [],
+      "kept_ids": [],
+      "gold_ids": [
+        "c184"
+      ],
+      "hit_at_5": false,
+      "cited_hit": false,
+      "list_cost_usd": 2.63e-05,
+      "wall_ms": 249.474
+    },
+    {
+      "id": "q20",
+      "policy": "strict",
+      "kind": "official",
+      "outcome": "answered",
+      "answer": "Use `router.refresh()` to refresh the current route and re-render Server Components. This makes a new request to the server and re-fetches data requests. The client merges the updated payload without losing unaffected client-side React or browser state. This action clears the client cache for the current route. However, it does not invalidate the server-side cache.",
+      "sentences": 5,
+      "verdicts": [
+        "verified",
+        "verified",
+        "verified",
+        "verified",
+        "verified"
+      ],
+      "kept_ids": [
+        "c185",
+        "c173"
+      ],
+      "gold_ids": [
+        "c185"
+      ],
+      "hit_at_5": true,
+      "cited_hit": true,
+      "list_cost_usd": 0.0021877,
+      "wall_ms": 2601.332
+    },
+    {
+      "id": "q21",
+      "policy": "strict",
+      "kind": "official",
+      "outcome": "answered",
+      "answer": "To share a layout or global CSS across all routes, you can override the default App component. Create a file named `pages/_app` to implement this custom App. Restart your development server if you added the `pages/_app.js` file while the app was running. The `Component` prop represents the active page, allowing you to create shared layouts during page changes.",
+      "sentences": 4,
+      "verdicts": [
+        "verified",
+        "verified",
+        "verified",
+        "verified"
+      ],
+      "kept_ids": [
+        "c188",
+        "c189"
+      ],
+      "gold_ids": [
+        "c188"
+      ],
+      "hit_at_5": true,
+      "cited_hit": true,
+      "list_cost_usd": 0.0022874,
+      "wall_ms": 3701.444
+    },
+    {
+      "id": "q22",
+      "policy": "strict",
+      "kind": "official",
+      "outcome": "answered",
+      "answer": "To prerender a pages route at build time with fetched data, export an async function named getStaticProps from the page. Inside getStaticProps, fetch the required data from an external API, database, or direct server-side code function. Return an object from getStaticProps containing a props property with the fetched data. Next.js will then pass these props to your page component and prerender the page at build time.",
+      "sentences": 4,
+      "verdicts": [
+        "verified",
+        "verified",
+        "verified",
+        "verified"
+      ],
+      "kept_ids": [
+        "c197",
+        "c202",
+        "c199",
+        "c196",
+        "c201"
+      ],
+      "gold_ids": [
+        "c202"
+      ],
+      "hit_at_5": true,
+      "cited_hit": true,
+      "list_cost_usd": 0.0028777,
+      "wall_ms": 3980.79
+    },
+    {
+      "id": "q23",
+      "policy": "strict",
+      "kind": "official",
+      "outcome": "answered",
+      "answer": "You should use `getServerSideProps` for rendering pages relying on personalized user data. Use it when information can only be known at request time, like geolocation or authorization headers. Do not use it if you do not need to fetch data at request time. Instead, use `getStaticProps` if you prefer to cache the data and prerendered HTML.",
+      "sentences": 4,
+      "verdicts": [
+        "verified",
+        "verified",
+        "verified",
+        "verified"
+      ],
+      "kept_ids": [
+        "c207",
+        "c199"
+      ],
+      "gold_ids": [
+        "c207"
+      ],
+      "hit_at_5": true,
+      "cited_hit": true,
+      "list_cost_usd": 0.0022024,
+      "wall_ms": 51740.509
+    },
+    {
+      "id": "q24",
+      "policy": "strict",
+      "kind": "forum_only",
+      "outcome": "refused",
+      "answer": "I have no reliable docs for this.",
+      "sentences": 0,
+      "verdicts": [],
+      "kept_ids": [],
+      "gold_ids": [
+        "c230"
+      ],
+      "hit_at_5": false,
+      "cited_hit": false,
+      "list_cost_usd": 0.00189,
+      "wall_ms": 1436.035
+    },
+    {
+      "id": "q25",
+      "policy": "strict",
+      "kind": "forum_only",
+      "outcome": "refused",
+      "answer": "I have no reliable docs for this.",
+      "sentences": 0,
+      "verdicts": [],
+      "kept_ids": [],
+      "gold_ids": [
+        "c231"
+      ],
+      "hit_at_5": false,
+      "cited_hit": false,
+      "list_cost_usd": 0.0018861,
+      "wall_ms": 53739.281
+    },
+    {
+      "id": "q26",
+      "policy": "strict",
+      "kind": "forum_only",
+      "outcome": "refused",
+      "answer": "I have no reliable docs for this.",
+      "sentences": 0,
+      "verdicts": [],
+      "kept_ids": [],
+      "gold_ids": [
+        "c232"
+      ],
+      "hit_at_5": false,
+      "cited_hit": false,
+      "list_cost_usd": 0.0017698,
+      "wall_ms": 1300.523
+    },
+    {
+      "id": "q27",
+      "policy": "strict",
+      "kind": "forum_only",
+      "outcome": "refused",
+      "answer": "I have no reliable docs for this.",
+      "sentences": 0,
+      "verdicts": [],
+      "kept_ids": [],
+      "gold_ids": [
+        "c239"
+      ],
+      "hit_at_5": false,
+      "cited_hit": false,
+      "list_cost_usd": 0.0017675,
+      "wall_ms": 57761.299
+    },
+    {
+      "id": "q28",
+      "policy": "strict",
+      "kind": "forum_only",
+      "outcome": "refused",
+      "answer": "I have no reliable docs for this.",
+      "sentences": 0,
+      "verdicts": [],
+      "kept_ids": [],
+      "gold_ids": [
+        "c241"
+      ],
+      "hit_at_5": false,
+      "cited_hit": false,
+      "list_cost_usd": 0.0017571,
+      "wall_ms": 1259.577
+    },
+    {
+      "id": "q29",
+      "policy": "strict",
+      "kind": "forum_only",
+      "outcome": "refused",
+      "answer": "I have no reliable docs for this.",
+      "sentences": 0,
+      "verdicts": [],
+      "kept_ids": [],
+      "gold_ids": [
+        "c245"
+      ],
+      "hit_at_5": false,
+      "cited_hit": false,
+      "list_cost_usd": 0.0018387,
+      "wall_ms": 1324.785
+    },
+    {
+      "id": "q30",
+      "policy": "strict",
+      "kind": "forum_only",
+      "outcome": "refused",
+      "answer": "I have no reliable docs for this.",
+      "sentences": 0,
+      "verdicts": [],
+      "kept_ids": [],
+      "gold_ids": [
+        "c246"
+      ],
+      "hit_at_5": false,
+      "cited_hit": false,
+      "list_cost_usd": 0.0017492,
+      "wall_ms": 57214.132
+    },
+    {
+      "id": "q31",
+      "policy": "strict",
+      "kind": "unanswerable",
+      "outcome": "blocked",
+      "answer": "That question is outside the Next.js documentation this demo covers.",
+      "sentences": 0,
+      "verdicts": [],
+      "kept_ids": [],
+      "gold_ids": [],
+      "hit_at_5": null,
+      "cited_hit": null,
+      "list_cost_usd": 2.64e-05,
+      "wall_ms": 370.977
+    },
+    {
+      "id": "q32",
+      "policy": "strict",
+      "kind": "unanswerable",
+      "outcome": "blocked",
+      "answer": "That question is outside the Next.js documentation this demo covers.",
+      "sentences": 0,
+      "verdicts": [],
+      "kept_ids": [],
+      "gold_ids": [],
+      "hit_at_5": null,
+      "cited_hit": null,
+      "list_cost_usd": 2.65e-05,
+      "wall_ms": 671.255
+    },
+    {
+      "id": "q33",
+      "policy": "strict",
+      "kind": "unanswerable",
+      "outcome": "refused",
+      "answer": "I have no reliable docs for this.",
+      "sentences": 0,
+      "verdicts": [],
+      "kept_ids": [],
+      "gold_ids": [],
+      "hit_at_5": null,
+      "cited_hit": null,
+      "list_cost_usd": 0.0017811,
+      "wall_ms": 1402.506
+    },
+    {
+      "id": "q34",
+      "policy": "strict",
+      "kind": "unanswerable",
+      "outcome": "refused",
+      "answer": "I have no reliable docs for this.",
+      "sentences": 0,
+      "verdicts": [],
+      "kept_ids": [],
+      "gold_ids": [],
+      "hit_at_5": null,
+      "cited_hit": null,
+      "list_cost_usd": 0.0017773,
+      "wall_ms": 1239.259
+    },
+    {
+      "id": "q35",
+      "policy": "strict",
+      "kind": "unanswerable",
+      "outcome": "refused",
+      "answer": "I have no reliable docs for this.",
+      "sentences": 0,
+      "verdicts": [],
+      "kept_ids": [],
+      "gold_ids": [],
+      "hit_at_5": null,
+      "cited_hit": null,
+      "list_cost_usd": 0.0018673,
+      "wall_ms": 1644.881
+    },
+    {
+      "id": "q36",
+      "policy": "strict",
+      "kind": "unanswerable",
+      "outcome": "refused",
+      "answer": "I have no reliable docs for this.",
+      "sentences": 0,
+      "verdicts": [],
+      "kept_ids": [],
+      "gold_ids": [],
+      "hit_at_5": null,
+      "cited_hit": null,
+      "list_cost_usd": 0.001822,
+      "wall_ms": 1327.095
+    },
+    {
+      "id": "q37",
+      "policy": "strict",
+      "kind": "ambiguous",
+      "outcome": "clarify",
+      "answer": "Is this about the App Router or the Pages Router?",
+      "sentences": 0,
+      "verdicts": [],
+      "kept_ids": [],
+      "gold_ids": [],
+      "hit_at_5": null,
+      "cited_hit": null,
+      "list_cost_usd": 2.59e-05,
+      "wall_ms": 284.95
+    },
+    {
+      "id": "q38",
+      "policy": "strict",
+      "kind": "ambiguous",
+      "outcome": "clarify",
+      "answer": "Is this about the App Router or the Pages Router?",
+      "sentences": 0,
+      "verdicts": [],
+      "kept_ids": [],
+      "gold_ids": [],
+      "hit_at_5": null,
+      "cited_hit": null,
+      "list_cost_usd": 2.57e-05,
+      "wall_ms": 266.768
+    },
+    {
+      "id": "q39",
+      "policy": "strict",
+      "kind": "ambiguous",
+      "outcome": "clarify",
+      "answer": "Is this about the App Router or the Pages Router?",
+      "sentences": 0,
+      "verdicts": [],
+      "kept_ids": [],
+      "gold_ids": [],
+      "hit_at_5": null,
+      "cited_hit": null,
+      "list_cost_usd": 2.61e-05,
+      "wall_ms": 651.07
+    },
+    {
+      "id": "q40",
+      "policy": "strict",
+      "kind": "ambiguous",
+      "outcome": "clarify",
+      "answer": "Is this about the App Router or the Pages Router?",
+      "sentences": 0,
+      "verdicts": [],
+      "kept_ids": [],
+      "gold_ids": [],
+      "hit_at_5": null,
+      "cited_hit": null,
+      "list_cost_usd": 2.61e-05,
+      "wall_ms": 875.214
+    },
+    {
+      "id": "q01",
+      "policy": "fast_fix",
+      "kind": "official",
+      "outcome": "answered",
+      "answer": "To create a dynamic segment, wrap the folder name in square brackets. For example, create a folder named [slug] inside the app/blog directory. Add a page.tsx file inside the app/blog/[slug] folder. Access the dynamic segment data using the params prop in your component. Remember that params is a promise, so you must use async/await to access the values.",
+      "sentences": 5,
+      "verdicts": [
+        "verified",
+        "verified",
+        "verified",
+        "verified",
+        "verified"
+      ],
+      "kept_ids": [
+        "c4",
+        "c1",
+        "c3",
+        "c106",
+        "c110"
+      ],
+      "gold_ids": [
+        "c1"
+      ],
+      "hit_at_5": true,
+      "cited_hit": true,
+      "list_cost_usd": 0.0028857,
+      "wall_ms": 3021.895
+    },
+    {
+      "id": "q02",
+      "policy": "fast_fix",
+      "kind": "official",
+      "outcome": "answered",
+      "answer": "To create a page, add a page file inside the app directory. You can use the .js, .jsx, or .tsx file extensions for page. A page file is required to make a route segment publicly accessible. Default export a React component from this file.",
+      "sentences": 4,
+      "verdicts": [
+        "verified",
+        "verified",
+        "verified",
+        "verified"
+      ],
+      "kept_ids": [
+        "c5",
+        "c3",
+        "c114",
+        "c107",
+        "c1"
+      ],
+      "gold_ids": [
+        "c5"
+      ],
+      "hit_at_5": true,
+      "cited_hit": true,
+      "list_cost_usd": 0.0025438,
+      "wall_ms": 3068.59
+    },
+    {
+      "id": "q03",
+      "policy": "fast_fix",
+      "kind": "official",
+      "outcome": "answered",
+      "answer": "You can use the built-in `<Link>` component to navigate between routes with client-side navigation. Import `Link` from `next/link` and pass an `href` prop to the component. Alternatively, you can use the `useRouter` hook to programmatically change routes inside Client Components. Methods like `router.push()` or `router.replace()` also perform client-side navigation without full page reloads.",
+      "sentences": 4,
+      "verdicts": [
+        "verified",
+        "verified",
+        "verified",
+        "verified"
+      ],
+      "kept_ids": [
+        "c7",
+        "c187",
+        "c176",
+        "c186",
+        "c182"
+      ],
+      "gold_ids": [
+        "c7"
+      ],
+      "hit_at_5": true,
+      "cited_hit": true,
+      "list_cost_usd": 0.0024294,
+      "wall_ms": 3610.22
+    },
+    {
+      "id": "q04",
+      "policy": "fast_fix",
+      "kind": "official",
+      "outcome": "answered",
+      "answer": "In a Server Component page, you can access search parameters using the `searchParams` prop. Since `searchParams` is a promise, you must use `async/await` to access the values. For example, you can destructure `searchParams` to read specific query string values. Using `searchParams` opts your page into dynamic rendering because it requires an incoming request.",
+      "sentences": 4,
+      "verdicts": [
+        "verified",
+        "verified",
+        "verified",
+        "verified"
+      ],
+      "kept_ids": [
+        "c9",
+        "c108",
+        "c111",
+        "c110",
+        "c109"
+      ],
+      "gold_ids": [
+        "c9"
+      ],
+      "hit_at_5": true,
+      "cited_hit": true,
+      "list_cost_usd": 0.002856,
+      "wall_ms": 2433.587
+    },
+    {
+      "id": "q05",
+      "policy": "fast_fix",
+      "kind": "official",
+      "outcome": "answered",
+      "answer": "You can pass data from Server Components to Client Components using props. Keep in mind that props passed to Client Components need to be serializable by React. Alternatively, you can stream data from a Server Component to a Client Component using React's use API. To do this, fetch the data in your Server Component without awaiting it, and pass the promise as a prop. Then, use the use API inside your Client Component wrapped in a Suspense boundary to read the promise.",
+      "sentences": 5,
+      "verdicts": [
+        "verified",
+        "verified",
+        "verified",
+        "verified",
+        "verified"
+      ],
+      "kept_ids": [
+        "c17",
+        "c28",
+        "c26",
+        "c29",
+        "c27"
+      ],
+      "gold_ids": [
+        "c17"
+      ],
+      "hit_at_5": true,
+      "cited_hit": true,
+      "list_cost_usd": 0.0031067,
+      "wall_ms": 3640.361
+    },
+    {
+      "id": "q06",
+      "policy": "fast_fix",
+      "kind": "official",
+      "outcome": "answered",
+      "answer": "In Next.js, only environment variables prefixed with `NEXT_PUBLIC_` are included in the client bundle. If variables do not have this prefix, Next.js replaces them with an empty string. You can use the `server-only` package to prevent accidental usage in Client Components. Import `server-only` into any file that contains server-only code to trigger a build-time error if imported into a Client Component. Additionally, using Server Components naturally keeps credentials and secrets safe since they are rendered on the server.",
+      "sentences": 5,
+      "verdicts": [
+        "verified",
+        "verified",
+        "verified",
+        "verified",
+        "verified"
+      ],
+      "kept_ids": [
+        "c40",
+        "c26",
+        "c18",
+        "c19"
+      ],
+      "gold_ids": [
+        "c18"
+      ],
+      "hit_at_5": true,
+      "cited_hit": true,
+      "list_cost_usd": 0.002797,
+      "wall_ms": 2591.031
+    },
+    {
+      "id": "q07",
+      "policy": "fast_fix",
+      "kind": "official",
+      "outcome": "answered",
+      "answer": "You need to use Client Components when you require state and event handlers like onClick or onChange. Mark components with use client for lifecycle logic such as useEffect. Use this directive when accessing browser-only APIs like localStorage, window, or navigator.geolocation. Client Components are also necessary when using custom hooks. You should wrap third-party components that rely on client-only features in a Client Component.",
+      "sentences": 5,
+      "verdicts": [
+        "verified",
+        "verified",
+        "verified",
+        "verified",
+        "verified"
+      ],
+      "kept_ids": [
+        "c26",
+        "c23",
+        "c97",
+        "c112",
+        "c90"
+      ],
+      "gold_ids": [
+        "c26"
+      ],
+      "hit_at_5": true,
+      "cited_hit": true,
+      "list_cost_usd": 0.0029381,
+      "wall_ms": 52727.739
+    },
+    {
+      "id": "q08",
+      "policy": "fast_fix",
+      "kind": "official",
+      "outcome": "answered",
+      "answer": "To start several data requests at once, call the fetch functions without awaiting them immediately. Then, pass these unawaited promises into `Promise.all` to await them together. This initiates the requests as soon as they are called rather than sequentially. If one request fails with `Promise.all`, the entire operation will fail. You can use `Promise.allSettled` instead if you need to handle failures differently.",
+      "sentences": 5,
+      "verdicts": [
+        "verified",
+        "verified",
+        "verified",
+        "verified",
+        "verified"
+      ],
+      "kept_ids": [
+        "c32",
+        "c34",
+        "c33"
+      ],
+      "gold_ids": [
+        "c32"
+      ],
+      "hit_at_5": true,
+      "cited_hit": true,
+      "list_cost_usd": 0.002641,
+      "wall_ms": 2611.293
+    },
+    {
+      "id": "q09",
+      "policy": "fast_fix",
+      "kind": "official",
+      "outcome": "answered",
+      "answer": "For database queries or ORMs, wrap the data-fetching function in `React.cache`. Multiple components can then call this wrapped function within the same request. Each request gets its own memoization scope with no sharing between requests. Calls with the same arguments within one request return the same memoized result.",
+      "sentences": 4,
+      "verdicts": [
+        "verified",
+        "verified",
+        "verified",
+        "verified"
+      ],
+      "kept_ids": [
+        "c34",
+        "c36",
+        "c39",
+        "c92"
+      ],
+      "gold_ids": [
+        "c36"
+      ],
+      "hit_at_5": true,
+      "cited_hit": true,
+      "list_cost_usd": 0.0028494,
+      "wall_ms": 52671.092
+    },
+    {
+      "id": "q10",
+      "policy": "fast_fix",
+      "kind": "official",
+      "outcome": "answered",
+      "answer": "To fetch data sequentially where one request depends on another, await the first request directly in the parent component. For example, await `getArtist(username)` to retrieve the `artistID` before rendering dependent components. Pass the resolved `artistID` as a prop to a child component that performs the second fetch. Wrap the child component in a `Suspense` boundary to show fallback UI while it loads. Inside the child component, await the second fetch using the passed ID.",
+      "sentences": 5,
+      "verdicts": [
+        "verified",
+        "verified",
+        "verified",
+        "verified",
+        "verified"
+      ],
+      "kept_ids": [
+        "c37"
+      ],
+      "gold_ids": [
+        "c37"
+      ],
+      "hit_at_5": true,
+      "cited_hit": true,
+      "list_cost_usd": 0.0025072,
+      "wall_ms": 2668.605
+    },
+    {
+      "id": "q11",
+      "policy": "fast_fix",
+      "kind": "official",
+      "outcome": "answered",
+      "answer": "In the App Router, you can show a loading state using streaming There are two ways to use streaming: using a `loading.js` file or using `<Suspense>` You can create a `loading.js` file in the same folder as your page to stream the entire page Alternatively, you can wrap a specific component with `<Suspense>` and provide a fallback This allows you to be more granular about what parts of the page to stream",
+      "sentences": 5,
+      "verdicts": [
+        "verified",
+        "verified",
+        "verified",
+        "verified",
+        "verified"
+      ],
+      "kept_ids": [
+        "c41",
+        "c42",
+        "c37",
+        "c43",
+        "c28"
+      ],
+      "gold_ids": [
+        "c41"
+      ],
+      "hit_at_5": true,
+      "cited_hit": true,
+      "list_cost_usd": 0.0031787,
+      "wall_ms": 52613.874
+    },
+    {
+      "id": "q12",
+      "policy": "fast_fix",
+      "kind": "official",
+      "outcome": "answered",
+      "answer": "To show an image that fills its parent when its size is unknown, add the `fill` prop to the Image component. The parent element must be assigned a position of relative, fixed, or absolute. You can use the style prop with `objectFit` set to cover to control cropping and scaling. Additionally, provide the `sizes` prop to help optimize the responsive image for different viewports.",
+      "sentences": 4,
+      "verdicts": [
+        "verified",
+        "verified",
+        "verified",
+        "verified"
+      ],
+      "kept_ids": [
+        "c75",
+        "c234",
+        "c69",
+        "c78",
+        "c46"
+      ],
+      "gold_ids": [
+        "c75"
+      ],
+      "hit_at_5": true,
+      "cited_hit": true,
+      "list_cost_usd": 0.0030236,
+      "wall_ms": 2362.648
+    },
+    {
+      "id": "q13",
+      "policy": "fast_fix",
+      "kind": "official",
+      "outcome": "answered",
+      "answer": "To mark a nav link as active, use the `usePathname` hook to determine the current path. Because `usePathname` is a client hook, extract your navigation links into a Client Component. Import the `usePathname` function from `next/navigation` inside that Client Component. Compare the `pathname` variable to your link's destination URL to conditionally apply an active class. Finally, import and render your Client Component inside your layout.",
+      "sentences": 5,
+      "verdicts": [
+        "verified",
+        "verified",
+        "verified",
+        "verified",
+        "verified"
+      ],
+      "kept_ids": [
+        "c90",
+        "c88",
+        "c97"
+      ],
+      "gold_ids": [
+        "c90"
+      ],
+      "hit_at_5": true,
+      "cited_hit": true,
+      "list_cost_usd": 0.0026916,
+      "wall_ms": 52921.26
+    },
+    {
+      "id": "q14",
+      "policy": "fast_fix",
+      "kind": "official",
+      "outcome": "answered",
+      "answer": "You can use the `searchParams` prop in your page component to handle filtering, pagination, or sorting. Since the `searchParams` prop is a promise, you must use `async/await` to access its values. Destructure parameters like `query`, `page`, or `sort` from the awaited `searchParams` object to filter your product list. Using the `searchParams` prop opts your page into dynamic rendering at request time. For Client Components, you can also access `searchParams` using React\u2019s `use` hook or the `useSearchParams` hook.",
+      "sentences": 5,
+      "verdicts": [
+        "verified",
+        "verified",
+        "verified",
+        "verified",
+        "verified"
+      ],
+      "kept_ids": [
+        "c108",
+        "c99",
+        "c111",
+        "c11",
+        "c9"
+      ],
+      "gold_ids": [
+        "c108"
+      ],
+      "hit_at_5": true,
+      "cited_hit": true,
+      "list_cost_usd": 0.0029769,
+      "wall_ms": 3229.908
+    },
+    {
+      "id": "q15",
+      "policy": "fast_fix",
+      "kind": "official",
+      "outcome": "answered",
+      "answer": "To read `params` or `searchParams` inside a Client Component, you can use React's `use` function to read the promise. Since Client Component pages cannot be async, pass `params` or `searchParams` to the `use` hook. Alternatively, you can read updated query parameters in a Client Component using the `useSearchParams` hook.",
+      "sentences": 3,
+      "verdicts": [
+        "verified",
+        "verified",
+        "verified"
+      ],
+      "kept_ids": [
+        "c112",
+        "c99",
+        "c111",
+        "c9",
+        "c100"
+      ],
+      "gold_ids": [
+        "c112"
+      ],
+      "hit_at_5": true,
+      "cited_hit": true,
+      "list_cost_usd": 0.0027032,
+      "wall_ms": 52866.773
+    },
+    {
+      "id": "q16",
+      "policy": "fast_fix",
+      "kind": "official",
+      "outcome": "clarify",
+      "answer": "Is this about the App Router or the Pages Router?",
+      "sentences": 0,
+      "verdicts": [],
+      "kept_ids": [],
+      "gold_ids": [
+        "c121"
+      ],
+      "hit_at_5": false,
+      "cited_hit": false,
+      "list_cost_usd": 2.61e-05,
+      "wall_ms": 289.26
+    },
+    {
+      "id": "q17",
+      "policy": "fast_fix",
+      "kind": "official",
+      "outcome": "answered",
+      "answer": "To redirect the browser from a route handler, you can use the `redirect` function from `next/navigation`. Import `redirect` inside your route file and call it with the target URL string.",
+      "sentences": 2,
+      "verdicts": [
+        "verified",
+        "verified"
+      ],
+      "kept_ids": [
+        "c151",
+        "c125",
+        "c142",
+        "c233",
+        "c143"
+      ],
+      "gold_ids": [
+        "c151"
+      ],
+      "hit_at_5": true,
+      "cited_hit": true,
+      "list_cost_usd": 0.0021624,
+      "wall_ms": 2873.822
+    },
+    {
+      "id": "q18",
+      "policy": "fast_fix",
+      "kind": "official",
+      "outcome": "clarify",
+      "answer": "Is this about the App Router or the Pages Router?",
+      "sentences": 0,
+      "verdicts": [],
+      "kept_ids": [],
+      "gold_ids": [
+        "c152"
+      ],
+      "hit_at_5": false,
+      "cited_hit": false,
+      "list_cost_usd": 2.62e-05,
+      "wall_ms": 286.35
+    },
+    {
+      "id": "q19",
+      "policy": "fast_fix",
+      "kind": "official",
+      "outcome": "clarify",
+      "answer": "Is this about the App Router or the Pages Router?",
+      "sentences": 0,
+      "verdicts": [],
+      "kept_ids": [],
+      "gold_ids": [
+        "c184"
+      ],
+      "hit_at_5": false,
+      "cited_hit": false,
+      "list_cost_usd": 2.63e-05,
+      "wall_ms": 560.91
+    },
+    {
+      "id": "q20",
+      "policy": "fast_fix",
+      "kind": "official",
+      "outcome": "answered",
+      "answer": "Use `router.refresh()` to refresh the current route and re-render Server Components. This makes a new request to the server and re-fetches data requests. The client merges the updated React Server Component payload without losing unaffected client state. It keeps unaffected client-side React state like `useState` and browser state like scroll position. This clears the client cache for the current route but does not invalidate the server-side cache.",
+      "sentences": 5,
+      "verdicts": [
+        "verified",
+        "verified",
+        "verified",
+        "verified",
+        "verified"
+      ],
+      "kept_ids": [
+        "c185",
+        "c173"
+      ],
+      "gold_ids": [
+        "c185"
+      ],
+      "hit_at_5": true,
+      "cited_hit": true,
+      "list_cost_usd": 0.0022215,
+      "wall_ms": 2568.768
+    },
+    {
+      "id": "q21",
+      "policy": "fast_fix",
+      "kind": "official",
+      "outcome": "answered",
+      "answer": "To share a layout or global CSS across all pages router routes, you override the default `App` component by creating a file named `pages/_app` or `pages/_app.tsx`. The `App` component uses the `Component` prop as the active page, which changes whenever you navigate between routes. You can wrap the `Component` inside `pages/_app` with shared providers or layouts to make them available to every page.",
+      "sentences": 3,
+      "verdicts": [
+        "verified",
+        "verified",
+        "verified"
+      ],
+      "kept_ids": [
+        "c188",
+        "c190",
+        "c189",
+        "c240"
+      ],
+      "gold_ids": [
+        "c188"
+      ],
+      "hit_at_5": true,
+      "cited_hit": true,
+      "list_cost_usd": 0.002553,
+      "wall_ms": 2551.414
+    },
+    {
+      "id": "q22",
+      "policy": "fast_fix",
+      "kind": "official",
+      "outcome": "answered",
+      "answer": "You can prerender a pages route at build time by exporting an async function called getStaticProps from the page. Next.js will use the props returned by getStaticProps to prerender the page at build time. The following example shows how you can fetch a list of blog posts from a CMS inside getStaticProps. Because getStaticProps runs only on the server-side, you can perform direct database queries or use fetch directly. By returning an object with props, your page component will receive the fetched data as props at build time.",
+      "sentences": 5,
+      "verdicts": [
+        "verified",
+        "verified",
+        "verified",
+        "verified",
+        "verified"
+      ],
+      "kept_ids": [
+        "c197",
+        "c202",
+        "c201",
+        "c210",
+        "c246"
+      ],
+      "gold_ids": [
+        "c202"
+      ],
+      "hit_at_5": true,
+      "cited_hit": true,
+      "list_cost_usd": 0.0030339,
+      "wall_ms": 3066.687
+    },
+    {
+      "id": "q23",
+      "policy": "fast_fix",
+      "kind": "official",
+      "outcome": "answered",
+      "answer": "You should use getServerSideProps if you need to render a page relying on personalized user data or request-time information. Examples of request-time information include authorization headers or geolocation. Use getStaticProps instead if you do not need to fetch data at request time, or prefer caching. You should also use getStaticProps when data is available at build time, comes from a headless CMS, or must be publicly cached.",
+      "sentences": 4,
+      "verdicts": [
+        "verified",
+        "verified",
+        "verified",
+        "verified"
+      ],
+      "kept_ids": [
+        "c207",
+        "c199",
+        "c242",
+        "c202"
+      ],
+      "gold_ids": [
+        "c207"
+      ],
+      "hit_at_5": true,
+      "cited_hit": true,
+      "list_cost_usd": 0.0024575,
+      "wall_ms": 2461.741
+    },
+    {
+      "id": "q24",
+      "policy": "fast_fix",
+      "kind": "forum_only",
+      "outcome": "answered_flagged",
+      "answer": "I have no reliable docs for this.",
+      "sentences": 1,
+      "verdicts": [
+        "unsupported"
+      ],
+      "kept_ids": [
+        "c230"
+      ],
+      "gold_ids": [
+        "c230"
+      ],
+      "hit_at_5": true,
+      "cited_hit": false,
+      "list_cost_usd": 0.0022434,
+      "wall_ms": 4392.392
+    },
+    {
+      "id": "q25",
+      "policy": "fast_fix",
+      "kind": "forum_only",
+      "outcome": "answered",
+      "answer": "Move the import into a client component wrapper file. Add the 'use client' directive at the top of that wrapper file. Import the dynamic component with ssr false inside the wrapper. Render the wrapper component from your server page. Server components cannot use the ssr false option directly.",
+      "sentences": 5,
+      "verdicts": [
+        "verified",
+        "verified",
+        "verified",
+        "verified",
+        "verified"
+      ],
+      "kept_ids": [
+        "c231",
+        "c23",
+        "c238",
+        "c25"
+      ],
+      "gold_ids": [
+        "c231"
+      ],
+      "hit_at_5": true,
+      "cited_hit": true,
+      "list_cost_usd": 0.0026553,
+      "wall_ms": 3083.586
+    },
+    {
+      "id": "q26",
+      "policy": "fast_fix",
+      "kind": "forum_only",
+      "outcome": "answered",
+      "answer": "You are mixing the two routers by using getServerSideProps inside the app directory. Data functions like getServerSideProps are ignored in the app directory and only run for files under pages. Rename the folder to pages to keep using getServerSideProps, or fetch data inside an async component in app. getServerSideProps does not exist in app at all, so copying it over silently does nothing. If you stay in app, read cookies from next/headers in the Server Component instead.",
+      "sentences": 5,
+      "verdicts": [
+        "verified",
+        "verified",
+        "verified",
+        "verified",
+        "verified"
+      ],
+      "kept_ids": [
+        "c232",
+        "c236"
+      ],
+      "gold_ids": [
+        "c232"
+      ],
+      "hit_at_5": true,
+      "cited_hit": true,
+      "list_cost_usd": 0.0023626,
+      "wall_ms": 51539.379
+    },
+    {
+      "id": "q27",
+      "policy": "fast_fix",
+      "kind": "forum_only",
+      "outcome": "answered",
+      "answer": "Buffer is not defined because it came from the old micro package. Read the stream yourself by collecting chunks in an array. Combine the chunks into a raw buffer using Buffer.concat. Keep bodyParser set to false so the signature check does not fail. If migrating to app/api, use await request.text() and drop the config export.",
+      "sentences": 5,
+      "verdicts": [
+        "verified",
+        "verified",
+        "verified",
+        "verified",
+        "verified"
+      ],
+      "kept_ids": [
+        "c239"
+      ],
+      "gold_ids": [
+        "c239"
+      ],
+      "hit_at_5": true,
+      "cited_hit": true,
+      "list_cost_usd": 0.0022057,
+      "wall_ms": 2595.701
+    },
+    {
+      "id": "q28",
+      "policy": "fast_fix",
+      "kind": "forum_only",
+      "outcome": "answered",
+      "answer": "Ensure your babel plugin is `babel-plugin-styled-components` with `ssr: true` configured. Verify the file is named `_document.js` instead of `_document.tsx` unless `.babelrc` is configured. Check if a `Content-Security-Policy` header blocks inline style tags if styles appear in HTML.",
+      "sentences": 3,
+      "verdicts": [
+        "verified",
+        "verified",
+        "verified"
+      ],
+      "kept_ids": [
+        "c241"
+      ],
+      "gold_ids": [
+        "c241"
+      ],
+      "hit_at_5": true,
+      "cited_hit": true,
+      "list_cost_usd": 0.0021947,
+      "wall_ms": 52528.548
+    },
+    {
+      "id": "q29",
+      "policy": "fast_fix",
+      "kind": "forum_only",
+      "outcome": "answered",
+      "answer": "The router hydrates with an empty query on the first render before the client fills it in. You can guard your fetch by checking if `router.isReady` is true. Using `router.isReady` ensures your fetch only fires once instead of twice. On the server the query is always ready and this only affects the client. The `isReady` field indicates whether the router fields are updated client-side and ready for use.",
+      "sentences": 5,
+      "verdicts": [
+        "verified",
+        "verified",
+        "verified",
+        "verified",
+        "verified"
+      ],
+      "kept_ids": [
+        "c245",
+        "c217"
+      ],
+      "gold_ids": [
+        "c245"
+      ],
+      "hit_at_5": true,
+      "cited_hit": true,
+      "list_cost_usd": 0.0025137,
+      "wall_ms": 2742.574
+    },
+    {
+      "id": "q30",
+      "policy": "fast_fix",
+      "kind": "forum_only",
+      "outcome": "answered",
+      "answer": "The key is to use `revalidate` instead of the deprecated `unstable_revalidate` property. Using `unstable_revalidate` fails silently because unknown properties in the returned object are ignored. Incremental Static Regeneration also requires running production mode with `next start` rather than `next dev`. Remember to configure `fallback` on `getStaticPaths` for dynamic ISR pages to prevent 404 errors.",
+      "sentences": 4,
+      "verdicts": [
+        "verified",
+        "verified",
+        "weak",
+        "weak"
+      ],
+      "kept_ids": [
+        "c246",
+        "c198"
+      ],
+      "gold_ids": [
+        "c246"
+      ],
+      "hit_at_5": true,
+      "cited_hit": true,
+      "list_cost_usd": 0.0022945,
+      "wall_ms": 51878.525
+    },
+    {
+      "id": "q31",
+      "policy": "fast_fix",
+      "kind": "unanswerable",
+      "outcome": "blocked",
+      "answer": "That question is outside the Next.js documentation this demo covers.",
+      "sentences": 0,
+      "verdicts": [],
+      "kept_ids": [],
+      "gold_ids": [],
+      "hit_at_5": null,
+      "cited_hit": null,
+      "list_cost_usd": 2.64e-05,
+      "wall_ms": 249.054
+    },
+    {
+      "id": "q32",
+      "policy": "fast_fix",
+      "kind": "unanswerable",
+      "outcome": "blocked",
+      "answer": "That question is outside the Next.js documentation this demo covers.",
+      "sentences": 0,
+      "verdicts": [],
+      "kept_ids": [],
+      "gold_ids": [],
+      "hit_at_5": null,
+      "cited_hit": null,
+      "list_cost_usd": 2.65e-05,
+      "wall_ms": 622.875
+    },
+    {
+      "id": "q33",
+      "policy": "fast_fix",
+      "kind": "unanswerable",
+      "outcome": "refused",
+      "answer": "I have no reliable docs for this.",
+      "sentences": 0,
+      "verdicts": [],
+      "kept_ids": [],
+      "gold_ids": [],
+      "hit_at_5": null,
+      "cited_hit": null,
+      "list_cost_usd": 0.0017811,
+      "wall_ms": 1201.352
+    },
+    {
+      "id": "q34",
+      "policy": "fast_fix",
+      "kind": "unanswerable",
+      "outcome": "refused",
+      "answer": "I have no reliable docs for this.",
+      "sentences": 0,
+      "verdicts": [],
+      "kept_ids": [],
+      "gold_ids": [],
+      "hit_at_5": null,
+      "cited_hit": null,
+      "list_cost_usd": 0.0017773,
+      "wall_ms": 49864.435
+    },
+    {
+      "id": "q35",
+      "policy": "fast_fix",
+      "kind": "unanswerable",
+      "outcome": "answered",
+      "answer": "To return JSON from a pages API route file, use the response object method like res.json. For example, call res.json with your data object as shown in the webhook example.",
+      "sentences": 2,
+      "verdicts": [
+        "verified",
+        "verified"
+      ],
+      "kept_ids": [
+        "c239"
+      ],
+      "gold_ids": [],
+      "hit_at_5": null,
+      "cited_hit": null,
+      "list_cost_usd": 0.0021554,
+      "wall_ms": 2847.401
+    },
+    {
+      "id": "q36",
+      "policy": "fast_fix",
+      "kind": "unanswerable",
+      "outcome": "refused",
+      "answer": "I have no reliable docs for this.",
+      "sentences": 0,
+      "verdicts": [],
+      "kept_ids": [],
+      "gold_ids": [],
+      "hit_at_5": null,
+      "cited_hit": null,
+      "list_cost_usd": 0.001822,
+      "wall_ms": 52660.855
+    },
+    {
+      "id": "q37",
+      "policy": "fast_fix",
+      "kind": "ambiguous",
+      "outcome": "clarify",
+      "answer": "Is this about the App Router or the Pages Router?",
+      "sentences": 0,
+      "verdicts": [],
+      "kept_ids": [],
+      "gold_ids": [],
+      "hit_at_5": null,
+      "cited_hit": null,
+      "list_cost_usd": 2.59e-05,
+      "wall_ms": 251.275
+    },
+    {
+      "id": "q38",
+      "policy": "fast_fix",
+      "kind": "ambiguous",
+      "outcome": "clarify",
+      "answer": "Is this about the App Router or the Pages Router?",
+      "sentences": 0,
+      "verdicts": [],
+      "kept_ids": [],
+      "gold_ids": [],
+      "hit_at_5": null,
+      "cited_hit": null,
+      "list_cost_usd": 2.57e-05,
+      "wall_ms": 272.602
+    },
+    {
+      "id": "q39",
+      "policy": "fast_fix",
+      "kind": "ambiguous",
+      "outcome": "clarify",
+      "answer": "Is this about the App Router or the Pages Router?",
+      "sentences": 0,
+      "verdicts": [],
+      "kept_ids": [],
+      "gold_ids": [],
+      "hit_at_5": null,
+      "cited_hit": null,
+      "list_cost_usd": 2.61e-05,
+      "wall_ms": 702.339
+    },
+    {
+      "id": "q40",
+      "policy": "fast_fix",
+      "kind": "ambiguous",
+      "outcome": "clarify",
+      "answer": "Is this about the App Router or the Pages Router?",
+      "sentences": 0,
+      "verdicts": [],
+      "kept_ids": [],
+      "gold_ids": [],
+      "hit_at_5": null,
+      "cited_hit": null,
+      "list_cost_usd": 2.61e-05,
+      "wall_ms": 267.226
+    },
+    {
+      "id": "q01",
+      "policy": "no_gates",
+      "kind": "official",
+      "outcome": "answered",
+      "answer": "In the App Router, wrap a folder name in square brackets to create a dynamic route segment. To create a blog post route, create a `[slug]` folder inside the `app/blog` directory. Add a `page.tsx` or `page.js` file inside the `[slug]` folder. Access the dynamic segment data by reading the `params` prop in your page component.",
+      "sentences": 4,
+      "verdicts": [],
+      "kept_ids": [
+        "c4",
+        "c1",
+        "c3",
+        "c106",
+        "c154"
+      ],
+      "gold_ids": [
+        "c1"
+      ],
+      "hit_at_5": true,
+      "cited_hit": true,
+      "list_cost_usd": 0.0007517,
+      "wall_ms": 1495.931
+    },
+    {
+      "id": "q02",
+      "policy": "no_gates",
+      "kind": "official",
+      "outcome": "answered",
+      "answer": "To create a page, add a page file inside the app directory. You should also default export a React component from this file.",
+      "sentences": 2,
+      "verdicts": [],
+      "kept_ids": [
+        "c5",
+        "c3",
+        "c2",
+        "c102",
+        "c235"
+      ],
+      "gold_ids": [
+        "c5"
+      ],
+      "hit_at_5": true,
+      "cited_hit": true,
+      "list_cost_usd": 0.000707,
+      "wall_ms": 1013.306
+    },
+    {
+      "id": "q03",
+      "policy": "no_gates",
+      "kind": "official",
+      "outcome": "answered",
+      "answer": "To move between routes without a full page reload in the App Router, import `useRouter` from `next/navigation` instead of `next/router`. The `useRouter` hook provides navigation functions like `router.push()` to handle client-side transitions.",
+      "sentences": 2,
+      "verdicts": [],
+      "kept_ids": [
+        "c238",
+        "c177",
+        "c236",
+        "c183",
+        "c232"
+      ],
+      "gold_ids": [
+        "c7"
+      ],
+      "hit_at_5": false,
+      "cited_hit": false,
+      "list_cost_usd": 0.0006021,
+      "wall_ms": 1655.079
+    },
+    {
+      "id": "q04",
+      "policy": "no_gates",
+      "kind": "official",
+      "outcome": "answered",
+      "answer": "In a Server Component page, you can access query string values using the searchParams prop. Since searchParams is a Promise, you must await it before reading its properties. For example, you can extract a query value by awaiting `searchParams` and accessing the desired key. Using the searchParams prop automatically opts your page into dynamic rendering [c9].",
+      "sentences": 4,
+      "verdicts": [],
+      "kept_ids": [
+        "c236",
+        "c9",
+        "c112",
+        "c108",
+        "c99"
+      ],
+      "gold_ids": [
+        "c9"
+      ],
+      "hit_at_5": true,
+      "cited_hit": true,
+      "list_cost_usd": 0.0006738,
+      "wall_ms": 1077.477
+    },
+    {
+      "id": "q05",
+      "policy": "no_gates",
+      "kind": "official",
+      "outcome": "answered",
+      "answer": "You can pass data from Server Components to Client Components using props Props passed to Client Components must be serializable by React Alternatively, you can stream data to a Client Component using the use API To do this, fetch data in your Server Component without awaiting it Then, pass the promise as a prop and read it using the use API in your Client Component",
+      "sentences": 5,
+      "verdicts": [],
+      "kept_ids": [
+        "c17",
+        "c31",
+        "c28",
+        "c21",
+        "c14"
+      ],
+      "gold_ids": [
+        "c17"
+      ],
+      "hit_at_5": true,
+      "cited_hit": true,
+      "list_cost_usd": 0.0007836,
+      "wall_ms": 1208.379
+    },
+    {
+      "id": "q06",
+      "policy": "no_gates",
+      "kind": "official",
+      "outcome": "answered",
+      "answer": "In the App Router, Server Components are rendered on the server so credentials will not be included in the client bundle. You can safely make database queries and use sensitive data directly inside these server-side components.",
+      "sentences": 2,
+      "verdicts": [],
+      "kept_ids": [
+        "c236",
+        "c235",
+        "c180",
+        "c40",
+        "c232"
+      ],
+      "gold_ids": [
+        "c18"
+      ],
+      "hit_at_5": false,
+      "cited_hit": false,
+      "list_cost_usd": 0.0005471,
+      "wall_ms": 1058.635
+    },
+    {
+      "id": "q07",
+      "policy": "no_gates",
+      "kind": "official",
+      "outcome": "answered",
+      "answer": "You need to mark a component with use client when you need state and event handlers. Use it when your component requires lifecycle logic like useEffect. Mark a component with use client if it relies on browser-only APIs such as localStorage or window. You also need it when you are using custom hooks. Additionally, wrap third-party components that rely on client-only features in a use client component.",
+      "sentences": 5,
+      "verdicts": [],
+      "kept_ids": [
+        "c26",
+        "c25",
+        "c21",
+        "c23",
+        "c20"
+      ],
+      "gold_ids": [
+        "c26"
+      ],
+      "hit_at_5": true,
+      "cited_hit": true,
+      "list_cost_usd": 0.0009115,
+      "wall_ms": 1112.015
+    },
+    {
+      "id": "q08",
+      "policy": "no_gates",
+      "kind": "official",
+      "outcome": "answered",
+      "answer": "Start multiple requests by calling `fetch`, then await them with `Promise.all`. Requests begin as soon as `fetch` is called instead of sequentially. Initiate your data fetching functions without awaiting them right away. Pass the resulting promises into `Promise.all` to execute them at the same time.",
+      "sentences": 4,
+      "verdicts": [],
+      "kept_ids": [
+        "c32",
+        "c34",
+        "c41",
+        "c232",
+        "c35"
+      ],
+      "gold_ids": [
+        "c32"
+      ],
+      "hit_at_5": true,
+      "cited_hit": true,
+      "list_cost_usd": 0.0008871,
+      "wall_ms": 1102.98
+    },
+    {
+      "id": "q09",
+      "policy": "no_gates",
+      "kind": "official",
+      "outcome": "answered",
+      "answer": "To reuse a database query across several components, wrap the data-fetching function in `React.cache`. Multiple components can then call the cached function within the same request while sharing one result. This scopes the memoization to the current request only, with no sharing between different requests. Alternatively, you can add `'use cache'` to the data-fetching function using Cache Components.",
+      "sentences": 4,
+      "verdicts": [],
+      "kept_ids": [
+        "c34",
+        "c36",
+        "c40",
+        "c31",
+        "c232"
+      ],
+      "gold_ids": [
+        "c36"
+      ],
+      "hit_at_5": true,
+      "cited_hit": true,
+      "list_cost_usd": 0.0007487,
+      "wall_ms": 1872.878
+    },
+    {
+      "id": "q10",
+      "policy": "no_gates",
+      "kind": "official",
+      "outcome": "answered",
+      "answer": "Sequential data fetching happens when one request depends on data from another. For example, a component can fetch artist information first and await the result. Then, pass the retrieved `artistID` into a child component or subsequent fetch call that depends on it. You can wrap this dependent component in a `<Suspense>` boundary to show fallback UI while it loads.",
+      "sentences": 4,
+      "verdicts": [],
+      "kept_ids": [
+        "c34",
+        "c37",
+        "c33",
+        "c32",
+        "c39"
+      ],
+      "gold_ids": [
+        "c37"
+      ],
+      "hit_at_5": true,
+      "cited_hit": true,
+      "list_cost_usd": 0.0009715,
+      "wall_ms": 1205.513
+    },
+    {
+      "id": "q11",
+      "policy": "no_gates",
+      "kind": "official",
+      "outcome": "answered",
+      "answer": "In the App Router, you can show a loading state using two main streaming approaches. You can create a loading.js file in the same folder as your page to stream the entire page. Alternatively, you can wrap specific components in a Suspense boundary with a fallback for more granular streaming. Behind the scenes, loading.js automatically wraps the page and its children in a Suspense boundary. Using Suspense closer to uncached or slow data is also recommended for optimal user experience.",
+      "sentences": 5,
+      "verdicts": [],
+      "kept_ids": [
+        "c38",
+        "c41",
+        "c42",
+        "c37",
+        "c93"
+      ],
+      "gold_ids": [
+        "c41"
+      ],
+      "hit_at_5": true,
+      "cited_hit": true,
+      "list_cost_usd": 0.0010333,
+      "wall_ms": 1426.139
+    },
+    {
+      "id": "q12",
+      "policy": "no_gates",
+      "kind": "official",
+      "outcome": "answered",
+      "answer": "To show an image that fills its parent when size is unknown, use the fill prop on the Image component. The parent element must be assigned a position of relative, fixed, or absolute. You can add the objectFit prop set to cover or contain to control scaling and cropping.",
+      "sentences": 3,
+      "verdicts": [],
+      "kept_ids": [
+        "c75",
+        "c234",
+        "c77",
+        "c69",
+        "c70"
+      ],
+      "gold_ids": [
+        "c75"
+      ],
+      "hit_at_5": true,
+      "cited_hit": true,
+      "list_cost_usd": 0.0008123,
+      "wall_ms": 1324.101
+    },
+    {
+      "id": "q13",
+      "policy": "no_gates",
+      "kind": "official",
+      "outcome": "answered",
+      "answer": "You can determine if a nav link is active by using the usePathname hook Since usePathname is a client hook, extract your nav links into a Client Component Import this Client Component into your layout to display the navigation Alternatively, you can use useSelectedLayoutSegment to access route segments in a Client Component",
+      "sentences": 4,
+      "verdicts": [],
+      "kept_ids": [
+        "c90",
+        "c88",
+        "c237",
+        "c97",
+        "c236"
+      ],
+      "gold_ids": [
+        "c90"
+      ],
+      "hit_at_5": true,
+      "cited_hit": true,
+      "list_cost_usd": 0.0008445,
+      "wall_ms": 1824.304
+    },
+    {
+      "id": "q14",
+      "policy": "no_gates",
+      "kind": "official",
+      "outcome": "answered",
+      "answer": "You can use the searchParams prop to handle filtering based on the URL query string. Access the searchParams prop in your page component to retrieve values like the query, page, or sort order. Await the searchParams promise inside your async page function to extract the desired filter parameters.",
+      "sentences": 3,
+      "verdicts": [],
+      "kept_ids": [
+        "c108",
+        "c177",
+        "c159",
+        "c232",
+        "c236"
+      ],
+      "gold_ids": [
+        "c108"
+      ],
+      "hit_at_5": true,
+      "cited_hit": true,
+      "list_cost_usd": 0.0005614,
+      "wall_ms": 1692.602
+    },
+    {
+      "id": "q15",
+      "policy": "no_gates",
+      "kind": "official",
+      "outcome": "answered",
+      "answer": "Since Client Components cannot be async, you can use React's use function to read the params or searchParams promise For Client Component pages, pass the params or searchParams prop and unwrap them with the use hook Alternatively, you can read updated query parameters anywhere inside a Client Component using the useSearchParams hook",
+      "sentences": 3,
+      "verdicts": [],
+      "kept_ids": [
+        "c112",
+        "c99",
+        "c111",
+        "c9",
+        "c100"
+      ],
+      "gold_ids": [
+        "c112"
+      ],
+      "hit_at_5": true,
+      "cited_hit": true,
+      "list_cost_usd": 0.000742,
+      "wall_ms": 1534.703
+    },
+    {
+      "id": "q16",
+      "policy": "no_gates",
+      "kind": "official",
+      "outcome": "answered",
+      "answer": "You can limit which paths your proxy function runs on by exporting an optional config object with a matcher. The matcher option allows you to target specific paths for the proxy to run on. For a single path, directly use a string like '/about' inside the matcher. For multiple paths, use an array such as `matcher: ['/about', '/contact']`. You can also limit the proxy to paths starting with a specific prefix like `/api/:function*`.",
+      "sentences": 5,
+      "verdicts": [],
+      "kept_ids": [
+        "c121",
+        "c127",
+        "c140",
+        "c120",
+        "c115"
+      ],
+      "gold_ids": [
+        "c121"
+      ],
+      "hit_at_5": true,
+      "cited_hit": true,
+      "list_cost_usd": 0.00082,
+      "wall_ms": 1314.045
+    },
+    {
+      "id": "q17",
+      "policy": "no_gates",
+      "kind": "official",
+      "outcome": "answered",
+      "answer": "You can redirect the browser from a route handler by importing the redirect function from next/navigation. Pass the target URL string directly into the redirect function inside your GET route handler. Alternatively, for redirects, you can also use Response.redirect instead of NextResponse.redirect.",
+      "sentences": 3,
+      "verdicts": [],
+      "kept_ids": [
+        "c151",
+        "c125",
+        "c235",
+        "c161",
+        "c185"
+      ],
+      "gold_ids": [
+        "c151"
+      ],
+      "hit_at_5": true,
+      "cited_hit": true,
+      "list_cost_usd": 0.0005353,
+      "wall_ms": 1150.487
+    },
+    {
+      "id": "q18",
+      "policy": "no_gates",
+      "kind": "official",
+      "outcome": "answered",
+      "answer": "You can read the JSON body in a POST route handler using standard Web API methods. Call `await request.json()` inside your `POST` function to parse the incoming JSON payload. Here is an example using TypeScript for a route handler [c152]: export async function POST(request: Request) { const res = await request.json(); return Response.json({ res }); }",
+      "sentences": 4,
+      "verdicts": [],
+      "kept_ids": [
+        "c152",
+        "c235",
+        "c153",
+        "c161",
+        "c144"
+      ],
+      "gold_ids": [
+        "c152"
+      ],
+      "hit_at_5": true,
+      "cited_hit": true,
+      "list_cost_usd": 0.0006281,
+      "wall_ms": 1060.711
+    },
+    {
+      "id": "q19",
+      "policy": "no_gates",
+      "kind": "official",
+      "outcome": "refused",
+      "answer": "I have no reliable docs for this.",
+      "sentences": 1,
+      "verdicts": [],
+      "kept_ids": [
+        "c7",
+        "c97",
+        "c182",
+        "c238",
+        "c88"
+      ],
+      "gold_ids": [
+        "c184"
+      ],
+      "hit_at_5": false,
+      "cited_hit": false,
+      "list_cost_usd": 0.0005954,
+      "wall_ms": 1175.319
+    },
+    {
+      "id": "q20",
+      "policy": "no_gates",
+      "kind": "official",
+      "outcome": "answered",
+      "answer": "To re-render a route after a mutation without losing client state, use `router.refresh()`. This method makes a new request to the server, re-fetches data, and re-renders Server Components. The client will then merge the updated React Server Component payload. This preserves unaffected client-side React state, such as `useState`, and browser state like scroll position. Note that `router.refresh()` clears the client cache for the current route, but does not invalidate the server-side cache.",
+      "sentences": 5,
+      "verdicts": [],
+      "kept_ids": [
+        "c185",
+        "c180",
+        "c236",
+        "c97",
+        "c99"
+      ],
+      "gold_ids": [
+        "c185"
+      ],
+      "hit_at_5": true,
+      "cited_hit": true,
+      "list_cost_usd": 0.0008489,
+      "wall_ms": 1341.412
+    },
+    {
+      "id": "q21",
+      "policy": "no_gates",
+      "kind": "official",
+      "outcome": "answered",
+      "answer": "Next.js uses the App component to initialize pages. You can override the App component to create a shared layout between page changes. Overriding the App component also allows you to inject additional data into pages. You can use the App component to add global CSS.",
+      "sentences": 4,
+      "verdicts": [],
+      "kept_ids": [
+        "c188",
+        "c191",
+        "c225",
+        "c193",
+        "c223"
+      ],
+      "gold_ids": [
+        "c188"
+      ],
+      "hit_at_5": true,
+      "cited_hit": true,
+      "list_cost_usd": 0.0008047,
+      "wall_ms": 1629.273
+    },
+    {
+      "id": "q22",
+      "policy": "no_gates",
+      "kind": "official",
+      "outcome": "answered",
+      "answer": "To prerender a pages route at build time with fetched data, export an async function called getStaticProps from your page. Inside getStaticProps, fetch the required data from an external API, database, or CMS. Return an object from getStaticProps containing a props property with the fetched data. The page component will then receive these props at build time to render the HTML.",
+      "sentences": 4,
+      "verdicts": [],
+      "kept_ids": [
+        "c197",
+        "c202",
+        "c199",
+        "c203",
+        "c207"
+      ],
+      "gold_ids": [
+        "c202"
+      ],
+      "hit_at_5": true,
+      "cited_hit": true,
+      "list_cost_usd": 0.0007724,
+      "wall_ms": 1177.377
+    },
+    {
+      "id": "q23",
+      "policy": "no_gates",
+      "kind": "official",
+      "outcome": "answered",
+      "answer": "You should use getServerSideProps if you need to render a page relying on personalized user data. You should also use it for information that can only be known at request time, like authorization headers. Use it when you need request-specific details such as a geolocation. If you do not need to fetch data at request time, use getStaticProps instead. Prefer getStaticProps if you want to cache the data and prerendered HTML.",
+      "sentences": 5,
+      "verdicts": [],
+      "kept_ids": [
+        "c207",
+        "c199",
+        "c203",
+        "c242",
+        "c198"
+      ],
+      "gold_ids": [
+        "c207"
+      ],
+      "hit_at_5": true,
+      "cited_hit": true,
+      "list_cost_usd": 0.0007187,
+      "wall_ms": 1106.484
+    },
+    {
+      "id": "q24",
+      "policy": "no_gates",
+      "kind": "forum_only",
+      "outcome": "refused",
+      "answer": "I have no reliable docs for this.",
+      "sentences": 1,
+      "verdicts": [],
+      "kept_ids": [
+        "c230",
+        "c18",
+        "c23",
+        "c19",
+        "c12"
+      ],
+      "gold_ids": [
+        "c230"
+      ],
+      "hit_at_5": true,
+      "cited_hit": false,
+      "list_cost_usd": 0.000632,
+      "wall_ms": 1589.851
+    },
+    {
+      "id": "q25",
+      "policy": "no_gates",
+      "kind": "forum_only",
+      "outcome": "answered",
+      "answer": "Move the import into a client component wrapper file. Add the `'use client'` directive at the top of that wrapper file. Import the component there with `ssr: false` and render the wrapper from your page. A server component cannot use this option because it only makes sense on the client.",
+      "sentences": 4,
+      "verdicts": [],
+      "kept_ids": [
+        "c231",
+        "c23",
+        "c21",
+        "c236",
+        "c232"
+      ],
+      "gold_ids": [
+        "c231"
+      ],
+      "hit_at_5": true,
+      "cited_hit": true,
+      "list_cost_usd": 0.0006575,
+      "wall_ms": 1051.591
+    },
+    {
+      "id": "q26",
+      "policy": "no_gates",
+      "kind": "forum_only",
+      "outcome": "answered",
+      "answer": "You are mixing the pages and app routers because data functions like getServerSideProps are ignored in the app directory. getServerSideProps does not exist in the app router at all, so copying it over will silently do nothing. In the app directory, drop the data function, mark your page component as async, and fetch data directly inside it. Mixed routers are fully supported if you prefer to keep specific pages in the pages directory for per-request cookies.",
+      "sentences": 4,
+      "verdicts": [],
+      "kept_ids": [
+        "c232",
+        "c236",
+        "c110",
+        "c237",
+        "c231"
+      ],
+      "gold_ids": [
+        "c232"
+      ],
+      "hit_at_5": true,
+      "cited_hit": true,
+      "list_cost_usd": 0.00075,
+      "wall_ms": 1111.805
+    },
+    {
+      "id": "q27",
+      "policy": "no_gates",
+      "kind": "forum_only",
+      "outcome": "answered",
+      "answer": "The `buffer` function came from the old micro package and is no longer defined. Read the request stream manually by pushing chunks into an array. Combine the chunks into a buffer using `Buffer.concat(chunks)`. Keep `bodyParser: false` configured so the stripe signature check does not fail. If you migrate to the app router, use `await request.text()` instead.",
+      "sentences": 5,
+      "verdicts": [],
+      "kept_ids": [
+        "c239",
+        "c192",
+        "c198",
+        "c195",
+        "c190"
+      ],
+      "gold_ids": [
+        "c239"
+      ],
+      "hit_at_5": true,
+      "cited_hit": true,
+      "list_cost_usd": 0.0007267,
+      "wall_ms": 2333.267
+    },
+    {
+      "id": "q28",
+      "policy": "no_gates",
+      "kind": "forum_only",
+      "outcome": "answered",
+      "answer": "Your `_document.js` looks correct, but you should check that the babel plugin has `ssr: true` configured. Ensure your document file is named `_document.js` rather than `_document.tsx` unless you also configure `.babelrc`. If the styles appear in your HTML source but not the browser, a Content-Security-Policy header may be blocking them.",
+      "sentences": 3,
+      "verdicts": [],
+      "kept_ids": [
+        "c241",
+        "c245",
+        "c216",
+        "c223",
+        "c193"
+      ],
+      "gold_ids": [
+        "c241"
+      ],
+      "hit_at_5": true,
+      "cited_hit": true,
+      "list_cost_usd": 0.00081,
+      "wall_ms": 1401.019
+    },
+    {
+      "id": "q29",
+      "policy": "no_gates",
+      "kind": "forum_only",
+      "outcome": "answered",
+      "answer": "The router hydrates with an empty query on the first render, causing fetches to fire twice. You can fix this by guarding your fetch with `router.isReady` inside a `useEffect` hook. `isReady` becomes true once the router fields are updated client-side and fully populated. This ensures your fetch function only runs once instead of twice on the client. Note that this pattern is only for the pages router, as the app router uses `useParams` instead.",
+      "sentences": 5,
+      "verdicts": [],
+      "kept_ids": [
+        "c245",
+        "c217",
+        "c242",
+        "c203",
+        "c221"
+      ],
+      "gold_ids": [
+        "c245"
+      ],
+      "hit_at_5": true,
+      "cited_hit": true,
+      "list_cost_usd": 0.000942,
+      "wall_ms": 1390.092
+    },
+    {
+      "id": "q30",
+      "policy": "no_gates",
+      "kind": "forum_only",
+      "outcome": "answered",
+      "answer": "The key is `revalidate`, not `unstable_revalidate` because the older name was removed. Unknown keys in the returned object are silently ignored without throwing any console errors. Change `unstable_revalidate: 60` to `revalidate: 60` in the returned object. Incremental Static Regeneration only works with `next start`, as pages are always rebuilt in `next dev`.",
+      "sentences": 4,
+      "verdicts": [],
+      "kept_ids": [
+        "c246",
+        "c198",
+        "c196",
+        "c200",
+        "c202"
+      ],
+      "gold_ids": [
+        "c246"
+      ],
+      "hit_at_5": true,
+      "cited_hit": true,
+      "list_cost_usd": 0.0007277,
+      "wall_ms": 1181.393
+    },
+    {
+      "id": "q31",
+      "policy": "no_gates",
+      "kind": "unanswerable",
+      "outcome": "refused",
+      "answer": "I have no reliable docs for this.",
+      "sentences": 1,
+      "verdicts": [],
+      "kept_ids": [
+        "c238",
+        "c237",
+        "c232",
+        "c177",
+        "c236"
+      ],
+      "gold_ids": [],
+      "hit_at_5": null,
+      "cited_hit": null,
+      "list_cost_usd": 0.0003839,
+      "wall_ms": 953.013
+    },
+    {
+      "id": "q32",
+      "policy": "no_gates",
+      "kind": "unanswerable",
+      "outcome": "refused",
+      "answer": "I have no reliable docs for this.",
+      "sentences": 1,
+      "verdicts": [],
+      "kept_ids": [
+        "c236",
+        "c238",
+        "c5",
+        "c232",
+        "c235"
+      ],
+      "gold_ids": [],
+      "hit_at_5": null,
+      "cited_hit": null,
+      "list_cost_usd": 0.0003974,
+      "wall_ms": 869.709
+    },
+    {
+      "id": "q33",
+      "policy": "no_gates",
+      "kind": "unanswerable",
+      "outcome": "refused",
+      "answer": "I have no reliable docs for this.",
+      "sentences": 1,
+      "verdicts": [],
+      "kept_ids": [
+        "c236",
+        "c231",
+        "c24",
+        "c23",
+        "c41"
+      ],
+      "gold_ids": [],
+      "hit_at_5": null,
+      "cited_hit": null,
+      "list_cost_usd": 0.0005909,
+      "wall_ms": 1640.587
+    },
+    {
+      "id": "q34",
+      "policy": "no_gates",
+      "kind": "unanswerable",
+      "outcome": "refused",
+      "answer": "I have no reliable docs for this.",
+      "sentences": 1,
+      "verdicts": [],
+      "kept_ids": [
+        "c102",
+        "c8",
+        "c104",
+        "c96",
+        "c2"
+      ],
+      "gold_ids": [],
+      "hit_at_5": null,
+      "cited_hit": null,
+      "list_cost_usd": 0.0006065,
+      "wall_ms": 1009.392
+    },
+    {
+      "id": "q35",
+      "policy": "no_gates",
+      "kind": "unanswerable",
+      "outcome": "refused",
+      "answer": "I have no reliable docs for this.",
+      "sentences": 1,
+      "verdicts": [],
+      "kept_ids": [
+        "c196",
+        "c205",
+        "c197",
+        "c206",
+        "c199"
+      ],
+      "gold_ids": [],
+      "hit_at_5": null,
+      "cited_hit": null,
+      "list_cost_usd": 0.0004775,
+      "wall_ms": 1372.368
+    },
+    {
+      "id": "q36",
+      "policy": "no_gates",
+      "kind": "unanswerable",
+      "outcome": "refused",
+      "answer": "I have no reliable docs for this.",
+      "sentences": 1,
+      "verdicts": [],
+      "kept_ids": [
+        "c197",
+        "c208",
+        "c217",
+        "c246",
+        "c243"
+      ],
+      "gold_ids": [],
+      "hit_at_5": null,
+      "cited_hit": null,
+      "list_cost_usd": 0.0005255,
+      "wall_ms": 1080.922
+    },
+    {
+      "id": "q37",
+      "policy": "no_gates",
+      "kind": "ambiguous",
+      "outcome": "answered",
+      "answer": "To read a cookie on the server within the app router, import `cookies` from `next/headers` inside a Server Component. Await the `cookies()` function to get the cookie store. Call `.get('cookie-name')` on the cookie store to retrieve the specific cookie value. Note that reading cookies using this method opts the route into dynamic rendering.",
+      "sentences": 4,
+      "verdicts": [],
+      "kept_ids": [
+        "c236",
+        "c172",
+        "c175",
+        "c173",
+        "c133"
+      ],
+      "gold_ids": [],
+      "hit_at_5": null,
+      "cited_hit": null,
+      "list_cost_usd": 0.0006865,
+      "wall_ms": 1094.052
+    },
+    {
+      "id": "q38",
+      "policy": "no_gates",
+      "kind": "ambiguous",
+      "outcome": "answered",
+      "answer": "To get the current pathname, read it inside a Client Component using the usePathname hook from next/navigation. Because Client Components re-render during navigation, they always have access to the latest pathname. Import usePathname at the top of your component file and call it inside your function.",
+      "sentences": 3,
+      "verdicts": [],
+      "kept_ids": [
+        "c97",
+        "c178",
+        "c90",
+        "c236",
+        "c177"
+      ],
+      "gold_ids": [],
+      "hit_at_5": null,
+      "cited_hit": null,
+      "list_cost_usd": 0.0007583,
+      "wall_ms": 1074.122
+    },
+    {
+      "id": "q39",
+      "policy": "no_gates",
+      "kind": "ambiguous",
+      "outcome": "refused",
+      "answer": "I have no reliable docs for this.",
+      "sentences": 1,
+      "verdicts": [],
+      "kept_ids": [
+        "c235",
+        "c5",
+        "c6",
+        "c3",
+        "c238"
+      ],
+      "gold_ids": [],
+      "hit_at_5": null,
+      "cited_hit": null,
+      "list_cost_usd": 0.0004556,
+      "wall_ms": 2346.258
+    },
+    {
+      "id": "q40",
+      "policy": "no_gates",
+      "kind": "ambiguous",
+      "outcome": "answered",
+      "answer": "To redirect users after login within the app router, use the `useRouter` hook from `next/navigation` in a Client Component. Call `router.push('/dashboard')` inside your event handler or button click action.",
+      "sentences": 2,
+      "verdicts": [],
+      "kept_ids": [
+        "c151",
+        "c238",
+        "c91",
+        "c187",
+        "c233"
+      ],
+      "gold_ids": [],
+      "hit_at_5": null,
+      "cited_hit": null,
+      "list_cost_usd": 0.0005256,
+      "wall_ms": 1286.712
+    }
+  ],
+  "aggregate": {
+    "strict": {
+      "count": 40,
+      "errored": 0,
+      "answered": 20,
+      "answered_flagged": 0,
+      "refused": 11,
+      "blocked": 2,
+      "clarify": 7,
+      "hit_at_5": 0.6667,
+      "cited_hit_answerable": 0.6667,
+      "refusal_correct": 1.0,
+      "clarify_correct": 1.0,
+      "wall_ms_mean": 22245.735,
+      "wall_ms_p95": 59867.426,
+      "cost_total_usd": 0.0729955,
+      "cost_mean_usd": 0.0018248875
+    },
+    "fast_fix": {
+      "count": 40,
+      "errored": 0,
+      "answered": 28,
+      "answered_flagged": 1,
+      "refused": 3,
+      "blocked": 2,
+      "clarify": 7,
+      "hit_at_5": 0.9,
+      "cited_hit_answerable": 0.8667,
+      "refusal_correct": 0.8333,
+      "clarify_correct": 1.0,
+      "wall_ms_mean": 14634.949,
+      "wall_ms_p95": 52727.739,
+      "cost_total_usd": 0.0787976,
+      "cost_mean_usd": 0.00196994
+    },
+    "no_gates": {
+      "count": 40,
+      "errored": 0,
+      "answered": 31,
+      "answered_flagged": 0,
+      "refused": 9,
+      "blocked": 0,
+      "clarify": 0,
+      "hit_at_5": 0.9,
+      "cited_hit_answerable": 0.8667,
+      "refusal_correct": 1.0,
+      "clarify_correct": 0.0,
+      "wall_ms_mean": 1333.633,
+      "wall_ms_p95": 1872.878,
+      "cost_total_usd": 0.0279547,
+      "cost_mean_usd": 0.0006988675
+    }
+  }
+}

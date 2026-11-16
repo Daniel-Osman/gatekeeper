@@ -1,0 +1,730 @@
+<!doctype html>
+<!-- PROTOTYPE — not production. Static design states for design approval; no source is imported from here. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gatekeeper — the gate x-ray</title>
+<style>
+  :root {
+    /* achromatic ledger: ground one step towards the meter, ink chrome, one hue on the data */
+    --ground: #f2f4f7;
+    --paper: #ffffff;
+    --ink: #0d0f12;
+    --muted: #5d6269;
+    --line: #e7eaee;
+    --rule: #f0f2f4;
+    --track: #e9edf2;
+    --accent: #1d5fbf;
+    --weak-bg: #fdf6e7;
+    --weak-ink: #77480a;
+    --weak-line: #e9d6ad;
+    --neg-bg: #fdeceb;
+    --neg-ink: #98211f;
+    --neg-line: #f2c9c6;
+    --radius: 8px;
+    --serif: Georgia, "Iowan Old Style", "Times New Roman", serif;
+    --sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    --mono: ui-monospace, "Cascadia Mono", "SF Mono", Consolas, monospace;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+
+  body {
+    margin: 0;
+    background: var(--ground);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: 14px;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  ::selection { background: #dfe8f6; }
+
+  .page {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 48px 76px;
+  }
+
+  code {
+    font-family: var(--mono);
+    font-size: 0.88em;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+  }
+
+  /* ---------------------------------------------------------------- masthead */
+
+  .mast {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    padding: 24px 0 22px;
+  }
+
+  .mark { width: 22px; height: 22px; flex: none; color: var(--ink); }
+  .wordmark { margin: 0; font-size: 15px; font-weight: 600; letter-spacing: -0.01em; }
+
+  .mast__meta {
+    margin: 0 0 0 auto;
+    font-size: 12px;
+    color: var(--muted);
+    font-variant-numeric: tabular-nums;
+    text-align: right;
+  }
+
+  /* ------------------------------------------------------------------- intro */
+
+  .intro { padding: 4px 0 34px; }
+
+  h1 {
+    margin: 0 0 12px;
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: 32px;
+    line-height: 1.1;
+    letter-spacing: -0.018em;
+    text-wrap: balance;
+    max-width: 24ch;
+  }
+
+  .lede {
+    margin: 0;
+    font-size: 19px;
+    line-height: 1.45;
+    letter-spacing: -0.005em;
+    max-width: 56ch;
+  }
+
+  /* ---------------------------------------------------------------- sections */
+
+  section { margin-top: 58px; }
+
+  h2 {
+    margin: 0 0 6px;
+    font-size: 20px;
+    font-weight: 600;
+    letter-spacing: -0.012em;
+    line-height: 1.25;
+  }
+
+  .note {
+    margin: 0 0 18px;
+    font-size: 13px;
+    line-height: 1.5;
+    color: var(--muted);
+    max-width: 78ch;
+  }
+
+  .sheet { background: var(--paper); border-radius: var(--radius); }
+
+  /* ------------------------------------------------------------ pair of runs */
+
+  .split { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+
+  .split__q { grid-column: 1 / -1; padding: 24px 28px 22px; }
+
+  .split__q p {
+    margin: 0;
+    font-size: 20px;
+    line-height: 1.38;
+    letter-spacing: -0.008em;
+    max-width: 72ch;
+    text-wrap: pretty;
+  }
+
+  .run {
+    display: flex;
+    flex-direction: column;
+    padding: 20px 28px 22px;
+    border-top: 1px solid var(--line);
+  }
+
+  .run + .run { border-left: 1px solid var(--line); }
+
+  .run__head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    margin-bottom: 20px;
+  }
+
+  .switch {
+    display: inline-flex;
+    gap: 2px;
+    padding: 3px;
+    border-radius: 6px;
+    background: var(--track);
+  }
+
+  .seg {
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: -0.005em;
+    color: var(--muted);
+  }
+
+  .seg--on { background: var(--ink); color: #fff; }
+
+  .outcome {
+    margin: 0;
+    font-size: 12px;
+    color: var(--muted);
+    font-variant-numeric: tabular-nums;
+    text-align: right;
+  }
+
+  .outcome b { font-weight: 600; color: var(--ink); }
+
+  /* the answer: sentences at display size, each with its verdict beneath */
+
+  .refusal,
+  .s {
+    font-family: var(--serif);
+    font-size: 26px;
+    font-weight: 400;
+    line-height: 1.32;
+    letter-spacing: -0.012em;
+    margin: 0;
+    text-wrap: pretty;
+  }
+
+  .refusal { margin-bottom: 14px; }
+
+  .sent + .sent { margin-top: 16px; }
+
+  .s__meta {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 7px 0 0;
+  }
+
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 7px 4px 6px;
+    border-radius: 4px;
+    border: 1px solid transparent;
+    font-family: var(--sans);
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 1;
+    letter-spacing: 0;
+    white-space: nowrap;
+  }
+
+  .badge__g { width: 7px; height: 7px; flex: none; border-radius: 50%; background: currentColor; }
+  .badge__g--hollow { background: none; border: 1.5px solid currentColor; }
+  .badge__g--square { border-radius: 1px; }
+
+  .badge--verified { background: var(--ink); border-color: var(--ink); color: #fff; }
+  .badge--weak { background: var(--weak-bg); border-color: var(--weak-line); color: var(--weak-ink); }
+  .badge--unsupported { background: var(--neg-bg); border-color: var(--neg-line); color: var(--neg-ink); }
+
+  .cite { font-family: var(--mono); font-size: 12px; color: var(--muted); }
+
+  .count {
+    margin: 0 0 6px;
+    font-size: 14px;
+    line-height: 1.45;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .values {
+    margin: 0 0 18px;
+    font-size: 13px;
+    color: var(--muted);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .values b { font-weight: 500; color: var(--ink); }
+
+  /* the three stages strict reached, then nothing */
+
+  .stub { margin: 0 0 8px; padding: 0; list-style: none; }
+
+  .stub li {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 5px 0;
+    font-size: 13px;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .stub li span:last-child { color: var(--muted); }
+
+  .stop {
+    margin: 0;
+    font-size: 13px;
+    line-height: 1.5;
+    color: var(--muted);
+    max-width: 44ch;
+  }
+
+  .cost {
+    margin: auto 0 0;
+    padding-top: 16px;
+    border-top: 1px solid var(--rule);
+    font-size: 12px;
+    line-height: 1.6;
+    color: var(--muted);
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* ------------------------------------------------------------------- x-ray */
+
+  .xray { padding: 4px 28px 10px; }
+
+  .xrow {
+    display: grid;
+    grid-template-columns: 156px minmax(0, 1fr) 92px 58px;
+    grid-template-areas: "name fields bar ms";
+    align-items: center;
+    column-gap: 22px;
+  }
+
+  .xhead {
+    padding: 14px 0 10px;
+    font-size: 12px;
+    color: var(--muted);
+  }
+
+  .stage { padding: 17px 0; border-top: 1px solid var(--rule); }
+
+  .stage__name {
+    grid-area: name;
+    font-size: 20px;
+    font-weight: 600;
+    letter-spacing: -0.012em;
+  }
+
+  .stage__fields {
+    grid-area: fields;
+    font-size: 13px;
+    line-height: 1.55;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .stage__fields .sep { padding: 0 6px; color: #c3c9d1; }
+  .stage__fields .kept {
+    font-weight: 600;
+    text-decoration: underline;
+    text-decoration-color: var(--accent);
+    text-decoration-thickness: 2px;
+    text-underline-offset: 4px;
+  }
+  .stage__fields .gone { color: var(--muted); }
+
+  .bar {
+    grid-area: bar;
+    height: 5px;
+    background: var(--track);
+    position: relative;
+  }
+
+  .bar i {
+    position: absolute;
+    inset: 0 auto 0 0;
+    width: var(--w);
+    background: var(--accent);
+  }
+
+  .ms {
+    grid-area: ms;
+    text-align: right;
+    font-size: 20px;
+    letter-spacing: -0.01em;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .total {
+    display: grid;
+    grid-template-columns: 156px minmax(0, 1fr) 92px 58px;
+    column-gap: 22px;
+    align-items: baseline;
+    padding: 16px 0 14px;
+    border-top: 1px solid var(--line);
+    font-size: 12px;
+    color: var(--muted);
+  }
+
+  .total strong {
+    grid-column: 1 / 3;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--ink);
+  }
+
+  .total span {
+    grid-column: 3 / 5;
+    text-align: right;
+    font-size: 20px;
+    color: var(--ink);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .xfoot {
+    margin: 14px 0 0;
+    font-size: 12px;
+    line-height: 1.6;
+    color: var(--muted);
+    max-width: 82ch;
+  }
+
+  .legend {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 10px 28px;
+    margin: 0 0 20px;
+    padding: 0;
+    list-style: none;
+    font-size: 12px;
+    line-height: 1.5;
+    color: var(--muted);
+  }
+
+  .legend li { display: flex; align-items: flex-start; gap: 8px; }
+  .legend .badge { flex: none; margin-top: -1px; }
+
+  /* --------------------------------------------------------------- scorecard */
+
+  .card { padding: 8px 28px 22px; }
+
+  table { width: 100%; border-collapse: collapse; }
+
+  caption {
+    text-align: left;
+    font-size: 12px;
+    line-height: 1.55;
+    color: var(--muted);
+    padding: 0 0 14px;
+  }
+
+  th {
+    padding: 10px 0 12px;
+    font-size: 12px;
+    font-weight: 500;
+    text-align: right;
+    color: var(--muted);
+    vertical-align: bottom;
+    white-space: nowrap;
+  }
+
+  th:first-child { text-align: left; }
+  th code { font-size: 12px; color: var(--muted); font-weight: 400; }
+
+  td {
+    padding: 13px 0;
+    border-top: 1px solid var(--rule);
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+
+  td.name { text-align: left; font-weight: 600; font-size: 14px; white-space: normal; }
+  td.blank { color: #9aa1aa; }
+
+  .sub {
+    display: block;
+    margin-top: 1px;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 1.45;
+    color: var(--muted);
+  }
+
+  .tfoot {
+    margin: 16px 0 0;
+    font-size: 12px;
+    line-height: 1.6;
+    color: var(--muted);
+    max-width: 84ch;
+  }
+
+  /* ------------------------------------------------------------------ footer */
+
+  footer {
+    margin-top: 64px;
+    padding-top: 22px;
+    border-top: 1px solid var(--line);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 32px;
+    align-items: baseline;
+  }
+
+  .foot__rule { margin: 0; font-size: 14px; letter-spacing: -0.005em; }
+  .foot__meta { margin: 0 0 0 auto; font-size: 12px; color: var(--muted); font-variant-numeric: tabular-nums; }
+
+  /* ------------------------------------------------------------------ narrow */
+
+  @media (max-width: 900px) {
+    .page { padding: 0 24px 64px; }
+    .split { grid-template-columns: minmax(0, 1fr); }
+    .run + .run { border-left: 0; }
+    .xray, .card { padding-left: 20px; padding-right: 20px; }
+    .split__q, .run { padding-left: 20px; padding-right: 20px; }
+    .xrow, .total { grid-template-columns: 1fr auto; grid-template-areas: "name ms" "fields fields" "bar bar"; row-gap: 8px; }
+    .xhead { display: none; }
+    .bar { margin-top: 4px; }
+    .ms { font-size: 18px; }
+    .total strong { grid-column: 1; }
+    .total span { grid-column: 2; font-size: 18px; }
+  }
+
+  @media (max-width: 620px) {
+    /* x-ray: stage name, then each value on its own line */
+    .xrow { grid-template-columns: minmax(0, 1fr); grid-template-areas: "name" "fields" "bar" "ms"; row-gap: 6px; }
+    .ms { text-align: left; font-size: 13px; color: var(--muted); }
+    .ms::after { content: " ms"; }
+    .bar { margin-top: 2px; }
+
+    /* scorecard: name, then one value per line */
+    thead { display: none; }
+    caption { display: block; width: 100%; }
+    table, tbody, tr, td { display: block; width: 100%; }
+    tbody tr {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: 5px;
+      padding: 14px 0;
+      border-top: 1px solid var(--rule);
+    }
+    td { border: 0; padding: 0; text-align: left; }
+    td.name { grid-column: 1 / -1; }
+    td.num { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; }
+    td.num::before {
+      content: attr(data-label);
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--muted);
+      white-space: nowrap;
+    }
+  }
+
+  @media (max-width: 560px) {
+    .page { padding: 0 18px 56px; }
+    h1 { font-size: 26px; }
+    .lede { font-size: 17px; }
+    .split__q p { font-size: 18px; }
+    .refusal, .s { font-size: 22px; }
+    .mast__meta { display: none; }
+    section { margin-top: 46px; }
+    .run__head { flex-wrap: wrap; row-gap: 8px; }
+    .stage__name { font-size: 18px; }
+    th { font-size: 11px; }
+    td { font-size: 13px; }
+    .legend { grid-template-columns: 1fr; gap: 8px; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <header class="mast">
+    <svg class="mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+      <g fill="currentColor">
+        <rect x="1" y="9" width="2" height="6"></rect>
+        <rect x="6" y="6" width="2" height="12"></rect>
+        <rect x="11" y="2" width="2" height="20"></rect>
+        <rect x="16" y="6" width="2" height="12"></rect>
+        <rect x="21" y="9" width="2" height="6"></rect>
+      </g>
+    </svg>
+    <p class="wordmark">Gatekeeper</p>
+    <p class="mast__meta">Next.js App Router docs · 246 chunks · 17 of them forum posts</p>
+  </header>
+
+  <main>
+
+    <div class="intro">
+      <h1>The gates decide before the model answers.</h1>
+      <p class="lede">Gatekeeper answers App Router questions and shows every gate the answer passed. Move the policy and the same question gets a different answer.</p>
+    </div>
+
+    <section aria-labelledby="pair">
+      <h2 id="pair">One question, two policies</h2>
+      <p class="note">The same question through the same five stages. Only the relevance floor changes.</p>
+
+      <div class="sheet split">
+
+        <div class="split__q">
+          <p>next/dynamic with <code>ssr: false</code> throws &ldquo;ssr: false is not allowed with Server Components&rdquo; inside my app page. What am I doing wrong?</p>
+        </div>
+
+        <article class="run" aria-label="Policy strict: refused">
+          <div class="run__head">
+            <div class="switch" role="group" aria-label="Policy: strict">
+              <span class="seg seg--on">strict</span>
+              <span class="seg">fast_fix</span>
+            </div>
+            <p class="outcome"><b>refused</b> · 0 chunks kept</p>
+          </div>
+
+          <p class="refusal">I have no reliable docs for this.</p>
+
+          <p class="count">5 of 5 candidates failed strict. Best match 0.44 against a floor of 0.45.</p>
+          <p class="values">relevance <b>0.31</b> · <b>0.34</b> · <b>0.38</b> · <b>0.42</b> · <b>0.44</b></p>
+
+          <ul class="stub">
+            <li><span>scope</span><span>310 ms</span></li>
+            <li><span>retrieve</span><span>180 ms</span></li>
+            <li><span>rerank</span><span>430 ms · kept_count 0</span></li>
+          </ul>
+          <p class="stop">Synthesize and verify never ran. No answer was written, so there was nothing to verify.</p>
+
+          <p class="cost">$0.00091 at list price · 0.92 s · 812 tokens in, 0 out · 1,900-token output budget not spent</p>
+        </article>
+
+        <article class="run" aria-label="Policy fast_fix: answered, one weak sentence">
+          <div class="run__head">
+            <div class="switch" role="group" aria-label="Policy: fast_fix">
+              <span class="seg">strict</span>
+              <span class="seg seg--on">fast_fix</span>
+            </div>
+            <p class="outcome"><b>answered</b> · 1 of 3 sentences weak</p>
+          </div>
+
+          <div class="sentences">
+            <div class="sent">
+              <p class="s"><code>ssr: false</code> only works inside a Client Component, so add <code>'use client'</code> to the file that calls <code>next/dynamic</code>.</p>
+              <p class="s__meta"><span class="badge badge--verified"><span class="badge__g" aria-hidden="true"></span>verified</span><span class="cite">c231</span></p>
+            </div>
+            <div class="sent">
+              <p class="s">Keep the wrapper small: the server page renders it, and it imports the browser-only component.</p>
+              <p class="s__meta"><span class="badge badge--verified"><span class="badge__g" aria-hidden="true"></span>verified</span><span class="cite">c231</span></p>
+            </div>
+            <div class="sent">
+              <p class="s">Forum answers move the whole page to the Pages Router; this error does not need that.</p>
+              <p class="s__meta"><span class="badge badge--weak"><span class="badge__g badge__g--hollow" aria-hidden="true"></span>weak</span><span class="cite">c231</span></p>
+            </div>
+          </div>
+
+          <p class="cost">$0.00252 at list price · 5.51 s · 2,516 tokens in, 109 out</p>
+        </article>
+
+      </div>
+    </section>
+
+    <section aria-labelledby="xray">
+      <h2 id="xray">Gate x-ray</h2>
+      <p class="note">The fast_fix run above, stage by stage, with the fields each gate wrote. A stage that did not run has no row.</p>
+
+      <ul class="legend">
+        <li><span class="badge badge--verified"><span class="badge__g" aria-hidden="true"></span>verified</span> the cited chunk supports the sentence</li>
+        <li><span class="badge badge--weak"><span class="badge__g badge__g--hollow" aria-hidden="true"></span>weak</span> the chunk is stale or beside the point</li>
+        <li><span class="badge badge--unsupported"><span class="badge__g badge__g--square" aria-hidden="true"></span>unsupported</span> the repair pass failed, so the answer is flagged</li>
+      </ul>
+
+      <div class="sheet xray">
+        <div class="xrow xhead" aria-hidden="true">
+          <span style="grid-area:name">stage</span>
+          <span style="grid-area:fields">what it wrote</span>
+          <span style="grid-area:ms">ms</span>
+        </div>
+
+        <ol class="stages" style="list-style:none;margin:0;padding:0">
+          <li class="xrow stage">
+            <span class="stage__name">scope</span>
+            <span class="stage__fields"><code>in_scope</code> 0.94<span class="sep">·</span><code>router</code> app</span>
+            <span class="bar" aria-hidden="true"><i style="--w:12%"></i></span>
+            <span class="ms">320</span>
+          </li>
+          <li class="xrow stage">
+            <span class="stage__name">retrieve</span>
+            <span class="stage__fields"><code>candidates</code> 5<span class="sep">·</span>fused from bm25 and dense</span>
+            <span class="bar" aria-hidden="true"><i style="--w:8%"></i></span>
+            <span class="ms">210</span>
+          </li>
+          <li class="xrow stage">
+            <span class="stage__name">rerank</span>
+            <span class="stage__fields"><code>kept_count</code> 2 of 5<span class="sep">·</span><code>relevance</code> 0.31 0.34 0.38 <span class="kept">0.42</span> <span class="kept">0.44</span></span>
+            <span class="bar" aria-hidden="true"><i style="--w:18%"></i></span>
+            <span class="ms">480</span>
+          </li>
+          <li class="xrow stage">
+            <span class="stage__name">synthesize</span>
+            <span class="stage__fields"><code>sentences</code> 3<span class="sep">·</span>written from the two kept chunks</span>
+            <span class="bar" aria-hidden="true"><i style="--w:100%"></i></span>
+            <span class="ms">2,600</span>
+          </li>
+          <li class="xrow stage">
+            <span class="stage__name">verify</span>
+            <span class="stage__fields">2 verified, 1 weak<span class="sep">·</span><code>retry_of</code> <span class="gone">absent</span></span>
+            <span class="bar" aria-hidden="true"><i style="--w:73%"></i></span>
+            <span class="ms">1,900</span>
+          </li>
+        </ol>
+
+        <div class="total">
+          <strong>5 stages</strong>
+          <span>5.51 s · $0.00252</span>
+        </div>
+
+        <p class="xfoot"><code>retry_of</code> appears only when a repair retried the writer. This run passed verification first time, so the field is absent rather than empty. Each bar is a stage's share of the slowest stage, 2,600 ms.</p>
+      </div>
+    </section>
+
+    <section aria-labelledby="score">
+      <h2 id="score">Scorecard</h2>
+      <p class="note">Three pipelines, in the harness's own columns. Every figure is a placeholder until a full eval run lands.</p>
+
+      <div class="sheet card">
+        <table>
+          <caption>Aggregate per policy, from eval/harness.py. Columns are its aggregate keys; cost per 1,000 queries is <code>cost_mean_usd</code> &times; 1,000.</caption>
+          <thead>
+            <tr>
+              <th scope="col">pipeline</th>
+              <th scope="col"><code>hit_at_5</code></th>
+              <th scope="col"><code>answered</code></th>
+              <th scope="col"><code>wall_ms_mean</code></th>
+              <th scope="col"><code>cost_mean_usd</code> &times; 1,000</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="name">no_gates<span class="sub">Retrieve and write, with no gate to stop it</span></td>
+              <td class="num blank" data-label="hit_at_5">--</td>
+              <td class="num blank" data-label="answered">--</td>
+              <td class="num blank" data-label="wall_ms_mean">--</td>
+              <td class="num blank" data-label="cost_mean_usd ×1,000">--</td>
+            </tr>
+            <tr>
+              <td class="name">strict<span class="sub">Five stages, relevance floor 0.45</span></td>
+              <td class="num blank" data-label="hit_at_5">--</td>
+              <td class="num blank" data-label="answered">--</td>
+              <td class="num blank" data-label="wall_ms_mean">--</td>
+              <td class="num blank" data-label="cost_mean_usd ×1,000">--</td>
+            </tr>
+            <tr>
+              <td class="name">fast_fix<span class="sub">Five stages, floor 0.40, forum chunks allowed</span></td>
+              <td class="num blank" data-label="hit_at_5">--</td>
+              <td class="num blank" data-label="answered">--</td>
+              <td class="num blank" data-label="wall_ms_mean">--</td>
+              <td class="num blank" data-label="cost_mean_usd ×1,000">--</td>
+            </tr>
+          </tbody>
+        </table>
+        <p class="tfoot">A blank cell means no run, not a zero. The table is drawn now so the shape is settled; the harness fills it from <code>eval/results.json</code>, one row per policy, with the run id and query count beside it.</p>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <p class="foot__rule">No accounts, no roles: a refusal is a gate decision, not a permission.</p>
+    <p class="foot__meta">Five stages · 246 chunks · 17 forum posts</p>
+  </footer>
+
+</div>
+</body>
+</html>

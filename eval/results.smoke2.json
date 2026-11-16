@@ -1,0 +1,540 @@
+{
+  "run_at": "2026-11-15T20:56:08+00:00",
+  "updated_at": "2026-11-15T21:05:15+00:00",
+  "queries": "queries.jsonl",
+  "policies": [
+    "strict",
+    "fast_fix",
+    "no_gates"
+  ],
+  "count": 18,
+  "live_calls": 72,
+  "records": [
+    {
+      "id": "q01",
+      "policy": "strict",
+      "kind": "official",
+      "outcome": "answered",
+      "answer": "To create a dynamic segment, wrap the folder name in square brackets. For example, create a folder named [slug] inside the app/blog directory. Inside app/blog/[slug]/page.tsx, add your page component to handle the dynamic route. Access the dynamic parameters using the params prop, which is a promise. Await the params object to retrieve the slug and fetch your blog post data.",
+      "sentences": 5,
+      "verdicts": [
+        "verified",
+        "verified",
+        "verified",
+        "verified",
+        "verified"
+      ],
+      "kept_ids": [
+        "c4",
+        "c1",
+        "c3",
+        "c106",
+        "c110"
+      ],
+      "gold_ids": [
+        "c1"
+      ],
+      "hit_at_5": true,
+      "cited_hit": true,
+      "list_cost_usd": 0.0028678,
+      "wall_ms": 4793.336
+    },
+    {
+      "id": "q02",
+      "policy": "strict",
+      "kind": "official",
+      "outcome": "answered",
+      "answer": "To create a page in the app directory, add a page file inside the app directory. You can use the .js, .jsx, or .tsx file extensions for the page. A page file is required to make a route segment publicly accessible.",
+      "sentences": 3,
+      "verdicts": [
+        "verified",
+        "verified",
+        "verified"
+      ],
+      "kept_ids": [
+        "c5",
+        "c3",
+        "c114",
+        "c107",
+        "c1"
+      ],
+      "gold_ids": [
+        "c5"
+      ],
+      "hit_at_5": true,
+      "cited_hit": true,
+      "list_cost_usd": 0.0024844,
+      "wall_ms": 2296.398
+    },
+    {
+      "id": "q03",
+      "policy": "strict",
+      "kind": "official",
+      "outcome": "answered",
+      "answer": "You can use the built-in `<Link>` component to navigate between routes with client-side navigation. Import `Link` from `next/link` and pass an `href` prop to the component. Alternatively, you can use the `useRouter` hook for programmatic navigation in Client Components. Call `router.push()` from the `useRouter` hook to change routes without a full page reload.",
+      "sentences": 4,
+      "verdicts": [
+        "verified",
+        "verified",
+        "verified",
+        "verified"
+      ],
+      "kept_ids": [
+        "c7",
+        "c187",
+        "c176",
+        "c186",
+        "c182"
+      ],
+      "gold_ids": [
+        "c7"
+      ],
+      "hit_at_5": true,
+      "cited_hit": true,
+      "list_cost_usd": 0.0023932,
+      "wall_ms": 3172.481
+    },
+    {
+      "id": "q04",
+      "policy": "strict",
+      "kind": "official",
+      "outcome": "answered",
+      "answer": "In a Server Component page, you can access search parameters using the `searchParams` prop. Since `searchParams` is a promise, you must use `async/await` to access its values. For example, you can await `searchParams` and extract specific query values like filters. Using `searchParams` opts your page into dynamic rendering because it requires an incoming request.",
+      "sentences": 4,
+      "verdicts": [
+        "verified",
+        "verified",
+        "verified",
+        "verified"
+      ],
+      "kept_ids": [
+        "c9",
+        "c108",
+        "c111",
+        "c110",
+        "c109"
+      ],
+      "gold_ids": [
+        "c9"
+      ],
+      "hit_at_5": true,
+      "cited_hit": true,
+      "list_cost_usd": 0.0027759,
+      "wall_ms": 2587.554
+    },
+    {
+      "id": "q05",
+      "policy": "strict",
+      "kind": "official",
+      "outcome": "answered",
+      "answer": "You can pass fetched data from Server to Client Components using props. Ensure the props passed to Client Components are serializable by React. Alternatively, you can stream data from a Server to a Client Component using the use API. To stream data, pass the unawaited data fetching promise as a prop inside a Suspense boundary. Then, use React's use API inside the Client Component to read the promise.",
+      "sentences": 5,
+      "verdicts": [
+        "verified",
+        "verified",
+        "verified",
+        "verified",
+        "verified"
+      ],
+      "kept_ids": [
+        "c17",
+        "c28",
+        "c26",
+        "c27"
+      ],
+      "gold_ids": [
+        "c17"
+      ],
+      "hit_at_5": true,
+      "cited_hit": true,
+      "list_cost_usd": 0.0028326,
+      "wall_ms": 3477.155
+    },
+    {
+      "id": "q06",
+      "policy": "strict",
+      "kind": "official",
+      "outcome": "answered",
+      "answer": "Do not prefix your environment variable with `NEXT_PUBLIC_` so Next.js replaces un-prefixed variables with an empty string. Install and import the `server-only` package into any file containing server-only code to cause a build-time error if imported into a Client Component. Use Server Components to securely use API keys, tokens, and other secrets without exposing them to the client.",
+      "sentences": 3,
+      "verdicts": [
+        "verified",
+        "verified",
+        "verified"
+      ],
+      "kept_ids": [
+        "c40",
+        "c26",
+        "c18"
+      ],
+      "gold_ids": [
+        "c18"
+      ],
+      "hit_at_5": true,
+      "cited_hit": true,
+      "list_cost_usd": 0.0026383,
+      "wall_ms": 48019.854
+    },
+    {
+      "id": "q01",
+      "policy": "fast_fix",
+      "kind": "official",
+      "outcome": "answered",
+      "answer": "To create a dynamic segment, wrap the folder name in square brackets. For example, create a folder named [slug] inside the app/blog directory. Add a page file inside app/blog/[slug]/ to handle individual posts. Access the dynamic parameters using the params prop in your component. Since params is a promise, use async and await to read the slug value.",
+      "sentences": 5,
+      "verdicts": [
+        "verified",
+        "verified",
+        "verified",
+        "verified",
+        "verified"
+      ],
+      "kept_ids": [
+        "c4",
+        "c1",
+        "c3",
+        "c106",
+        "c110"
+      ],
+      "gold_ids": [
+        "c1"
+      ],
+      "hit_at_5": true,
+      "cited_hit": true,
+      "list_cost_usd": 0.0028753,
+      "wall_ms": 61853.053
+    },
+    {
+      "id": "q02",
+      "policy": "fast_fix",
+      "kind": "official",
+      "outcome": "answered",
+      "answer": "To create a page, add a page file inside the app directory. You can use the .js, .jsx, or .tsx file extensions for the page. A page file is required to make a route segment publicly accessible. You must default export a React component from the page file.",
+      "sentences": 4,
+      "verdicts": [
+        "verified",
+        "verified",
+        "verified",
+        "verified"
+      ],
+      "kept_ids": [
+        "c5",
+        "c3",
+        "c114",
+        "c107",
+        "c1"
+      ],
+      "gold_ids": [
+        "c5"
+      ],
+      "hit_at_5": true,
+      "cited_hit": true,
+      "list_cost_usd": 0.0025542,
+      "wall_ms": 60929.356
+    },
+    {
+      "id": "q03",
+      "policy": "fast_fix",
+      "kind": "official",
+      "outcome": "answered",
+      "answer": "You can use the built-in `<Link>` component to navigate between routes with client-side navigation. Import `Link` from `next/link` and pass an `href` prop to the component. Alternatively, you can use the `useRouter` hook for programmatic navigation in Client Components. Call `router.push()` from the `useRouter` hook to change routes without a full page reload.",
+      "sentences": 4,
+      "verdicts": [
+        "verified",
+        "verified",
+        "verified",
+        "verified"
+      ],
+      "kept_ids": [
+        "c7",
+        "c187",
+        "c176",
+        "c186",
+        "c182"
+      ],
+      "gold_ids": [
+        "c7"
+      ],
+      "hit_at_5": true,
+      "cited_hit": true,
+      "list_cost_usd": 0.0023932,
+      "wall_ms": 59431.495
+    },
+    {
+      "id": "q04",
+      "policy": "fast_fix",
+      "kind": "official",
+      "outcome": "answered",
+      "answer": "In a Server Component page, you can access search parameters using the `searchParams` prop. Since `searchParams` is a promise, you must use `async/await` to access the values. For example, you can destructure `searchParams` to read specific query string values like `filters`. Using `searchParams` opts your page into dynamic rendering because it requires an incoming request.",
+      "sentences": 4,
+      "verdicts": [
+        "verified",
+        "verified",
+        "verified",
+        "verified"
+      ],
+      "kept_ids": [
+        "c9",
+        "c108",
+        "c111",
+        "c110",
+        "c109"
+      ],
+      "gold_ids": [
+        "c9"
+      ],
+      "hit_at_5": true,
+      "cited_hit": true,
+      "list_cost_usd": 0.0028431,
+      "wall_ms": 58345.37
+    },
+    {
+      "id": "q05",
+      "policy": "fast_fix",
+      "kind": "official",
+      "outcome": "answered",
+      "answer": "You can pass data from Server Components to Client Components using props. Props passed to Client Components must be serializable by React. Alternatively, you can stream data to a Client Component using the `use` API. To do this, fetch data in your Server Component without awaiting the function. Then, pass the promise as a prop and read it in the Client Component using `use`.",
+      "sentences": 5,
+      "verdicts": [
+        "verified",
+        "verified",
+        "verified",
+        "verified",
+        "verified"
+      ],
+      "kept_ids": [
+        "c17",
+        "c28",
+        "c26",
+        "c29",
+        "c27"
+      ],
+      "gold_ids": [
+        "c17"
+      ],
+      "hit_at_5": true,
+      "cited_hit": true,
+      "list_cost_usd": 0.00298,
+      "wall_ms": 61708.156
+    },
+    {
+      "id": "q06",
+      "policy": "fast_fix",
+      "kind": "official",
+      "outcome": "answered",
+      "answer": "In Next.js, only environment variables prefixed with `NEXT_PUBLIC_` are included in the client bundle. Without this prefix, Next.js replaces environment variables with an empty string. To prevent accidental usage in Client Components, you can install and use the `server-only` package. Import `server-only` at the top of any file that contains server-only code and secrets. If you then try to import that module into a Client Component, a build-time error will occur.",
+      "sentences": 5,
+      "verdicts": [
+        "verified",
+        "verified",
+        "verified",
+        "verified",
+        "verified"
+      ],
+      "kept_ids": [
+        "c40",
+        "c26",
+        "c18",
+        "c19"
+      ],
+      "gold_ids": [
+        "c18"
+      ],
+      "hit_at_5": true,
+      "cited_hit": true,
+      "list_cost_usd": 0.0027311,
+      "wall_ms": 62918.442
+    },
+    {
+      "id": "q01",
+      "policy": "no_gates",
+      "kind": "official",
+      "outcome": "answered",
+      "answer": "To create a dynamic route segment for blog posts, wrap the folder name in square brackets like `[slug]`. For example, create a folder named `[slug]` inside your `app/blog` directory. Inside this folder, add a `page.tsx` or `page.js` file to define the UI for the individual blog post. You can then access the dynamic segment by awaiting the `params` prop inside your page component.",
+      "sentences": 4,
+      "verdicts": [],
+      "kept_ids": [
+        "c4",
+        "c1",
+        "c3",
+        "c106",
+        "c154"
+      ],
+      "gold_ids": [
+        "c1"
+      ],
+      "hit_at_5": true,
+      "cited_hit": true,
+      "list_cost_usd": 0.0007717,
+      "wall_ms": 1733.815
+    },
+    {
+      "id": "q02",
+      "policy": "no_gates",
+      "kind": "official",
+      "outcome": "answered",
+      "answer": "To create a page, add a page file inside the app directory. You should also default export a React component from this file.",
+      "sentences": 2,
+      "verdicts": [],
+      "kept_ids": [
+        "c5",
+        "c3",
+        "c2",
+        "c102",
+        "c235"
+      ],
+      "gold_ids": [
+        "c5"
+      ],
+      "hit_at_5": true,
+      "cited_hit": true,
+      "list_cost_usd": 0.000707,
+      "wall_ms": 1171.046
+    },
+    {
+      "id": "q03",
+      "policy": "no_gates",
+      "kind": "official",
+      "outcome": "answered",
+      "answer": "To move between routes in the App Router, import `useRouter` from `next/navigation` instead of `next/router`. Do not use `next/router` because it is meant for the pages router and causes errors in the app directory.",
+      "sentences": 2,
+      "verdicts": [],
+      "kept_ids": [
+        "c238",
+        "c177",
+        "c236",
+        "c183",
+        "c232"
+      ],
+      "gold_ids": [
+        "c7"
+      ],
+      "hit_at_5": false,
+      "cited_hit": false,
+      "list_cost_usd": 0.0005796,
+      "wall_ms": 1713.942
+    },
+    {
+      "id": "q04",
+      "policy": "no_gates",
+      "kind": "official",
+      "outcome": "answered",
+      "answer": "In a Server Component page, you can access query string values using the `searchParams` prop. You must await the `searchParams` promise to read specific values like filters or queries. Using `searchParams` will automatically opt your page into dynamic rendering. For Client Components, you can read search parameters using the `useSearchParams` hook.",
+      "sentences": 4,
+      "verdicts": [],
+      "kept_ids": [
+        "c236",
+        "c9",
+        "c112",
+        "c108",
+        "c99"
+      ],
+      "gold_ids": [
+        "c9"
+      ],
+      "hit_at_5": true,
+      "cited_hit": true,
+      "list_cost_usd": 0.0006788,
+      "wall_ms": 1205.723
+    },
+    {
+      "id": "q05",
+      "policy": "no_gates",
+      "kind": "official",
+      "outcome": "answered",
+      "answer": "You can pass fetched data from Server Components to Client Components using props. The props you pass to Client Components must be serializable by React. Alternatively, you can stream data from the server to a client component using React's use API. To stream data, do not await the fetching function in your Server Component and wrap the component in a Suspense boundary. Then, inside your Client Component, use the use API to read the promise.",
+      "sentences": 5,
+      "verdicts": [],
+      "kept_ids": [
+        "c17",
+        "c31",
+        "c28",
+        "c21",
+        "c14"
+      ],
+      "gold_ids": [
+        "c17"
+      ],
+      "hit_at_5": true,
+      "cited_hit": true,
+      "list_cost_usd": 0.0008086,
+      "wall_ms": 1363.263
+    },
+    {
+      "id": "q06",
+      "policy": "no_gates",
+      "kind": "official",
+      "outcome": "answered",
+      "answer": "Server Components are rendered entirely on the server. Because of this, credentials and query logic will not be included in the client bundle. You can safely make database queries and use private keys inside Server Components. Do not use `getServerSideProps` in the App Router, as data functions are ignored there. Instead, fetch data directly inside your async Server Components within the `app` directory.",
+      "sentences": 5,
+      "verdicts": [],
+      "kept_ids": [
+        "c236",
+        "c235",
+        "c180",
+        "c40",
+        "c232"
+      ],
+      "gold_ids": [
+        "c18"
+      ],
+      "hit_at_5": false,
+      "cited_hit": false,
+      "list_cost_usd": 0.0006921,
+      "wall_ms": 1270.688
+    }
+  ],
+  "aggregate": {
+    "strict": {
+      "count": 6,
+      "errored": 0,
+      "answered": 6,
+      "answered_flagged": 0,
+      "refused": 0,
+      "blocked": 0,
+      "clarify": 0,
+      "hit_at_5": 1.0,
+      "cited_hit_answerable": 1.0,
+      "refusal_correct": null,
+      "clarify_correct": null,
+      "wall_ms_mean": 10724.463,
+      "wall_ms_p95": 48019.854,
+      "cost_total_usd": 0.0159922,
+      "cost_mean_usd": 0.0026653667
+    },
+    "fast_fix": {
+      "count": 6,
+      "errored": 0,
+      "answered": 6,
+      "answered_flagged": 0,
+      "refused": 0,
+      "blocked": 0,
+      "clarify": 0,
+      "hit_at_5": 1.0,
+      "cited_hit_answerable": 1.0,
+      "refusal_correct": null,
+      "clarify_correct": null,
+      "wall_ms_mean": 60864.312,
+      "wall_ms_p95": 62918.442,
+      "cost_total_usd": 0.0163769,
+      "cost_mean_usd": 0.0027294833
+    },
+    "no_gates": {
+      "count": 6,
+      "errored": 0,
+      "answered": 6,
+      "answered_flagged": 0,
+      "refused": 0,
+      "blocked": 0,
+      "clarify": 0,
+      "hit_at_5": 0.6667,
+      "cited_hit_answerable": 0.6667,
+      "refusal_correct": null,
+      "clarify_correct": null,
+      "wall_ms_mean": 1409.746,
+      "wall_ms_p95": 1733.815,
+      "cost_total_usd": 0.0042378,
+      "cost_mean_usd": 0.0007063
+    }
+  }
+}

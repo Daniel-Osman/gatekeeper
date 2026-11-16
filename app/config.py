@@ -2,7 +2,7 @@
 
 DECISION_MODEL = "gemini-decision-1"
 EMBED_MODEL = "gemini-embedding-001"
-SYNTH_MODEL = "gemini-3.5-flash"
+SYNTH_MODEL = "gemini-3.5-flash-lite"
 
 EMBED_DIM = 768
 CANDIDATES = 30
@@ -14,6 +14,9 @@ REFUSAL_ANSWER = "I have no reliable docs for this."
 # The synthesis call's cap. 256 cut a live answer mid-sentence; 800 holds five
 # lines of under 30 words each with the citations.
 SYNTH_MAX_OUTPUT_TOKENS = 800
+# This model has no thinking budget and rejects ``thinking_budget=0``; the knob
+# stays so a model that does think can set it to 0.
+SYNTH_THINKING_BUDGET = None
 MAX_SENTENCES = 5
 # What the receipt states as the turn's output budget (the one-line refusal
 # turn). The call itself is capped by ``SYNTH_MAX_OUTPUT_TOKENS``.
@@ -37,8 +40,8 @@ PRICE_DECISION_IN = 0.10 / 1_000_000
 # No published output price for the decision model: input-only billing.
 PRICE_DECISION_OUT = 0.0
 
-PRICE_SYNTH_IN = 0.75 / 1_000_000
-PRICE_SYNTH_OUT = 3.75 / 1_000_000
+PRICE_SYNTH_IN = 0.30 / 1_000_000
+PRICE_SYNTH_OUT = 2.50 / 1_000_000
 
 # This build has no published per-token embedding price and does not invent
 # one: the embedding stage is reported as unpriced and costs 0.0.

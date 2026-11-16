@@ -1,0 +1,57 @@
+# Gatekeeper - task ledger
+
+One task in flight. Each task names the spec it builds and the command that closes it; the suite runs offline against committed fixtures.
+
+- [ ] **corpus** - Versioned Next.js snippet set with labels
+  - Acceptance: Versioned Next.js snippet set with labels
+  - Verify: uv run python -m corpus.build_corpus --check
+  - Files: -
+  - Spec: ../../research/Optimizing RAG With Jev Reranking/specs/SPEC-corpus.md
+  - Note: `--check` passes, but `tests/test_corpus.py` and `tests/fixtures/docs` do not exist, so the spec's record-invariant and determinism criteria are unproven.
+- [x] **api-service** - FastAPI service holding the pipeline and its per-query trace
+  - Acceptance: FastAPI service holding the pipeline and its per-query trace
+  - Verify: uv run pytest -q
+  - Files: -
+  - Spec: ../../research/Optimizing RAG With Jev Reranking/specs/SPEC-api-service.md
+  - Note: Covered by `tests/test_api.py` (20 passed). Untested criterion: `/health` with a missing `.npy`.
+- [x] **gate-scope** - Gate 1: in-scope check, version routing, injection refusal
+  - Acceptance: Gate 1: in-scope check, version routing, injection refusal
+  - Verify: uv run pytest -q
+  - Files: -
+  - Spec: ../../research/Optimizing RAG With Jev Reranking/specs/SPEC-gate-scope.md
+  - Note: Covered by `tests/test_scope.py` (20 passed). Untested criteria: scope threshold boundary 0.50, injection precedence order, bad-router 502.
+- [x] **retrieval-hybrid** - BM25 + dense retrieval returning ~30 chunks with fused ranking
+  - Acceptance: BM25 + dense retrieval returning ~30 chunks with fused ranking
+  - Verify: uv run pytest -q
+  - Files: -
+  - Spec: ../../research/Optimizing RAG With Jev Reranking/specs/SPEC-retrieval-hybrid.md
+  - Note: Covered by `tests/test_retrieve.py` (20 passed). Untested criteria: 24-chunk short slice, embedding-call count.
+- [x] **gate-rerank** - Gate 2: per-chunk relevance/currency scoring, threshold, zero-pass stop
+  - Acceptance: Gate 2: per-chunk relevance/currency scoring, threshold, zero-pass stop
+  - Verify: uv run pytest -q
+  - Files: -
+  - Spec: ../../research/Optimizing RAG With Jev Reranking/specs/SPEC-gate-rerank.md
+  - Note: Covered by `tests/test_rerank.py` (20 passed). Untested criterion: decision-call question count.
+- [x] **synthesis** - Chat model writes the cited answer from the kept chunks
+  - Acceptance: Chat model writes the cited answer from the kept chunks
+  - Verify: uv run pytest -q
+  - Files: -
+  - Spec: ../../research/Optimizing RAG With Jev Reranking/SPEC-map.md
+  - Note: Live 2026-11-15. uv run pytest -q -> 57 passed in 0.40s. Strict trace: outcome answered, synthesize latency_ms=1899.79 tokens_in=1343, verify latency_ms=381.788, list_cost_usd=0.0025305. fast_fix: answered, verified=5. Repair path still offline only.
+- [x] **gate-verify** - Gate 3: per-sentence support check, one repair pass, flag or answer
+  - Acceptance: Gate 3: per-sentence support check, one repair pass, flag or answer
+  - Verify: uv run pytest -q
+  - Files: -
+  - Spec: ../../research/Optimizing RAG With Jev Reranking/SPEC-map.md
+  - Note: Live 2026-11-15. uv run pytest -q -> 57 passed in 0.40s. Strict trace: outcome answered, synthesize latency_ms=1899.79 tokens_in=1343, verify latency_ms=381.788, list_cost_usd=0.0025305. fast_fix: answered, verified=5. Repair path still offline only.
+- [x] **eval-harness** - Labelled query set and per-policy measurement
+  - Acceptance: 40 labelled queries, three pipelines, results.json written
+  - Verify: uv run python -m eval.harness
+  - Files: eval/harness.py, eval/queries.jsonl, eval/README.md, eval/scorecard.md, tests/test_eval.py, eval/results.json
+  - Note: Live 2026-11-15, `uv run python -m eval.harness` -> 120 records (384 calls) -> eval/results.json, 0 errors. Cited-gold on the 30 answerable queries: strict 0.667, fast_fix 0.867, no_gates 0.867. `uv run pytest -q` -> 66 passed in 0.50s. Scorecard: eval/scorecard.md.
+- [ ] **panel** - Streamlit panel with x-ray trace, scorecard and policy switch
+  - Acceptance: Dark panel: wordmark + provenance, three presets above the search bar, strict/fast_fix switch echoed on the answer, per-sentence verdict badges, one cost line, four outcome shapes, gate x-ray with real trace fields and no row for a stage that did not run, scorecard from `eval/results.json` with `--` for a blank, and empty/loading/error states with no invented numbers.
+  - Verify: `uv run pytest -q`; then `uv run streamlit run panel.py --server.headless true --server.port 8599` and drive `http://127.0.0.1:8599` through the three presets under both policies (6 live runs, 40-call budget), capturing `screens/panel-live-*.png`.
+  - Files: panel.py, app/panel_view.py, tests/test_panel.py, requirements.txt, .streamlit/config.toml, pyproject.toml
+  - Spec: tasks/plan.md
+  - Note: design approved; build in flight.

@@ -177,6 +177,26 @@ def test_the_call_cap_is_eight_hundred(monkeypatch):
     )
 
 
+def test_no_thinking_config_is_sent_while_the_budget_is_none(monkeypatch):
+    recorded: list[dict] = []
+
+    def generate_content(**kwargs):
+        recorded.append(kwargs)
+        return SimpleNamespace(text="One [c100]", usage_metadata=None)
+
+    stub = SimpleNamespace(models=SimpleNamespace(generate_content=generate_content))
+    # Drop the offline replay so the real ``_generate`` builds the call config.
+    monkeypatch.undo()
+    monkeypatch.setattr(synth, "_client", stub)
+
+    assert config.SYNTH_THINKING_BUDGET is None
+    synth.run(QUESTION, "app", KEPT)
+
+    assert len(recorded) == 1
+    # Absent, not present-and-None: flash-lite rejects the field outright.
+    assert "thinking_config" not in recorded[0]["config"].model_fields_set
+
+
 def test_an_api_failure_is_a_synthesize_stage_error(monkeypatch):
     class _Boom:
         def generate_content(self, **kwargs):

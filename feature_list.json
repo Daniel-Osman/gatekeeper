@@ -44,15 +44,22 @@
     "title": "Chat model writes the cited answer from the kept chunks",
     "spec": "../../research/Optimizing RAG With Jev Reranking/SPEC-map.md",
     "evidence": "uv run pytest -q",
-    "passes": false,
-    "note": "tests green, live trace pending. No SPEC-synthesis.md exists yet: SPEC-map lists it as planned. Offline only: `tests/test_synth.py` and the clean path in `tests/test_pipeline_synth.py` replay a hand-built answer."
+    "passes": true,
+    "note": "Live 2026-11-15 on both policies: strict trace `outcome=answered`, `synthesize latency_ms=1899.79 tokens_in=1343`, `list_cost_usd=0.0025305`; fast_fix `answered` with 5/5 sentences verified. `uv run pytest -q` → 57 passed. No SPEC-synthesis.md exists yet: SPEC-map lists it as planned."
   },
   {
     "id": "gate-verify",
     "title": "Gate 3: per-sentence support check, one repair pass, flag or answer",
     "spec": "../../research/Optimizing RAG With Jev Reranking/SPEC-map.md",
     "evidence": "uv run pytest -q",
-    "passes": false,
-    "note": "tests green, live trace pending. No SPEC-gate-verify.md exists yet. Offline only: `tests/test_verify.py` and the repair and flag paths in `tests/test_pipeline_synth.py` replay hand-built verdicts."
+    "passes": true,
+    "note": "Live 2026-11-15 on both policies, from the same strict trace as `synthesis`: `synthesize latency_ms=1899.79 tokens_in=1343`, `verify latency_ms=381.788`, `list_cost_usd=0.0025305`, every sentence verdict `verified`; fast_fix verified 5/5. `uv run pytest -q` → 57 passed. No SPEC-gate-verify.md exists yet."
+  },
+  {
+    "id": "eval-harness",
+    "title": "40 labelled queries through three pipelines with a written scorecard",
+    "evidence": "uv run python -m eval.harness",
+    "passes": true,
+    "note": "Live 2026-11-15, `uv run python -m eval.harness` → 120 records (384 calls) in `eval/results.json`, no error. Cited-gold on the 30 answerable queries: strict 0.667, fast_fix 0.867, no_gates 0.867; on the 23 official-doc queries all three tie at 0.870. Scorecard at `eval/scorecard.md`; `uv run pytest -q` → 66 passed in 0.50s."
   }
 ]

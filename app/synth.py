@@ -1,6 +1,6 @@
 """Synthesis: one chat call writes the answer, cited line by line.
 
-The chat model is ``gemini-3.5-flash``. It reads the question, the router and
+The chat model is ``gemini-3.5-flash-lite``. It reads the question, the router and
 the chunks the gates kept, then writes at most ``MAX_SENTENCES`` lines. Every
 line ends with the chunk ids it used, as ``[c12]`` or ``[c12][c30]``. A line
 with no citation is still a line: it is returned with ``cited_ids: []`` and the
@@ -127,18 +127,23 @@ def _prompt(
 def _generate(prompt: str) -> tuple[str, dict]:
     """One chat call. Returns ``(text, usage)``; the tests replace this."""
     client = _client_or_raise()
+    # On ``gemini-3.5-flash`` thinking tokens are billed against
+    # ``max_output_tokens``, so a model that thinks must run with budget 0.
+    # ``gemini-3.5-flash-lite`` has no thinking budget and rejects the field,
+    # so the knob is ``None`` and the field stays out of the config entirely.
+    generation = {
+        "temperature": 0,
+        "max_output_tokens": config.SYNTH_MAX_OUTPUT_TOKENS,
+    }
+    if config.SYNTH_THINKING_BUDGET is not None:
+        generation["thinking_config"] = types.ThinkingConfig(
+            thinking_budget=config.SYNTH_THINKING_BUDGET
+        )
     try:
         response = client.models.generate_content(
             model=config.SYNTH_MODEL,
             contents=prompt,
-            config=types.GenerateContentConfig(
-                temperature=0,
-                max_output_tokens=config.SYNTH_MAX_OUTPUT_TOKENS,
-                # Thinking tokens are billed against ``max_output_tokens`` on
-                # this model, so a synthesizer that must finish its sentence
-                # runs with thinking off. The temperature stays at 0.
-                thinking_config=types.ThinkingConfig(thinking_budget=0),
-            ),
+            config=types.GenerateContentConfig(**generation),
         )
     except decisions.StageError:
         raise

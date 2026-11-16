@@ -85,8 +85,9 @@ Acceptance: "Dark panel: wordmark + provenance, three presets above the search b
 Changed: app/panel_view.py, panel.py, tests/test_panel.py, eval/scorecard.md,
   feature_list.json, tasks/todo.md, NOW.md (modified); tests/test_corpus.py,
   tests/fixtures/docs/, tests/fixtures/corpus_expected.jsonl (untracked).
-Index: nothing staged — `git write-tree` → a012e7fa3f57dbc42ef7daf53fa066a4b4c39fa0
-  (empty tree), `git diff --cached --stat` empty. No commit.
+Index: tree of commit b93f1c3 — `git rev-parse b93f1c3^{tree}` →
+  36e3181ba1a5bf8445ec2beb86cceeca8a5325b5; the working tree was clean when
+  reviewed. Committed as b93f1c3 on `master`, pushed to `origin`.
 Gates (run on the final tree, 2026-11-17):
   `uv run pytest -q` -> exit 0 — "156 passed in 3.19s"
   `uv run pytest -q tests/test_corpus.py` -> exit 0 — "62 passed in 2.68s"
@@ -104,7 +105,10 @@ Behavior: tests/test_corpus.py - 62 cases - 246-record invariants (eight keys in
   without a file, `next_run` fires 0 times on a plain rerun. All offline, no model call.
 Live: https://gatekeeper-rag.streamlit.app answers; under `strict` the Policy Flip
   preset renders a refusal with "kept 0 of 30"; under `fast_fix` it answers with
-  "2 of 2 sentences verified".
+  "2 of 2 sentences verified". After a Streamlit Cloud reboot on 2026-11-17 the app
+  loads with no traceback, the Policy Flip preset under `fast_fix` renders
+  `answered · 3 of 3 sentences verified · 3 verified`, and the scorecard caveats
+  render.
 Negative: no red-proof re-run on the final tree this pass. The last proven red is the
   2026-11-15 mutation `FAST_FIX.min_relevance 0.40 -> 0.60` -> 1 failed, 19 passed, on
   an earlier tree. Carried as open, not claimed.

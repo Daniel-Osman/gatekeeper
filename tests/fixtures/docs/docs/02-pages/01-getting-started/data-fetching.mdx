@@ -1,0 +1,37 @@
+---
+title: Data Fetching
+description: Fetch data on the server with the Pages Router.
+---
+
+The Pages Router fetches data in exported functions rather than in the component
+body. `getStaticProps` runs at build time, `getServerSideProps` runs on each
+request, and both hand their result to the page component as props. This
+preamble must stay a section of its own and label as pages/current (PAGES-MARK).
+
+## getServerSideProps
+
+Export `getServerSideProps` from a page file to render on every request. The
+function receives the request context and returns either `props` or a redirect.
+Use it only when the response depends on the caller: it opts the route out of
+static generation (GSSP-MARK).
+
+```tsx
+// pages/dashboard.tsx
+### not a heading: this line sits inside a fence
+export async function getServerSideProps() {
+  return { props: { now: Date.now() } }
+}
+```
+
+### Nested note
+
+A third-level heading must survive as its own section and keep its three-hash
+prefix when rendered. This note is long enough that the merge step leaves it
+alone, so the splitter renders it with `###` and the label default still comes
+from the path, not from the heading text (NESTED-MARK).
+
+## Caveats
+
+A page may export one data-fetching function. Mixing `getStaticProps` and
+`getServerSideProps` in the same file is an error, and the Pages Router refuses
+the build rather than guessing which one the author meant (CAVEAT-MARK).

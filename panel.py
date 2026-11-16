@@ -654,6 +654,7 @@ def _scorecard_html(card: dict) -> str:
         f"<table><thead><tr><th>pipeline</th>{heads}</tr></thead>"
         f"<tbody>{''.join(rows)}</tbody></table>"
         f'<p class="tfoot">{_esc(card["note"])}</p>'
+        f'<p class="tfoot">{_esc(card["caveats"] or "")}</p>'
         "</div>"
     )
 
@@ -784,7 +785,6 @@ if spec is not None:
             )
     st.session_state["run"] = {
         "question": spec["question"],
-        "policy": spec["policy"],
         "model": model,
     }
 
@@ -801,10 +801,13 @@ if run is None:
 else:
     model = run["model"]
     st.markdown(_run_html(model), unsafe_allow_html=True)
-    if model["outcome"] != "error" and run["policy"] != policy:
+    note = view.switch_note(model["policy"], policy)
+    if model["outcome"] != "error" and note:
+        shown, switched = note
         st.markdown(
-            f'<p class="stale">Shown run used <code>{_esc(run["policy"])}</code>; '
-            f"the switch is on <code>{_esc(policy)}</code>. Ask again to re-run.</p>",
+            f'<p class="stale">Shown run used <code>{_esc(shown)}</code>; '
+            f"the switch is on <code>{_esc(switched)}</code>. "
+            "Ask again to re-run.</p>",
             unsafe_allow_html=True,
         )
 

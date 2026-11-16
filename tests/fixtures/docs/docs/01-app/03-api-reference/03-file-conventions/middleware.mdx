@@ -1,0 +1,23 @@
+---
+title: middleware
+description: Run code before a request is completed.
+---
+
+Middleware runs before a request reaches a route. It lives at the project root
+in `middleware.ts` and exports one function and an optional matcher. This
+fixture path is the one the committed rule table marks as superseded, so the
+label must come from the rule and not from the path default (MIDDLEWARE-MARK).
+
+## Usage
+
+Export a function that returns a response or calls `next()`. The matcher limits
+which requests enter the function; without a matcher every request pays the
+cost. Middleware runs on the edge runtime, so it cannot open a database socket
+or read the file system (USAGE-MARK).
+
+## Matcher
+
+The matcher accepts path patterns and runs only on matching requests. A matcher
+that misses nested routes is the usual cause of a middleware that "does not
+run", which is why the synthetic forum answer for this topic is labelled stale
+(MATCHER-MARK).

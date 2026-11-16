@@ -2,12 +2,12 @@
 
 One task in flight. Each task names the spec it builds and the command that closes it; the suite runs offline against committed fixtures.
 
-- [ ] **corpus** - Versioned Next.js snippet set with labels
-  - Acceptance: Versioned Next.js snippet set with labels
-  - Verify: uv run python -m corpus.build_corpus --check
-  - Files: -
+- [x] **corpus** - Versioned Next.js snippet set with labels
+  - Acceptance: Versioned Next.js snippet set with labels; record invariants, every `--check` failure branch and splitter/assembly determinism proven offline
+  - Verify: uv run python -m corpus.build_corpus --check; uv run pytest -q tests/test_corpus.py
+  - Files: tests/test_corpus.py, tests/fixtures/docs/, tests/fixtures/corpus_expected.jsonl
   - Spec: ../../research/Optimizing RAG With Jev Reranking/specs/SPEC-corpus.md
-  - Note: `--check` passes, but `tests/test_corpus.py` and `tests/fixtures/docs` do not exist, so the spec's record-invariant and determinism criteria are unproven.
+  - Note: `--check` -> 246 chunks (app=196 pages=50), legacy=21, forum=17, `check: ok`. `uv run pytest tests/test_corpus.py -v` -> 62 passed. `uv run pytest -q` -> 156 passed. Unproven: embedding-value determinism (needs model calls).
 - [x] **api-service** - FastAPI service holding the pipeline and its per-query trace
   - Acceptance: FastAPI service holding the pipeline and its per-query trace
   - Verify: uv run pytest -q
@@ -54,4 +54,69 @@ One task in flight. Each task names the spec it builds and the command that clos
   - Verify: `uv run pytest -q`; then `uv run streamlit run panel.py --server.headless true --server.port 8599` and drive `http://127.0.0.1:8599` through the three presets under both policies (6 live runs, 40-call budget), capturing `screens/panel-live-*.png`.
   - Files: panel.py, app/panel_view.py, tests/test_panel.py, requirements.txt, .streamlit/config.toml, pyproject.toml
   - Spec: tasks/plan.md
-  - Note: design approved; build in flight.
+  - Note: design approved; build done. First independent review, 2026-11-17: FAIL on policy attribution, missing scorecard caveats, the absent milestone record and the unproven corpus. The first two are fixed, the corpus is now proven by its `--check` and 62 tests, and `M-01` below writes the record. Awaiting the second independent review; the live six-run drive above is deferred, not run, and is not the gate for this pass.
+
+- [ ] **panel-attribution** - Every policy string the panel renders comes from the envelope's trace
+  - Acceptance: badge, refusal headline, refusal detail, floor and switch note all read the envelope's `trace.policy`; a caller policy that disagrees with the trace never describes the run; a trace with no policy renders `--` and invents no name.
+  - Verify: `uv run pytest -q`; plus the holdout — a `strict` refusal envelope rendered with a `fast_fix` caller reads `strict` in headline and detail.
+  - Files: app/panel_view.py, panel.py, tests/test_panel.py
+  - Spec: tasks/plan.md
+  - Note: fixed 2026-11-17 — badge, refusal headline, refusal detail, floor and switch note read the envelope's `trace.policy`. Held open by `M-01` until the second review passes; not ticked before it.
+
+- [ ] **scorecard-caveats** - The scorecard states the three caveats where the numbers are shown
+  - Acceptance: the panel's scorecard section and `eval/scorecard.md` both state smoke-grade (40 queries, 3.3 points), gold cited on 20 of 23 official-doc questions (the gates buy refusal, clarification and verdicts, not recall), and free-tier latency with an unattributed p95 near 60 s; small text under the tables; no existing claim deleted or softened.
+  - Verify: `uv run pytest -q`.
+  - Files: app/panel_view.py, panel.py, eval/scorecard.md, tests/test_panel.py
+  - Spec: tasks/plan.md
+  - Note: fixed 2026-11-17 — `eval/scorecard.md` "Caveats on these numbers" and the panel's scorecard foot (`SCORECARD_CAVEATS` in `app/panel_view.py`) both carry the three claims in small type. Held open by `M-01` until the second review passes.
+
+---
+
+## M-01 — panel, corpus and scorecard closure
+
+M-01 — INCOMPLETE (2026-11-17) — awaiting second independent review
+
+```
+Acceptance: "Dark panel: wordmark + provenance, three presets above the search bar,
+  strict/fast_fix switch echoed on the answer, per-sentence verdict badges, one cost
+  line, four outcome shapes, gate x-ray with real trace fields and no row for a stage
+  that did not run, scorecard from `eval/results.json` with `--` for a blank, and
+  empty/loading/error states with no invented numbers." — tasks/plan.md ## Acceptance
+Changed: app/panel_view.py, panel.py, tests/test_panel.py, eval/scorecard.md,
+  feature_list.json, tasks/todo.md, NOW.md (modified); tests/test_corpus.py,
+  tests/fixtures/docs/, tests/fixtures/corpus_expected.jsonl (untracked).
+Index: nothing staged — `git write-tree` → a012e7fa3f57dbc42ef7daf53fa066a4b4c39fa0
+  (empty tree), `git diff --cached --stat` empty. No commit.
+Gates (run on the final tree, 2026-11-17):
+  `uv run pytest -q` -> exit 0 — "156 passed in 3.19s"
+  `uv run pytest -q tests/test_corpus.py` -> exit 0 — "62 passed in 2.68s"
+  `uv run python -B -m corpus.build_corpus --check` -> exit 0 —
+    "corpus: 246 chunks (app=196 pages=50 both=0) | legacy=21 | forum=17 synthetic |
+     model=gemini-embedding-001 dim=kept | commit=8d1f4ed9c010"
+    "check: ok"
+Behavior: tests/test_corpus.py - 62 cases - 246-record invariants (eight keys in order,
+  ids c1..c246 unique and contiguous, router/status/source sets, text caps, the 17
+  forum records), every `--check` failure branch, splitter and `assemble_records`
+  byte-identical against the 13-record snapshot. tests/test_panel.py - 28 cases - pure
+  renderers driven by hand-built envelopes (answered, flagged, refused, blocked,
+  clarify, error): one badge per sentence, `M of N candidates failed`, x-ray omits a
+  stage that did not run, `retry_of absent`, scorecard `--` for a blank and no table
+  without a file, `next_run` fires 0 times on a plain rerun. All offline, no model call.
+Live: https://gatekeeper-rag.streamlit.app answers; under `strict` the Policy Flip
+  preset renders a refusal with "kept 0 of 30"; under `fast_fix` it answers with
+  "2 of 2 sentences verified".
+Negative: no red-proof re-run on the final tree this pass. The last proven red is the
+  2026-11-15 mutation `FAST_FIX.min_relevance 0.40 -> 0.60` -> 1 failed, 19 passed, on
+  an earlier tree. Carried as open, not claimed.
+Holdout: a `strict` refusal envelope handed to the adapter with a `fast_fix` caller ->
+  `refused · strict kept no chunks`; detail `1 of 1 candidates failed strict. Best match
+  0.45 against a floor of 0.60.`
+Review: first independent pass 2026-11-17 — FAIL, four findings: policy attribution
+  (High, actionable, fixed), missing scorecard caveats (High, actionable, fixed), absent
+  milestone record (Medium, actionable, closed by this record), unproven corpus (High,
+  actionable, closed by the corpus gates above). Second independent review not yet run.
+Open: second independent review (Helm runs it); the six live preset runs are deferred,
+  so a live panel drive on the final tree is unproven; embedding-value determinism
+  unproven (needs model calls); the per-feature untested criteria stay listed on the
+  tasks above.
+```

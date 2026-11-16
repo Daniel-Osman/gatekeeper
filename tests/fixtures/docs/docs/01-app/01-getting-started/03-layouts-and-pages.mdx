@@ -1,0 +1,67 @@
+---
+title: Layouts and Pages
+description: Create your first layout and page in the App Router.
+---
+
+A page is the UI that is unique to a route. A layout is UI shared across many
+routes. In the App Router both are React components, and the file system decides
+where each one renders. This preamble sits before the first heading and must
+become its own section, titled from the frontmatter above (PREAMBLE-MARK).
+
+## Creating a page
+
+Add a page by exporting a default component from `page.tsx`. The route is the
+folder name, so `app/dashboard/page.tsx` renders at `/dashboard`. Keep the file
+small: data fetching belongs in a server component above it (PAGE-MARK).
+
+```tsx
+// app/dashboard/page.tsx
+# not a heading: this line sits inside a fence
+export default function Page() {
+  return <h1>Dashboard</h1>
+}
+```
+
+## Short note
+
+A deliberately short note (SHORT-MARK).
+
+## Retrieving data
+
+Fetch data in the component that needs it. An async server component may await
+the request directly, and the result is streamed to the client as the tree
+resolves. Cache with `fetch` options when the answer can be reused, and revalidate
+on a timer when it cannot (DATA-MARK).
+
+## Long section
+
+This section exists to exceed the two-thousand-character grouping cap. The
+splitter groups whole paragraphs up to the cap and labels the overflow with a
+`(part 2)` heading, so a long run of prose never produces a chunk wider than the
+embedding budget allows. Everything here is filler with one marker per paragraph
+so a test can prove no paragraph was dropped (LONG-P1). A documentation section
+that runs long is normal: configuration tables, lists of caveats and migration
+notes all push a single heading well past the cap. The splitter answers that by
+cutting at paragraph boundaries only. It never cuts mid-sentence, never cuts
+inside a fence, and never rewrites the source: the bytes of every paragraph
+survive in exactly the order the author wrote them, with a part number added to
+the heading of the continuation chunk so a reader knows the section continues.
+
+The second paragraph repeats the same point with different wording, because a
+real documentation page does exactly that: it states the rule once, restates it
+for the reader who skimmed, then supplies an example that shows the rule in
+action. What matters for the corpus is that paragraph boundaries are the only
+cut points used here, and that the text before and after the cut is preserved
+verbatim. A chunk that silently loses a sentence is worse than a chunk that is
+too long, because the retriever then cites a paragraph that no longer says what
+the question assumed (LONG-P2). The grouping step adds paragraphs to a group
+while the rendered body stays under the cap, then starts a new group. That means
+a long section becomes a small number of wide chunks rather than many narrow
+ones, which keeps the embedding of each chunk coherent.
+
+The third paragraph closes the section. A reader who lands on the split part
+still sees the heading it belongs to, and the part number tells them the section
+continues. Nothing is summarised, reordered or reflowed: the splitter is a pure
+function over the source markdown (LONG-P3). Run it twice over the same bytes and
+the same sections come back in the same order, which is what keeps chunk ids
+stable between builds and lets an eval query keep pointing at the same text.

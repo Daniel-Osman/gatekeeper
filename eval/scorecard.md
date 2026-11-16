@@ -56,6 +56,14 @@ verify, and that sentence is the refusal string, so the turn gave no answer.
 | unanswerable (6) | 4 refused, 2 blocked | 3 refused, 2 blocked, 1 answered | 6 refused |
 | ambiguous (4) | 4 clarify | 4 clarify | 3 answered, 1 refused |
 
+## Caveats on these numbers
+
+40 labelled queries is smoke-grade: one query moves a rate by 3.3 points. On
+official-doc questions all three pipelines cite a gold chunk on 20 of 23; the
+gates buy refusal, clarification and verdicts, not recall. Latency was measured
+on a free tier, and its p95 near 60 s is unattributed — do not quote it as model
+time.
+
 ## Reading
 
 Across the 30 answerable questions, fast_fix and no_gates each put a gold chunk

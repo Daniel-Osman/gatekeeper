@@ -66,6 +66,20 @@ def next_run(
     return None
 
 
+def switch_note(
+    shown_policy: str | None, switch_policy: str
+) -> tuple[str, str] | None:
+    """The switch is ahead of the shown run, or nothing.
+
+    The pair is (the run's own policy, the switch's value). The shown policy
+    comes from the trace, so a run that recorded none says nothing.
+    """
+    shown = str(shown_policy or "")
+    if not shown or shown == "--" or shown == switch_policy:
+        return None
+    return (shown, switch_policy)
+
+
 # ----------------------------------------------------------------- numbers
 
 
@@ -282,8 +296,18 @@ def _rerank_payload(stages: list[dict]) -> dict | None:
     return None
 
 
-def refused_detail(payload: dict, policy: str) -> list[str]:
-    """How many candidates the policy dropped, and against what floor."""
+def _trace_policy(trace: dict) -> str | None:
+    """The policy the run recorded. The caller's choice never stands in for it."""
+    name = trace.get("policy")
+    return str(name) if name else None
+
+
+def refused_detail(payload: dict, policy: str | None) -> list[str]:
+    """How many candidates the run's policy dropped, and against what floor.
+
+    ``policy`` is the run's own name, read from its trace. With no name the
+    line claims no policy and no floor: a gap beats a guess.
+    """
     items = list(payload.get("items") or [])
     total = payload.get("candidate_count")
     if total is None:
@@ -292,7 +316,7 @@ def refused_detail(payload: dict, policy: str) -> list[str]:
     if kept is None:
         kept = sum(1 for item in items if item.get("kept"))
     failed = max(0, int(total) - int(kept))
-    policy_rule = rerank.POLICIES.get(policy)
+    policy_rule = rerank.POLICIES.get(policy or "")
     floor = policy_rule.min_relevance if policy_rule else None
     values = [
         float(item["relevance_noul"])
@@ -301,9 +325,12 @@ def refused_detail(payload: dict, policy: str) -> list[str]:
     ]
     best = max(values) if values else None
 
+    best_text = f"Best match {_noul(best)}"
+    if floor is not None:
+        best_text += f" against a floor of {_noul(floor)}"
     lines = [
-        f"{failed} of {int(total)} candidates failed {policy}. "
-        f"Best match {_noul(best)} against a floor of {_noul(floor)}."
+        f"{failed} of {int(total)} candidates failed {policy or 'the policy'}. "
+        f"{best_text}."
     ]
     if values:
         lines.append("relevance " + " · ".join(f"{value:.2f}" for value in values))
@@ -313,7 +340,7 @@ def refused_detail(payload: dict, policy: str) -> list[str]:
     return lines
 
 
-def headline(outcome: str, sentences: list[dict], policy: str) -> str:
+def headline(outcome: str, sentences: list[dict], policy: str | None) -> str:
     if outcome == "answered":
         verified = sum(
             1 for sentence in sentences if sentence["verdict"] == "verified"
@@ -330,7 +357,9 @@ def headline(outcome: str, sentences: list[dict], policy: str) -> str:
             "unsupported after the repair"
         )
     if outcome == "refused":
-        return f"refused · {policy} kept no chunks"
+        if policy:
+            return f"refused · {policy} kept no chunks"
+        return "refused · kept no chunks"
     if outcome == "blocked":
         return "blocked · scope stopped the turn"
     if outcome == "clarify":
@@ -361,9 +390,15 @@ def _scope_stage(stages: list[dict]) -> dict:
 
 
 def shape(envelope: dict, *, question: str, policy: str) -> dict:
-    """Turn one envelope into the model the panel renders."""
+    """Turn one envelope into the model the panel renders.
+
+    Every policy string it returns comes from the envelope's trace. ``policy``
+    stays in the signature for the panel's one call site; it is deliberately
+    unused, so no caller value can describe the run.
+    """
     trace = envelope.get("trace") or {}
     outcome = str(trace.get("outcome") or "answered")
+    run_policy = _trace_policy(trace)
     stages = list(trace.get("stages") or [])
     sentences = _sentences(envelope)
     receipt = envelope.get("receipt") or {}
@@ -374,7 +409,7 @@ def shape(envelope: dict, *, question: str, policy: str) -> dict:
         if payload is None:
             detail = ["No candidate survived the policy."]
         else:
-            detail = refused_detail(payload, policy)
+            detail = refused_detail(payload, run_policy)
     elif outcome == "blocked":
         scope = _scope_stage(stages)
         detail = [
@@ -391,9 +426,9 @@ def shape(envelope: dict, *, question: str, policy: str) -> dict:
 
     return {
         "outcome": outcome,
-        "policy": str(trace.get("policy") or policy),
+        "policy": run_policy or "--",
         "question": question,
-        "headline": headline(outcome, sentences, policy),
+        "headline": headline(outcome, sentences, run_policy),
         "warning": warning(outcome, envelope),
         "answer": str(envelope.get("answer") or ""),
         "sentences": sentences,
@@ -461,6 +496,15 @@ def _cell(key: str, value) -> str:
     return str(value)
 
 
+SCORECARD_CAVEATS = (
+    "Smoke-grade: 40 labelled queries, so one query moves a rate by 3.3 points. "
+    "On official-doc questions all three pipelines cite a gold chunk on 20 of 23; "
+    "the gates buy refusal, clarification and verdicts, not recall. "
+    "Latency was measured on a free tier, and its p95 near 60 s is unattributed: "
+    "do not quote it as model time."
+)
+
+
 def _policy_sub(name: str) -> str:
     if name == "no_gates":
         return "Retrieve and write, with no gate to stop it"
@@ -493,6 +537,7 @@ def scorecard(payload: dict | None) -> dict:
                 "A blank cell means no run, not a zero. Run "
                 "`uv run python -m eval.harness` to fill this table."
             ),
+            "caveats": None,
             "headers": [label for _, label in SCORECARD_COLUMNS],
             "rows": [],
         }
@@ -525,6 +570,7 @@ def scorecard(payload: dict | None) -> dict:
             "aggregate from eval/results.json; cost per 1,000 queries is "
             "cost_mean_usd × 1,000."
         ),
+        "caveats": SCORECARD_CAVEATS,
         "headers": [label for _, label in SCORECARD_COLUMNS],
         "rows": rows,
     }

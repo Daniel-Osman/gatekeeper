@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import ast
+import html
 import pathlib
 
 import pytest
@@ -338,6 +339,95 @@ def test_flagged_answer_warns_and_reports_the_repair():
 # ------------------------------------------------------------------- refused
 
 
+def _refused(policy: str = "strict", best: float = 0.45) -> dict:
+    """A refusal whose rerank stage kept nothing, under the trace's own policy."""
+    return {
+        "answer": config.REFUSAL_ANSWER,
+        "sentences": [],
+        "trace": {
+            "outcome": "refused",
+            "policy": policy,
+            "stages": [
+                _scope(),
+                _stage(
+                    "retrieve",
+                    210.0,
+                    router="app",
+                    candidate_count=1,
+                    candidates=["c1"],
+                ),
+                _stage(
+                    "rerank",
+                    430.0,
+                    items=[
+                        {
+                            "chunk_id": "c1",
+                            "relevance_noul": best,
+                            "currency_noul": 0.9,
+                            "kept": False,
+                            "reason": "below_min_relevance",
+                        }
+                    ],
+                    kept_count=0,
+                    candidate_count=1,
+                ),
+            ],
+        },
+        "receipt": _receipt(0.00091),
+    }
+
+
+def test_a_strict_refusal_under_a_fast_fix_switch_reads_strict_everywhere():
+    """The holdout: the trace decides every policy string, never the switch."""
+    model = view.shape(_refused(), question="q", policy="fast_fix")
+
+    assert model["policy"] == "strict"
+    assert model["headline"] == "refused · strict kept no chunks"
+    assert model["detail"][0] == (
+        "1 of 1 candidates failed strict. Best match 0.45 against a floor of 0.60."
+    )
+    assert "fast_fix" not in model["headline"]
+    assert all("fast_fix" not in line for line in model["detail"])
+
+
+def test_a_run_that_recorded_no_policy_invents_none():
+    envelope = _refused()
+    del envelope["trace"]["policy"]
+
+    model = view.shape(envelope, question="q", policy="fast_fix")
+
+    assert model["policy"] == "--"
+    assert model["headline"] == "refused · kept no chunks"
+    assert model["detail"][0] == "1 of 1 candidates failed the policy. Best match 0.45."
+    assert "fast_fix" not in model["headline"] + " ".join(model["detail"])
+
+
+def test_the_switch_note_names_the_runs_policy_or_says_nothing():
+    assert view.switch_note("strict", "strict") is None
+    assert view.switch_note("--", "fast_fix") is None
+    assert view.switch_note("strict", "fast_fix") == ("strict", "fast_fix")
+
+
+def test_the_switch_note_reads_the_rendered_run_not_a_stored_caller_value():
+    tree = ast.parse(PANEL.read_text(encoding="utf-8"))
+    calls = [
+        node
+        for node in ast.walk(tree)
+        if isinstance(node, ast.Call)
+        and getattr(node.func, "attr", None) == "switch_note"
+    ]
+    assert len(calls) == 1
+    assert [ast.unparse(arg) for arg in calls[0].args] == [
+        "model['policy']",
+        "policy",
+    ]
+    assert not [
+        node
+        for node in ast.walk(tree)
+        if isinstance(node, ast.Subscript) and ast.unparse(node) == "run['policy']"
+    ]
+
+
 def test_refused_counts_the_candidates_the_policy_dropped():
     envelope = _answered()
     envelope["trace"]["outcome"] = "refused"
@@ -490,6 +580,43 @@ def test_headers_are_the_harness_keys():
         "wall_ms_mean",
         "cost_mean_usd × 1,000",
     ]
+
+
+def test_the_scorecard_caveats_state_the_three_limits():
+    caveats = view.scorecard({"aggregate": {}})["caveats"]
+    assert "3.3 points" in caveats
+    assert "20 of 23" in caveats
+    assert "free tier" in caveats and "p95" in caveats
+    assert view.scorecard(None)["caveats"] is None
+
+
+def _panel_from_source(name: str):
+    """Compile one function out of panel.py: the script itself cannot be imported."""
+    tree = ast.parse(PANEL.read_text(encoding="utf-8"))
+    node = [
+        item
+        for item in tree.body
+        if isinstance(item, ast.FunctionDef) and item.name == name
+    ][0]
+    module = ast.fix_missing_locations(ast.Module(body=[node], type_ignores=[]))
+    namespace: dict = {"html": html}
+    exec(compile(module, str(PANEL), "exec"), namespace)  # noqa: S102 - offline test
+    namespace["_esc"] = lambda value: html.escape(str(value))
+    return namespace[name]
+
+
+def test_the_caveats_render_under_the_scorecard_table():
+    render = _panel_from_source("_scorecard_html")
+    page = render(view.scorecard({"aggregate": {}}))
+    assert "</table>" in page
+    assert page.index("</table>") < page.index("Smoke-grade")
+
+
+def test_no_caveat_floats_where_no_table_is_drawn():
+    render = _panel_from_source("_scorecard_html")
+    page = render(view.scorecard(None))
+    assert "<table>" not in page
+    assert "Smoke-grade" not in page
 
 
 # -------------------------------------------------------------------- labels

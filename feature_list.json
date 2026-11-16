@@ -4,8 +4,8 @@
     "title": "Versioned Next.js snippet set with labels",
     "spec": "../../research/Optimizing RAG With Jev Reranking/specs/SPEC-corpus.md",
     "evidence": "uv run python -m corpus.build_corpus --check",
-    "passes": false,
-    "note": "`--check` passes, but `tests/test_corpus.py` and `tests/fixtures/docs` do not exist, so the spec's record-invariant and determinism criteria are unproven."
+    "passes": true,
+    "note": "Proven offline by `tests/test_corpus.py` (62 passed) and `tests/fixtures/corpus_expected.jsonl`: 246 records with the eight keys in order and the declared types; ids c1..c246 unique, contiguous and pattern-matching; router/status/source within the allowed sets; text non-empty with every body <= 2,000 chars; all 17 official paths equal `sources.json`'s set; forum records are exactly `forum.jsonl` (17, `synthetic: true`, `legacy`, `forum/` paths); committed labels reproduced from `label_rules.json` (21 legacy, every one matched by a rule with a reason); splitter and `assemble_records` byte-identical across two runs against the 13-record snapshot; `--check` exits 0 from a subprocess (246 chunks, app=196 pages=50, legacy=21, forum=17, `check: ok`) and each of its failure branches has a named test; only `corpus/fetch.py` imports an HTTP module (`httpx`, Daniel's approved departure from stdlib urllib). Unproven: embedding-value determinism — it needs model calls and is outside this offline slice; `--check` verifies npy row count, order, width, model, count and the chunks hash, not the vector values."
   },
   {
     "id": "api-service",

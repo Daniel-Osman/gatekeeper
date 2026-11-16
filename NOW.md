@@ -1,8 +1,9 @@
-Status: vertical complete and live at https://gatekeeper-rag.streamlit.app — one public URL, no signup, hosted on Streamlit Community Cloud because Hugging Face Docker Spaces need PRO. Corpus 246 chunks, proven offline. Five stages live: scope → retrieve (BM25 + dense) → rerank → synthesize on `gemini-3.5-flash-lite` → verify, with refusal, clarify, one-repair and flag paths. Panel built and live: three presets, gate x-ray, `strict`/`fast_fix` switch, scorecard from `eval/results.json`. 40-query scorecard at `eval/scorecard.md`: 120 records, 384 calls, 0 errors, $0.1797 at list price; cited-gold on the 30 answerable queries strict 0.667 / fast_fix 0.867 / no_gates 0.867. 156 tests green offline. First independent review FAILed on four findings; two fixed, the corpus now proven, the record written — signed off by the third independent review.
+Status: Done (2026-11-17) — complete and live at https://gatekeeper-rag.streamlit.app — one public URL, no signup, hosted on Streamlit Community Cloud because Hugging Face Docker Spaces need PRO. Corpus 246 chunks, proven offline. Five stages live: scope → retrieve (BM25 + dense) → rerank → synthesize on `gemini-3.5-flash-lite` → verify, with refusal, clarify, one-repair and flag paths. Panel built and live: three presets, gate x-ray, `strict`/`fast_fix` switch, scorecard from `eval/results.json`. 40-query scorecard at `eval/scorecard.md`: 120 records, 384 calls, 0 errors, $0.1797 at list price; cited-gold on the 30 answerable queries strict 0.667 / fast_fix 0.867 / no_gates 0.867. 156 tests green offline. First independent review FAILed on four findings; two fixed, the corpus now proven, the record written — signed off by the third independent review.
 
 Next:
-- nothing blocking. The review recorded what stays outside its sign-off.
-- the six live preset runs and embedding-value determinism stay outside the sign-off.
+- none. The project is closed as a portfolio piece; there is no next work.
+- Outside the sign-off, not tasks: the six live preset runs, embedding-value
+  determinism, and the per-feature untested criteria.
 
 Findings:
 - flash-lite rejects `thinking_budget=0`, so synthesis sends no thinking config.
@@ -12,6 +13,7 @@ Findings:
 - flat chunk scores persisted until each gate question named its chunk tag; `max_keep=5` lets official chunks fill the window, so the policy switch needs a question whose best answers are stale forum entries.
 
 Verified:
+- 2026-11-17 promoted incubator/gatekeeper -> active/gatekeeper; uv run pytest -q -> 156 passed
 - 2026-11-17 `uv run pytest -q` → exit 0 — `156 passed in 3.19s`
 - 2026-11-17 `uv run pytest -q tests/test_corpus.py` → exit 0 — `62 passed in 2.68s`
 - 2026-11-17 `uv run python -B -m corpus.build_corpus --check` → exit 0 — `corpus: 246 chunks (app=196 pages=50 both=0) | legacy=21 | forum=17 synthetic | model=gemini-embedding-001 dim=kept | commit=8d1f4ed9c010` / `check: ok`

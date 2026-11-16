@@ -1,7 +1,7 @@
 # Gatekeeper
 
-Status: vertical slice, all five stages live, 40-query scorecard written
-(`eval/scorecard.md`). Panel built and live.
+Status: Done — all five stages live, panel deployed, 40-query scorecard written
+(`eval/scorecard.md`).
 
 Live: https://gatekeeper-rag.streamlit.app — no signup, three presets, the policy switch and the measured scorecard.
 
@@ -52,7 +52,7 @@ chunks on purpose; `fast_fix` keeps them.
 
 ```bash
 uv sync
-uv run pytest -q                     # 87 tests, offline fixtures
+uv run pytest -q                     # 156 tests, offline fixtures
 uv run python -m eval.harness        # live: 384 calls, needs GEMINI_API_KEY
 uv run uvicorn app.main:app --reload
 curl -s localhost:8000/health

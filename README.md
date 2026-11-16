@@ -1,7 +1,9 @@
 # Gatekeeper
 
 Status: vertical slice, all five stages live, 40-query scorecard written
-(`eval/scorecard.md`). Panel and public deploy are not built.
+(`eval/scorecard.md`). Panel built and live.
+
+Live: https://gatekeeper-rag.streamlit.app — no signup, three presets, the policy switch and the measured scorecard.
 
 Answers Next.js questions from a 246-chunk corpus (`vercel/next.js` at
 `8d1f4ed9c010`, MIT; 21 legacy chunks, 17 synthetic forum chunks). Retrieval is
@@ -50,7 +52,7 @@ chunks on purpose; `fast_fix` keeps them.
 
 ```bash
 uv sync
-uv run pytest -q                     # 66 tests, offline fixtures
+uv run pytest -q                     # 87 tests, offline fixtures
 uv run python -m eval.harness        # live: 384 calls, needs GEMINI_API_KEY
 uv run uvicorn app.main:app --reload
 curl -s localhost:8000/health
@@ -58,6 +60,9 @@ curl -s localhost:8000/health
 
 `eval/harness.py --help` lists `--limit`, `--only`, `--policies`, `--out`,
 `--quiet` and `--rpm`.
+
+The hosted app runs `panel.py` on Streamlit Community Cloud and reads
+`eval/results.json` from the repo for its scorecard.
 
 ## What this does not show
 
